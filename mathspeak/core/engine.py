@@ -26,7 +26,7 @@ from typing import Dict, List, Optional, Tuple, Union, Set, Any, Callable
 from dataclasses import dataclass, field
 from collections import defaultdict, OrderedDict
 import hashlib
-from concurrent.futures import ThreadPoolExecutor
+# from concurrent.futures import ThreadPoolExecutor  # Currently unused
 try:
     import edge_tts
 except ImportError:
@@ -385,9 +385,6 @@ class MathematicalTTSEngine:
         # Performance metrics
         self.metrics = PerformanceMetrics()
         
-        # Thread pool for parallel processing
-        self.thread_pool = ThreadPoolExecutor(max_workers=4)
-        
         # Mathematical processors (would import from domain modules)
         self.domain_processors: Dict[MathematicalContext, Any] = {}
         
@@ -685,8 +682,8 @@ class MathematicalTTSEngine:
             
         for segment in expression.segments:
             try:
-                voice = segment.voice_role.value if hasattr(segment, 'voice_role') else "en-US-AriaNeural"
-                rate = segment.rate_modifier if hasattr(segment, 'rate_modifier') else "+0%"
+                voice = getattr(segment.voice_role, 'value', "en-US-AriaNeural")
+                rate = getattr(segment, 'rate_modifier', "+0%")
                 
                 # Add pauses
                 if hasattr(segment, 'pause_before') and segment.pause_before > 0:
@@ -701,8 +698,9 @@ class MathematicalTTSEngine:
                 # if not output_file:
                 #     subprocess.run(['mpv', '--really-quiet', audio_file])
                 
-                # Clean up temp file
-                Path(audio_file).unlink(missing_ok=True)
+                # Clean up temp file only if it was temporary
+                if not output_file:
+                    Path(audio_file).unlink(missing_ok=True)
                 
                 # Add pause after
                 if hasattr(segment, 'pause_after') and segment.pause_after > 0:
@@ -735,7 +733,6 @@ class MathematicalTTSEngine:
     def shutdown(self) -> None:
         """Clean shutdown of engine"""
         self.save_unknown_commands()
-        self.thread_pool.shutdown(wait=True)
         logger.info("TTS Engine shut down")
 
 # ===========================

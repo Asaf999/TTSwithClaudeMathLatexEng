@@ -64,20 +64,30 @@
   "cong": {
     "contexts": [
       "\\pi_1(S^1) \\cong \\mathbb{Z}",
+      "\\pi_1(S^1) \\cong \\mathbb{Z}",
       "\\pi_1(S^1) \\cong \\mathbb{Z}"
     ],
-    "count": 2,
+    "count": 3,
     "first_seen": "2025-05-30 02:13:57",
-    "last_seen": "2025-05-30 02:47:29"
+    "last_seen": "2025-05-30 02:50:44"
   },
   "def": {
     "contexts": [
       "\\def\\x{\\x}\\x",
-      "\\def\\x{AAAA}\\def\\y{\\x\\x\\x\\x}\\def\\x{AAAA}\\def\\y{\\x\\"
+      "\\def\\x{AAAA}\\def\\y{\\x\\x\\x\\x}\\def\\x{AAAA}\\def\\y{\\x\\",
+      "\\def\\x{\\x}\\x"
     ],
-    "count": 2,
+    "count": 3,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 02:47:29"
+    "last_seen": "2025-05-30 02:53:43"
+  },
+  "documentclass": {
+    "contexts": [
+      "\\documentclass{article}\n\\begin{document}\nThe funda"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:51:01",
+    "last_seen": "2025-05-30 02:51:01"
   },
   "emptyset": {
     "contexts": [
@@ -121,11 +131,12 @@
   },
   "input": {
     "contexts": [
-      "\\input{../../../../etc/passwd}"
+      "\\input{../../../../etc/passwd}",
+      "\\input{/etc/passwd}"
     ],
-    "count": 1,
+    "count": 2,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 02:47:29"
+    "last_seen": "2025-05-30 02:53:21"
   },
   "kappa": {
     "contexts": [
@@ -216,6 +227,14 @@
     "first_seen": "2025-05-30 02:47:29",
     "last_seen": "2025-05-30 02:47:29"
   },
+  "pm": {
+    "contexts": [
+      "x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:50:36",
+    "last_seen": "2025-05-30 02:50:36"
+  },
   "pmod": {
     "contexts": [
       "a^{\\phi(n)} \\equiv 1 \\pmod{n}"
@@ -260,28 +279,32 @@
   },
   "undefined": {
     "contexts": [
+      "\\undefined{command}",
       "\\undefined{command}"
     ],
-    "count": 1,
+    "count": 2,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 02:47:29"
+    "last_seen": "2025-05-30 02:51:37"
   },
   "write": {
     "contexts": [
-      "\\write18{rm -rf /}"
+      "\\write18{rm -rf /}",
+      "\\write18{cat /etc/passwd}"
     ],
-    "count": 1,
+    "count": 2,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 02:47:29"
+    "last_seen": "2025-05-30 02:53:26"
   },
   "x": {
     "contexts": [
       "\\def\\x{\\x}\\x",
-      "\\def\\x{AAAA}\\def\\y{\\x\\x\\x\\x}\\def\\x{AAAA}\\def\\y{\\x\\"
+      "\\def\\x{AAAA}\\def\\y{\\x\\x\\x\\x}\\def\\x{AAAA}\\def\\y{\\x\\",
+      "x\\x00y",
+      "\\def\\x{\\x}\\x"
     ],
-    "count": 2,
+    "count": 4,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 02:47:29"
+    "last_seen": "2025-05-30 02:53:43"
   },
   "y": {
     "contexts": [

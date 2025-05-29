@@ -113,9 +113,9 @@ class NumericalAnalysisVocabulary:
             r'\\text{eps}': 'epsilon',
             r'e_{abs}': 'absolute error',
             r'e_{rel}': 'relative error',
-            r'\\|e\\|': 'the norm of the error',
-            r'\\|e\\|_\\infty': 'the infinity norm of the error',
-            r'\\|e\\|_2': 'the 2-norm of the error',
+            r'\\\\|e\\\\|': 'the norm of the error',
+            r'\\\\|e\\\\|_\\infty': 'the infinity norm of the error',
+            r'\\\\|e\\\\|_2': 'the 2-norm of the error',
             
             # Convergence rates
             r'\\text{linear convergence}': 'linear convergence',
@@ -198,10 +198,10 @@ class NumericalAnalysisVocabulary:
             r'A\^T': 'A transpose',
             r'A\^\*': 'A conjugate transpose',
             r'A\^H': 'A Hermitian',
-            r'\\|A\\|_2': 'the 2-norm of A',
-            r'\\|A\\|_F': 'the Frobenius norm of A',
-            r'\\|A\\|_\\infty': 'the infinity norm of A',
-            r'\\|A\\|_1': 'the 1-norm of A',
+            r'\\\\|A\\\\|_2': 'the 2-norm of A',
+            r'\\\\|A\\\\|_F': 'the Frobenius norm of A',
+            r'\\\\|A\\\\|_\\infty': 'the infinity norm of A',
+            r'\\\\|A\\\\|_1': 'the 1-norm of A',
             
             # Eigenvalues
             r'\\lambda_{max}': 'lambda max',
@@ -242,7 +242,7 @@ class NumericalAnalysisVocabulary:
             r'\\text{divided difference}': 'divided difference',
             
             # Error bounds
-            r'\\|f - p_n\\|_\\infty': 'the infinity norm of f minus p sub n',
+            r'\\\\|f - p_n\\\\|_\\infty': 'the infinity norm of f minus p sub n',
             r'\\max_{x \\in \[a,b\]} \|f\(x\) - p_n\(x\)\|':
                 'the maximum over x in the interval a b of the absolute value of f of x minus p sub n of x',
         })
@@ -345,15 +345,15 @@ class NumericalAnalysisVocabulary:
             # Convergence statements
             (r'x_k \\to x\^\* as k \\to \\infty',
              'x sub k converges to x star as k goes to infinity'),
-            (r'\\|x_k - x\^\*\\| \\leq C\\rho\^k',
+            (r'\\\\|x_k - x\^\*\\\\| \\leq C\\rho\^k',
              'the norm of x sub k minus x star is less than or equal to C times rho to the k'),
             (r'converges with order p',
              'converges with order p'),
             
             # Error bounds
-            (r'\\|error\\| \\leq Ch\^p',
+            (r'\\\\|error\\\\| \\leq Ch\^p',
              'the norm of the error is less than or equal to C times h to the p'),
-            (r'relative error = \\frac{\\|x - \\tilde{x}\\|}{\\|x\\|}',
+            (r'relative error = \\frac{\\\\|x - \\tilde{x}\\\\|}{\\\\|x\\\\|}',
              'relative error equals the norm of x minus x tilde over the norm of x'),
             
             # Algorithm descriptions
@@ -361,7 +361,7 @@ class NumericalAnalysisVocabulary:
              'for k equals 0, 1, 2, and so on'),
             (r'repeat until convergence',
              'repeat until convergence'),
-            (r'while \\|r_k\\| > tol',
+            (r'while \\\\|r_k\\\\| > tol',
              'while the norm of r sub k is greater than tolerance'),
             
             # Matrix patterns
@@ -385,7 +385,7 @@ class NumericalAnalysisVocabulary:
              'second partial of u with respect to x'),
             
             # Stability conditions
-            (r'\\|\\lambda h\\| \\leq 1',
+            (r'\\\\|\\lambda h\\\\| \\leq 1',
              'the absolute value of lambda h is less than or equal to 1'),
             (r'CFL condition',
              'CFL condition'),

@@ -20,5 +20,29 @@
       "first_seen": "timestamp",
       "last_seen": "timestamp"
     }
+  },
+  "cong": {
+    "contexts": [
+      "\\pi_1(S^1) \\cong \\mathbb{Z}"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:13:57",
+    "last_seen": "2025-05-30 02:13:57"
+  },
+  "iff": {
+    "contexts": [
+      "A space X is compact \\iff every open cover has a f"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:13:58",
+    "last_seen": "2025-05-30 02:13:58"
+  },
+  "oint": {
+    "contexts": [
+      "\\oint_\\gamma f(z)dz = 2\\pi i \\sum \\text{Res}(f, z_"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:14:00",
+    "last_seen": "2025-05-30 02:14:00"
   }
 }

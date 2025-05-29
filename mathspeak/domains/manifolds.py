@@ -92,37 +92,35 @@ class ManifoldsVocabulary:
         
         # ===== BASIC MANIFOLDS AND STRUCTURES =====
         
-        # Manifolds and spaces
+        # Manifolds and spaces - NO single letter patterns!
         vocab.update({
-            r'M': 'M',
-            r'N': 'N',
             r'\\mathcal{M}': 'the manifold script M',
             r'\\mathcal{N}': 'the manifold script N',
-            r'M^n': 'the n-manifold M',
-            r'M^([0-9]+)': lambda m: f"the {self._number_name(m.group(1))}-manifold M",
-            r'(M,g)': 'the Riemannian manifold M with metric g',
-            r'(M,\\omega)': 'the symplectic manifold M with form omega',
-            r'(M,J)': 'the complex manifold M with complex structure J',
+            r'M\^n': 'the n-manifold M',
+            r'M\^([0-9]+)': lambda m: f"the {self._number_name(m.group(1))}-manifold M",
+            r'\(M,g\)': 'the Riemannian manifold M with metric g',
+            r'\(M,\\omega\)': 'the symplectic manifold M with form omega',
+            r'\(M,J\)': 'the complex manifold M with complex structure J',
             r'\\partial M': 'the boundary of M',
-            r'\\text{Int}(M)': 'the interior of M',
-            r'\\text{int}(M)': 'the interior of M',
+            r'\\text{Int}\(M\)': 'the interior of M',
+            r'\\text{int}\(M\)': 'the interior of M',
         })
         
         # Charts and atlases
         vocab.update({
-            r'(U,\\phi)': 'the chart U phi',
-            r'(U,\\varphi)': 'the chart U varphi',
-            r'(U_\\alpha,\\phi_\\alpha)': 'the chart U alpha phi alpha',
-            r'\\{(U_\\alpha,\\phi_\\alpha)\\}': 'the atlas with charts U alpha phi alpha',
+            r'\(U,\\phi\)': 'the chart U phi',
+            r'\(U,\\varphi\)': 'the chart U varphi',
+            r'\(U_\\alpha,\\phi_\\alpha\)': 'the chart U alpha phi alpha',
+            r'\\{\(U_\\alpha,\\phi_\\alpha\)\\}': 'the atlas with charts U alpha phi alpha',
             r'\\mathcal{A}': 'the atlas script A',
-            r'\\phi: U \\to \\mathbb{R}^n': 'phi from U to R n',
-            r'\\phi \\circ \\psi^{-1}': 'phi composed with psi inverse',
+            r'\\phi: U \\to \\mathbb{R}\^n': 'phi from U to R n',
+            r'\\phi \\circ \\psi\^{-1}': 'phi composed with psi inverse',
             r'\\text{id}_U': 'the identity on U',
-            r'C^\\infty': 'C infinity',
-            r'C^k': 'C k',
-            r'C^([0-9]+)': lambda m: f"C {self._number_name(m.group(1))}",
-            r'\\text{Diff}(M)': 'the diffeomorphism group of M',
-            r'\\text{Diff}^r(M)': 'the C r diffeomorphism group of M',
+            r'C\^\\infty': 'C infinity',
+            r'C\^k': 'C k',
+            r'C\^([0-9]+)': lambda m: f"C {self._number_name(m.group(1))}",
+            r'\\text{Diff}\(M\)': 'the diffeomorphism group of M',
+            r'\\text{Diff}\^r\(M\)': 'the C r diffeomorphism group of M',
         })
         
         # Smooth maps
@@ -130,15 +128,15 @@ class ManifoldsVocabulary:
             r'f: M \\to N': 'f from M to N',
             r'F: M \\to N': 'F from M to N',
             r'\\text{smooth}': 'smooth',
-            r'f \\in C^\\infty(M,N)': 'f in C infinity from M to N',
-            r'C^\\infty(M)': 'C infinity of M',
-            r'C^\\infty(M,N)': 'C infinity from M to N',
-            r'\\text{Hom}(M,N)': 'the smooth maps from M to N',
+            r'f \\in C\^\\infty\(M,N\)': 'f in C infinity from M to N',
+            r'C\^\\infty\(M\)': 'C infinity of M',
+            r'C\^\\infty\(M,N\)': 'C infinity from M to N',
+            r'\\text{Hom}\(M,N\)': 'the smooth maps from M to N',
             r'f_\\*': 'f star',
-            r'f^\\*': 'f superscript star',
-            r'\\text{rank}(f)': 'the rank of f',
-            r'\\text{crit}(f)': 'the critical points of f',
-            r'\\text{Crit}(f)': 'the critical set of f',
+            r'f\^\\*': 'f superscript star',
+            r'\\text{rank}\(f\)': 'the rank of f',
+            r'\\text{crit}\(f\)': 'the critical points of f',
+            r'\\text{Crit}\(f\)': 'the critical set of f',
         })
         
         # ===== TANGENT AND COTANGENT SPACES =====
@@ -150,64 +148,62 @@ class ManifoldsVocabulary:
             r'TM': 'the tangent bundle of M',
             r'T M': 'the tangent bundle of M',
             r'T\\*M': 'the cotangent bundle of M',
-            r'T^\\* M': 'the cotangent bundle of M',
+            r'T\^\\* M': 'the cotangent bundle of M',
             r'T_p\\* M': 'the cotangent space to M at p',
-            r'T^\\*_p M': 'the cotangent space to M at p',
+            r'T\^\\*_p M': 'the cotangent space to M at p',
             r'\\pi: TM \\to M': 'the projection pi from T M to M',
             r'\\pi: T\\*M \\to M': 'the projection pi from T star M to M',
-            r'T^{(r,s)}M': 'the r s tensor bundle of M',
-            r'T^r_s M': 'the r s tensor bundle of M',
-            r'\\Lambda^k T\\*M': 'the k-th exterior power of T star M',
-            r'\\Lambda^k T_p\\* M': 'the k-th exterior power of T star p M',
-            r'\\text{End}(TM)': 'the endomorphism bundle of T M',
+            r'T\^{\(r,s\)}M': 'the r s tensor bundle of M',
+            r'T\^r_s M': 'the r s tensor bundle of M',
+            r'\\Lambda\^k T\\*M': 'the k-th exterior power of T star M',
+            r'\\Lambda\^k T_p\\* M': 'the k-th exterior power of T star p M',
+            r'\\text{End}\(TM\)': 'the endomorphism bundle of T M',
         })
         
         # Tangent vectors and differentials
         vocab.update({
             r'v \\in T_p M': 'v in the tangent space to M at p',
             r'X_p': 'X at p',
-            r'\\frac{\\partial}{\\partial x^i}': 'partial over partial x i',
+            r'\\frac{\\partial}{\\partial x\^i}': 'partial over partial x i',
             r'\\partial_i': 'partial i',
-            r'\\partial_{x^i}': 'partial x i',
-            r'dx^i': 'd x i',
+            r'\\partial_{x\^i}': 'partial x i',
+            r'dx\^i': 'd x i',
             r'df': 'the differential of f',
             r'd_p f': 'the differential of f at p',
             r'df_p': 'the differential of f at p',
-            r'(df)_p': 'the differential of f at p',
+            r'\(df\)_p': 'the differential of f at p',
             r'f_{\\*p}': 'f star at p',
             r'f_{\\*}': 'f star',
-            r'\\text{ker}(df_p)': 'the kernel of d f at p',
+            r'\\text{ker}\(df_p\)': 'the kernel of d f at p',
         })
         
         # ===== VECTOR FIELDS =====
         
         vocab.update({
-            r'X': 'the vector field X',
-            r'Y': 'the vector field Y',
-            r'Z': 'the vector field Z',
-            r'\\mathfrak{X}(M)': 'the vector fields on M',
-            r'\\Gamma(TM)': 'the sections of T M',
-            r'X \\in \\mathfrak{X}(M)': 'X in the vector fields on M',
-            r'\[X,Y\]': 'the Lie bracket of X and Y',
+            # Remove single letter patterns X, Y, Z
+            r'\\mathfrak{X}\(M\)': 'the vector fields on M',
+            r'\\Gamma\(TM\)': 'the sections of T M',
+            r'X \\in \\mathfrak{X}\(M\)': 'X in the vector fields on M',
+            r'\\[X,Y\\]': 'the Lie bracket of X and Y',
             r'\\mathcal{L}_X Y': 'the Lie derivative of Y along X',
             r'\\mathcal{L}_X': 'the Lie derivative along X',
             r'\\phi_t': 'phi sub t',
-            r'\\phi^X_t': 'the flow of X at time t',
-            r'\\text{exp}(tX)': 'the exponential of t X',
-            r'\\text{div}(X)': 'the divergence of X',
-            r'\\text{curl}(X)': 'the curl of X',
-            r'X^\\flat': 'X flat',
-            r'\\omega^\\sharp': 'omega sharp',
+            r'\\phi\^X_t': 'the flow of X at time t',
+            r'\\text{exp}\(tX\)': 'the exponential of t X',
+            r'\\text{div}\(X\)': 'the divergence of X',
+            r'\\text{curl}\(X\)': 'the curl of X',
+            r'X\^\\flat': 'X flat',
+            r'\\omega\^\\sharp': 'omega sharp',
         })
         
         # Local expressions
         vocab.update({
-            r'X = \\sum X^i \\frac{\\partial}{\\partial x^i}': 'X equals sum X i partial over partial x i',
-            r'X = X^i \\partial_i': 'X equals X i partial i',
-            r'X^i': 'X superscript i',
+            r'X = \\sum X\^i \\frac{\\partial}{\\partial x\^i}': 'X equals sum X i partial over partial x i',
+            r'X = X\^i \\partial_i': 'X equals X i partial i',
+            r'X\^i': 'X superscript i',
             r'X_i': 'X subscript i',
             r'\\{\\partial_i\\}': 'the coordinate basis partial i',
-            r'\\{dx^i\\}': 'the dual basis d x i',
+            r'\\{dx\^i\\}': 'the dual basis d x i',
         })
         
         # ===== DIFFERENTIAL FORMS =====
@@ -219,10 +215,10 @@ class ManifoldsVocabulary:
             r'\\beta': 'beta',
             r'\\eta': 'eta',
             r'\\theta': 'theta',
-            r'\\Omega^k(M)': 'the k-forms on M',
-            r'\\Omega^\\*\\(M\\)': 'the differential forms on M',
-            r'\\omega \\in \\Omega^k(M)': 'omega in the k-forms on M',
-            r'dx^i \\wedge dx^j': 'd x i wedge d x j',
+            r'\\Omega\^k\(M\)': 'the k-forms on M',
+            r'\\Omega\^\\*\(M\)': 'the differential forms on M',
+            r'\\omega \\in \\Omega\^k\(M\)': 'omega in the k-forms on M',
+            r'dx\^i \\wedge dx\^j': 'd x i wedge d x j',
             r'\\wedge': 'wedge',
             r'\\omega \\wedge \\eta': 'omega wedge eta',
             r'\\iota_X \\omega': 'the interior product of X and omega',
@@ -233,13 +229,13 @@ class ManifoldsVocabulary:
         # Exterior derivative
         vocab.update({
             r'd\\omega': 'the exterior derivative of omega',
-            r'd: \\Omega^k \\to \\Omega^{k+1}': 'd from k-forms to k plus 1 forms',
-            r'd^2 = 0': 'd squared equals zero',
-            r'\\text{ker}(d)': 'the kernel of d',
-            r'\\text{im}(d)': 'the image of d',
-            r'H^k_{dR}(M)': 'the k-th de Rham cohomology of M',
-            r'H^\\*_{dR}(M)': 'the de Rham cohomology of M',
-            r'\[\\omega\]': 'the cohomology class of omega',
+            r'd: \\Omega\^k \\to \\Omega\^{k\+1}': 'd from k-forms to k plus 1 forms',
+            r'd\^2 = 0': 'd squared equals zero',
+            r'\\text{ker}\(d\)': 'the kernel of d',
+            r'\\text{im}\(d\)': 'the image of d',
+            r'H\^k_{dR}\(M\)': 'the k-th de Rham cohomology of M',
+            r'H\^\\*_{dR}\(M\)': 'the de Rham cohomology of M',
+            r'\\[\\omega\\]': 'the cohomology class of omega',
             r'\\text{exact}': 'exact',
             r'\\text{closed}': 'closed',
             r'd\\omega = 0': 'd omega equals zero',
@@ -259,18 +255,16 @@ class ManifoldsVocabulary:
         
         # ===== LIE GROUPS AND ALGEBRAS =====
         
-        # Lie groups
+        # Lie groups - Remove single G, H
         vocab.update({
-            r'G': 'the Lie group G',
-            r'H': 'the Lie group H',
-            r'GL(n,\\mathbb{R})': 'G L n R',
-            r'SL(n,\\mathbb{R})': 'S L n R',
-            r'O(n)': 'O n',
-            r'SO(n)': 'S O n',
-            r'U(n)': 'U n',
-            r'SU(n)': 'S U n',
-            r'Sp(2n,\\mathbb{R})': 'S p 2n R',
-            r'\\text{Lie}(G)': 'the Lie algebra of G',
+            r'GL\(n,\\mathbb{R}\)': 'G L n R',
+            r'SL\(n,\\mathbb{R}\)': 'S L n R',
+            r'O\(n\)': 'O n',
+            r'SO\(n\)': 'S O n',
+            r'U\(n\)': 'U n',
+            r'SU\(n\)': 'S U n',
+            r'Sp\(2n,\\mathbb{R}\)': 'S p 2n R',
+            r'\\text{Lie}\(G\)': 'the Lie algebra of G',
             r'T_e G': 'the tangent space to G at the identity',
             r'L_g': 'left translation by g',
             r'R_g': 'right translation by g',
@@ -282,14 +276,13 @@ class ManifoldsVocabulary:
         vocab.update({
             r'\\mathfrak{g}': 'the Lie algebra fraktur g',
             r'\\mathfrak{h}': 'the Lie algebra fraktur h',
-            r'\\mathfrak{gl}(n,\\mathbb{R})': 'fraktur g l n R',
-            r'\\mathfrak{sl}(n,\\mathbb{R})': 'fraktur s l n R',
-            r'\\mathfrak{so}(n)': 'fraktur s o n',
-            r'\\mathfrak{su}(n)': 'fraktur s u n',
-            r'\\mathfrak{sp}(2n,\\mathbb{R})': 'fraktur s p 2n R',
-            r'\[X,Y\]': 'the bracket of X and Y',
-            r'\[\\cdot,\\cdot\]': 'the Lie bracket',
-            r'\\text{Jac}(X,Y,Z)': 'the Jacobi identity of X Y Z',
+            r'\\mathfrak{gl}\(n,\\mathbb{R}\)': 'fraktur g l n R',
+            r'\\mathfrak{sl}\(n,\\mathbb{R}\)': 'fraktur s l n R',
+            r'\\mathfrak{so}\(n\)': 'fraktur s o n',
+            r'\\mathfrak{su}\(n\)': 'fraktur s u n',
+            r'\\mathfrak{sp}\(2n,\\mathbb{R}\)': 'fraktur s p 2n R',
+            r'\\[\\cdot,\\cdot\\]': 'the Lie bracket',
+            r'\\text{Jac}\(X,Y,Z\)': 'the Jacobi identity of X Y Z',
             r'\\exp: \\mathfrak{g} \\to G': 'the exponential map from fraktur g to G',
             r'\\log: G \\to \\mathfrak{g}': 'the logarithm from G to fraktur g',
         })
@@ -301,17 +294,16 @@ class ManifoldsVocabulary:
             r'\\nabla': 'nabla',
             r'\\nabla_X Y': 'nabla X Y',
             r'\\nabla_X': 'nabla X',
-            r'D': 'the connection D',
             r'D_X Y': 'D sub X of Y',
-            r'\\Gamma^k_{ij}': 'Gamma k i j',
+            r'\\Gamma\^k_{ij}': 'Gamma k i j',
             r'\\Gamma': 'the Christoffel symbols',
             r'\\nabla_i': 'nabla i',
             r'\\nabla_{\\partial_i}': 'nabla partial i',
             r'\\text{Levi-Civita}': 'Levi-Civita',
-            r'\\nabla^{LC}': 'the Levi-Civita connection',
-            r'\\nabla^g': 'the metric connection',
-            r'T(X,Y)': 'the torsion of X and Y',
-            r'T^\\nabla': 'the torsion tensor',
+            r'\\nabla\^{LC}': 'the Levi-Civita connection',
+            r'\\nabla\^g': 'the metric connection',
+            r'T\(X,Y\)': 'the torsion of X and Y',
+            r'T\^\\nabla': 'the torsion tensor',
         })
         
         # Parallel transport
@@ -321,87 +313,78 @@ class ManifoldsVocabulary:
             r'\\tau_\\gamma': 'the parallel transport along gamma',
             r'\\frac{D}{dt}': 'D over d t',
             r'\\frac{DX}{dt} = 0': 'D X over d t equals zero',
-            r'\\text{Hol}(\\nabla)': 'the holonomy group of nabla',
-            r'\\text{Hol}_p(\\nabla)': 'the holonomy group of nabla at p',
+            r'\\text{Hol}\(\\nabla\)': 'the holonomy group of nabla',
+            r'\\text{Hol}_p\(\\nabla\)': 'the holonomy group of nabla at p',
         })
         
         # ===== RIEMANNIAN GEOMETRY =====
         
-        # Metrics
+        # Metrics - Remove single g
         vocab.update({
-            r'g': 'the metric g',
             r'g_{ij}': 'g i j',
-            r'g^{ij}': 'g superscript i j',
+            r'g\^{ij}': 'g superscript i j',
             r'\\langle X,Y \\rangle': 'the inner product of X and Y',
-            r'g(X,Y)': 'g of X and Y',
-            r'g_p(X,Y)': 'g at p of X and Y',
-            r'\|X\|': 'the norm of X',
+            r'g\(X,Y\)': 'g of X and Y',
+            r'g_p\(X,Y\)': 'g at p of X and Y',
             r'\\|X\\|': 'the norm of X',
             r'\\|X\\|_g': 'the g-norm of X',
-            r'ds^2': 'd s squared',
-            r'ds^2 = g_{ij} dx^i dx^j': 'd s squared equals g i j d x i d x j',
-            r'\\text{Riem}(M)': 'the space of Riemannian metrics on M',
+            r'ds\^2': 'd s squared',
+            r'ds\^2 = g_{ij} dx\^i dx\^j': 'd s squared equals g i j d x i d x j',
+            r'\\text{Riem}\(M\)': 'the space of Riemannian metrics on M',
         })
         
-        # Curvature
+        # Curvature - Remove single R, S, K, H
         vocab.update({
-            r'R': 'the curvature tensor R',
             r'\\text{Riem}': 'the Riemann tensor',
-            r'R(X,Y)Z': 'R of X Y Z',
-            r'R^i_{jkl}': 'R i j k l',
+            r'R\(X,Y\)Z': 'R of X Y Z',
+            r'R\^i_{jkl}': 'R i j k l',
             r'R_{ijkl}': 'R i j k l',
             r'\\text{Ric}': 'the Ricci tensor',
-            r'\\text{Ric}(X,Y)': 'Ricci of X and Y',
+            r'\\text{Ric}\(X,Y\)': 'Ricci of X and Y',
             r'R_{ij}': 'R i j',
             r'\\text{Scal}': 'the scalar curvature',
-            r'S': 'the scalar curvature',
-            r'R': 'the scalar curvature R',
-            r'K': 'the sectional curvature K',
-            r'K(\\sigma)': 'K of the 2-plane sigma',
+            r'K\(\\sigma\)': 'K of the 2-plane sigma',
             r'\\kappa': 'the Gaussian curvature kappa',
-            r'H': 'the mean curvature H',
         })
         
         # Geodesics
         vocab.update({
             r'\\gamma': 'gamma',
-            r'\\gamma(t)': 'gamma of t',
-            r'\\gamma: [a,b] \\to M': 'gamma from the interval a b to M',
+            r'\\gamma\(t\)': 'gamma of t',
+            r'\\gamma: \[a,b\] \\to M': 'gamma from the interval a b to M',
             r'\\frac{D}{dt}\\dot{\\gamma} = 0': 'D over d t of gamma dot equals zero',
             r'\\nabla_{\\dot{\\gamma}} \\dot{\\gamma} = 0': 'nabla gamma dot gamma dot equals zero',
             r'\\text{exp}_p': 'the exponential map at p',
-            r'\\text{exp}_p(v)': 'exp p of v',
+            r'\\text{exp}_p\(v\)': 'exp p of v',
             r'\\text{exp}: TM \\to M': 'the exponential map from T M to M',
-            r'\\text{inj}(p)': 'the injectivity radius at p',
-            r'\\text{cut}(p)': 'the cut locus of p',
-            r'\\text{conj}(p)': 'the conjugate locus of p',
-            r'd_g(p,q)': 'the geodesic distance from p to q',
+            r'\\text{inj}\(p\)': 'the injectivity radius at p',
+            r'\\text{cut}\(p\)': 'the cut locus of p',
+            r'\\text{conj}\(p\)': 'the conjugate locus of p',
+            r'd_g\(p,q\)': 'the geodesic distance from p to q',
         })
         
         # ===== SPECIAL STRUCTURES =====
         
         # Symplectic geometry
         vocab.update({
-            r'\\omega': 'the symplectic form omega',
-            r'(M,\\omega)': 'the symplectic manifold M omega',
+            r'\(M,\\omega\)': 'the symplectic manifold M omega',
             r'd\\omega = 0': 'd omega equals zero',
-            r'\\omega^n \\neq 0': 'omega to the n not equal to zero',
-            r'\\\{f,g\\\}': 'the Poisson bracket of f and g',
+            r'\\omega\^n \\neq 0': 'omega to the n not equal to zero',
+            r'\\{f,g\\}': 'the Poisson bracket of f and g',
             r'X_f': 'the Hamiltonian vector field of f',
             r'\\iota_{X_f} \\omega = df': 'interior product X f omega equals d f',
-            r'\\text{Symp}(M,\\omega)': 'the symplectomorphism group of M omega',
+            r'\\text{Symp}\(M,\\omega\)': 'the symplectomorphism group of M omega',
         })
         
         # Complex structures
         vocab.update({
-            r'J': 'the complex structure J',
-            r'J^2 = -\\text{id}': 'J squared equals minus identity',
+            r'J\^2 = -\\text{id}': 'J squared equals minus identity',
             r'N_J': 'the Nijenhuis tensor of J',
-            r'T\^\{1,0\}M': 'the 1 0 tangent bundle',
-            r'T\^\{0,1\}M': 'the 0 1 tangent bundle',
+            r'T\^{1,0}M': 'the 1 0 tangent bundle',
+            r'T\^{0,1}M': 'the 0 1 tangent bundle',
             r'\\bar{\\partial}': 'del bar',
             r'\\partial': 'del',
-            r'\\partial + \\bar{\\partial}': 'del plus del bar',
+            r'\\partial \+ \\bar{\\partial}': 'del plus del bar',
         })
         
         return vocab
@@ -410,51 +393,51 @@ class ManifoldsVocabulary:
         """Build pattern-based replacements for manifolds"""
         patterns = [
             # Smooth maps
-            (r'([f-h])\s*:\s*M\s*\\\\to\s*N\s+is\s+smooth',
+            (r'([f-h])\s*:\s*M\s*\\to\s*N\s+is\s+smooth',
              lambda m: f"{m.group(1)} from M to N is smooth"),
-            (r'([f-h])\s*:\s*([A-Z])\s*\\\\to\s*([A-Z])\s+is\s+a\s+diffeomorphism',
+            (r'([f-h])\s*:\s*([A-Z])\s*\\to\s*([A-Z])\s+is\s+a\s+diffeomorphism',
              lambda m: f"{m.group(1)} from {m.group(2)} to {m.group(3)} is a diffeomorphism"),
             
             # Submanifolds
             (r'([A-Z])\s+is\s+a\s+submanifold\s+of\s+([A-Z])',
              lambda m: f"{m.group(1)} is a submanifold of {m.group(2)}"),
-            (r'([A-Z])\s+\\\\subset\s+([A-Z])\s+is\s+an\s+embedded\s+submanifold',
+            (r'([A-Z])\s+\\subset\s+([A-Z])\s+is\s+an\s+embedded\s+submanifold',
              lambda m: f"{m.group(1)} subset {m.group(2)} is an embedded submanifold"),
             
             # Vector fields
             (r'X\s+is\s+a\s+vector\s+field\s+on\s+M',
              'X is a vector field on M'),
-            (r'([X-Z])\s+\\\\in\s+\\\\mathfrak{X}\\\\(M\\\\)',
+            (r'([X-Z])\s+\\in\s+\\mathfrak{X}\(M\)',
              lambda m: f"{m.group(1)} is a vector field on M"),
             
             # Lie brackets
-            (r'\\\\\[([X-Z]),\s*([X-Z])\\\\\]\s*=\s*0',
+            (r'\\\[([X-Z]),\s*([X-Z])\\\]\s*=\s*0',
              lambda m: f"the bracket of {m.group(1)} and {m.group(2)} equals zero"),
-            (r'\\\\\[([X-Z]),\s*([X-Z])\\\\\]\s*=\s*([X-Z])',
+            (r'\\\[([X-Z]),\s*([X-Z])\\\]\s*=\s*([X-Z])',
              lambda m: f"the bracket of {m.group(1)} and {m.group(2)} equals {m.group(3)}"),
             
             # Differential forms
-            (r'\\\\omega\s+is\s+a\s+([0-9])-form',
+            (r'\\omega\s+is\s+a\s+([0-9])-form',
              lambda m: f"omega is a {self._number_name(m.group(1))}-form"),
-            (r'\\\\omega\s+is\s+closed',
+            (r'\\omega\s+is\s+closed',
              'omega is closed'),
-            (r'\\\\omega\s+is\s+exact',
+            (r'\\omega\s+is\s+exact',
              'omega is exact'),
             
             # Tangent vectors
-            (r'v\s+\\\\in\s+T_p\s*M',
+            (r'v\s+\\in\s+T_p\s*M',
              'v in the tangent space to M at p'),
-            (r'([X-Z])_p\s+\\\\in\s+T_p\s*M',
+            (r'([X-Z])_p\s+\\in\s+T_p\s*M',
              lambda m: f"{m.group(1)} at p in the tangent space to M at p"),
             
             # Connections
-            (r'\\\\nabla\s+is\s+a\s+connection\s+on\s+TM',
+            (r'\\nabla\s+is\s+a\s+connection\s+on\s+TM',
              'nabla is a connection on T M'),
-            (r'\\\\nabla\s+is\s+the\s+Levi-Civita\s+connection',
+            (r'\\nabla\s+is\s+the\s+Levi-Civita\s+connection',
              'nabla is the Levi-Civita connection'),
-            (r'\\\\nabla\s+is\s+flat',
+            (r'\\nabla\s+is\s+flat',
              'nabla is flat'),
-            (r'\\\\nabla\s+is\s+torsion-free',
+            (r'\\nabla\s+is\s+torsion-free',
              'nabla is torsion-free'),
             
             # Curvature
@@ -468,15 +451,15 @@ class ManifoldsVocabulary:
              'M is flat'),
             
             # Geodesics
-            (r'\\\\gamma\s+is\s+a\s+geodesic',
+            (r'\\gamma\s+is\s+a\s+geodesic',
              'gamma is a geodesic'),
-            (r'\\\\gamma:\s*\\\\[0,1\\\\]\s*\\\\to\s*M\s+is\s+a\s+geodesic',
+            (r'\\gamma:\s*\\\[0,1\\\]\s*\\to\s*M\s+is\s+a\s+geodesic',
              'gamma from zero one to M is a geodesic'),
             
             # Bundle maps
-            (r'F:\s*E\s*\\\\to\s*E\'\s+is\s+a\s+bundle\s+map',
+            (r'F:\s*E\s*\\to\s*E\'\s+is\s+a\s+bundle\s+map',
              'F from E to E prime is a bundle map'),
-            (r'\\\\phi:\s*TM\s*\\\\to\s*TN\s+covers\s+f',
+            (r'\\phi:\s*TM\s*\\to\s*TN\s+covers\s+f',
              'phi from T M to T N covers f'),
             
             # Lie groups

@@ -27,7 +27,10 @@ from dataclasses import dataclass, field
 from collections import defaultdict, OrderedDict
 import hashlib
 from concurrent.futures import ThreadPoolExecutor
-import edge_tts
+try:
+    import edge_tts
+except ImportError:
+    edge_tts = None
 
 # Import voice manager (would be from .voice_manager in package structure)
 # from .voice_manager import VoiceManager, VoiceRole, SpeechSegment, SpeedProfile
@@ -534,7 +537,11 @@ class MathematicalTTSEngine:
     
     def _general_processing(self, text: str) -> str:
         """General mathematical processing"""
-        # This would be expanded with complete notation
+        # First apply pattern processor if available
+        if hasattr(self, 'pattern_processor'):
+            text = self.pattern_processor.process(text)
+        
+        # Then apply remaining replacements
         replacements = OrderedDict([
             # Greek letters
             (r'\\alpha', 'alpha'),
@@ -582,12 +589,19 @@ class MathematicalTTSEngine:
             (r'\\lim_{([^}]+)}', r'the limit as \1 of'),
             (r'\\sum_{([^}]+)}^{([^}]+)}', r'the sum from \1 to \2 of'),
             (r'\\int_{([^}]+)}^{([^}]+)}', r'the integral from \1 to \2 of'),
+            # Handle integrals without braces
+            (r'int_([^\\\s]+)\^\s*([^\\\s]+)', r'integral from \1 to \2'),
             
             # Fractions
             (r'\\frac{([^}]+)}{([^}]+)}', r'\1 over \2'),
             
+            # Exponents
+            (r'e\^-([a-z])\^2', r'e to the negative \1 squared'),
+            (r'e\^{-([a-z])\^2}', r'e to the negative \1 squared'),
+            
             # Other
             (r'\\infty', 'infinity'),
+            (r'infty', 'infinity'),  # Handle without backslash
             (r'\\partial', 'partial'),
             (r'\\nabla', 'nabla'),
         ])
@@ -595,9 +609,11 @@ class MathematicalTTSEngine:
         for pattern, replacement in replacements.items():
             text = re.sub(pattern, replacement, text)
         
-        # Clean up
-        text = re.sub(r'[{}]', '', text)
-        text = re.sub(r'\\', ' ', text)
+        # Clean up - but be careful not to break already processed text
+        # Only remove standalone backslashes, not those in words
+        text = re.sub(r'(?<!\w)\\(?!\w)', ' ', text)
+        # Remove curly braces but not if they're part of processed text
+        text = re.sub(r'\{([^}]*)\}', r'\1', text)
         text = ' '.join(text.split())
         
         return text
@@ -651,6 +667,10 @@ class MathematicalTTSEngine:
             expression: The processed expression to speak
             output_file: Optional output file path. If None, plays audio directly.
         """
+        if edge_tts is None:
+            logger.warning("edge-tts not available, skipping speech generation")
+            return
+            
         for segment in expression.segments:
             try:
                 voice = segment.voice_role.value if hasattr(segment, 'voice_role') else "en-US-AriaNeural"

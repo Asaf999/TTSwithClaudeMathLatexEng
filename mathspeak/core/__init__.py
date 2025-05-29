@@ -121,7 +121,7 @@ def create_engine(
     
     # Load domain processors if requested
     if enable_all_domains:
-        app_config = Config(config_path=config_path) # Create config object
+        app_config = Config(config_dir=config_path) # Create config object
         _load_domain_processors(engine, app_config) # Pass the config object
     
     return engine

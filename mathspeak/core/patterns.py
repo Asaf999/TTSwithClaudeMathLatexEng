@@ -691,10 +691,17 @@ class CommonExpressionHandler:
         self.patterns = [
             # Integrals - must be before other patterns to catch full expressions
             MathematicalPattern(
-                r'\\int_([^\\\s]+)\^([^\\\s]+)\s*([^\\]+?)\s*d([a-z])',
+                r'\\int_([^\\\s\{]+)\^([^\\\s\{]+)\s*([^\\]+?)\s*d([a-z])',
                 lambda m: f'integral from {self._process_limit(m.group(1))} to {self._process_limit(m.group(2))} of {m.group(3)} d {m.group(4)}',
                 PatternCategory.COMMON_EXPRESSION,
-                'Definite integral with limits',
+                'Definite integral with limits no braces',
+                priority=99
+            ),
+            MathematicalPattern(
+                r'\\int_\{([^}]+)\}\^\{([^}]+)\}\s*([^\\]+?)\s*d([a-z])',
+                lambda m: f'integral from {self._process_limit(m.group(1))} to {self._process_limit(m.group(2))} of {m.group(3)} d {m.group(4)}',
+                PatternCategory.COMMON_EXPRESSION,
+                'Definite integral with braces',
                 priority=98
             ),
             MathematicalPattern(
@@ -721,7 +728,7 @@ class CommonExpressionHandler:
                 priority=95
             ),
             MathematicalPattern(
-                r'e\^{i\\theta}\s*=\s*\\cos\\theta\s*\+\s*i\\sin\\theta',
+                r'e\^\{i\\theta\}\s*=\s*\\cos\\theta\s*\+\s*i\\sin\\theta',
                 'e to the i theta equals cosine theta plus i sine theta',
                 PatternCategory.COMMON_EXPRESSION,
                 "Euler's formula",
@@ -739,14 +746,14 @@ class CommonExpressionHandler:
             
             # Binomial coefficient
             MathematicalPattern(
-                r'\\binom{n}{k}',
+                r'\\binom\{n\}\{k\}',
                 'n choose k',
                 PatternCategory.COMMON_EXPRESSION,
                 'Binomial coefficient',
                 priority=90
             ),
             MathematicalPattern(
-                r'\\left\(\\begin{array}{c}n\\\\k\\end{array}\\right\)',
+                r'\\left\(\\begin\{array\}\{c\}n\\\\k\\end\{array\}\\right\)',
                 'n choose k',
                 PatternCategory.COMMON_EXPRESSION,
                 'Binomial coefficient array',
@@ -778,21 +785,21 @@ class CommonExpressionHandler:
             
             # Common fractions
             MathematicalPattern(
-                r'\\frac{1}{2}',
+                r'\\frac\{1\}\{2\}',
                 'one half',
                 PatternCategory.COMMON_EXPRESSION,
                 'One half',
                 priority=90
             ),
             MathematicalPattern(
-                r'\\frac{1}{3}',
+                r'\\frac\{1\}\{3\}',
                 'one third',
                 PatternCategory.COMMON_EXPRESSION,
                 'One third',
                 priority=90
             ),
             MathematicalPattern(
-                r'\\frac{\\pi}{2}',
+                r'\\frac\{\\pi\}\{2\}',
                 'pi over 2',
                 PatternCategory.COMMON_EXPRESSION,
                 'Pi/2',
@@ -801,14 +808,14 @@ class CommonExpressionHandler:
             
             # Square roots
             MathematicalPattern(
-                r'\\sqrt{2}',
+                r'\\sqrt\{2\}',
                 'square root of 2',
                 PatternCategory.COMMON_EXPRESSION,
                 'Sqrt(2)',
                 priority=90
             ),
             MathematicalPattern(
-                r'\\sqrt{([^}]+)}',
+                r'\\sqrt\{([^}]+)\}',
                 lambda m: f'square root of {m.group(1)}',
                 PatternCategory.COMMON_EXPRESSION,
                 'General square root',
@@ -817,14 +824,14 @@ class CommonExpressionHandler:
             
             # Exponents and special functions
             MathematicalPattern(
-                r'e\^{-([a-z])\^2}',
+                r'e\^\{-([a-z])\^2\}',
                 lambda m: f'e to the negative {m.group(1)} squared',
                 PatternCategory.COMMON_EXPRESSION,
                 'Gaussian exponent',
                 priority=92
             ),
             MathematicalPattern(
-                r'e\^{([^}]+)}',
+                r'e\^\{([^}]+)\}',
                 lambda m: f'e to the {m.group(1)}',
                 PatternCategory.COMMON_EXPRESSION,
                 'General exponential',

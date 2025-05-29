@@ -691,7 +691,7 @@ class CommonExpressionHandler:
         self.patterns = [
             # Integrals - must be before other patterns to catch full expressions
             MathematicalPattern(
-                r'\\int_([^\\s\{]+)\^([^\\s\{]+)\s*([^\\]+?)\s*d([a-z])',
+                r'\\int_([^\s\{]+)\^([^\s\{]+)\s*(.+?)\s*d([a-z])',
                 lambda m: f'integral from {self._process_limit(m.group(1))} to {self._process_limit(m.group(2))} of {m.group(3)} d {m.group(4)}',
                 PatternCategory.COMMON_EXPRESSION,
                 'Definite integral with limits no braces',

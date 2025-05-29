@@ -644,8 +644,13 @@ class MathematicalTTSEngine:
         
         return True
     
-    async def speak_expression(self, expression: ProcessedExpression) -> None:
-        """Convert expression to speech using edge-tts"""
+    async def speak_expression(self, expression: ProcessedExpression, output_file: Optional[str] = None) -> None:
+        """Convert expression to speech using edge-tts
+        
+        Args:
+            expression: The processed expression to speak
+            output_file: Optional output file path. If None, plays audio directly.
+        """
         for segment in expression.segments:
             try:
                 voice = segment.voice_role.value if hasattr(segment, 'voice_role') else "en-US-AriaNeural"
@@ -657,13 +662,14 @@ class MathematicalTTSEngine:
                 
                 # Generate speech
                 tts = edge_tts.Communicate(segment.text, voice, rate=rate)
-                audio_file = f"temp_speech_{time.time()}.mp3"
+                audio_file = output_file if output_file else f"temp_speech_{time.time()}.mp3"
                 await tts.save(audio_file)
                 
-                # Play audio (would use proper audio library)
-                # subprocess.run(['mpv', '--really-quiet', audio_file])
+                # Play audio if no output file specified
+                # if not output_file:
+                #     subprocess.run(['mpv', '--really-quiet', audio_file])
                 
-                # Clean up
+                # Clean up temp file
                 Path(audio_file).unlink(missing_ok=True)
                 
                 # Add pause after

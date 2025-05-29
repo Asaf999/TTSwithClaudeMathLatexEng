@@ -1,22 +1,24 @@
 {
-    "_comment": "This file tracks LaTeX commands that the system doesn't recognize yet",
-    "_format": {
-      "command": {
-        "first_seen": "timestamp",
-        "last_seen": "timestamp", 
-        "count": "number of times encountered",
-        "contexts": ["example contexts where seen"]
-      }
-    },
-    "_examples": {
-      "\\mathscr": {
-        "first_seen": "2024-01-15 10:30:00",
-        "last_seen": "2024-01-20 14:22:15",
-        "count": 5,
-        "contexts": [
-          "Let \\mathscr{F} be a sheaf",
-          "The category \\mathscr{C}"
-        ]
-      }
+  "_comment": "This file tracks LaTeX commands that the system doesn't recognize yet",
+  "_examples": {
+    "\\mathscr": {
+      "contexts": [
+        "Let \\mathscr{F} be a sheaf",
+        "The category \\mathscr{C}"
+      ],
+      "count": 5,
+      "first_seen": "2024-01-15 10:30:00",
+      "last_seen": "2024-01-20 14:22:15"
+    }
+  },
+  "_format": {
+    "command": {
+      "contexts": [
+        "example contexts where seen"
+      ],
+      "count": "number of times encountered",
+      "first_seen": "timestamp",
+      "last_seen": "timestamp"
     }
   }
+}

@@ -1,0 +1,19 @@
+# Core dependencies
+edge-tts>=6.1.9
+psutil>=5.9.0
+pygame>=2.5.0
+
+# Testing dependencies
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-asyncio>=0.21.0
+
+# Development tools
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.5.0
+
+# Optional advanced features
+numpy>=1.24.0
+matplotlib>=3.7.0
+sympy>=1.12

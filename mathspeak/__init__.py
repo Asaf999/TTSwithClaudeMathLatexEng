@@ -36,6 +36,10 @@ __version__ = "1.0.0"
 __author__ = "MathSpeak Team"
 __license__ = "MIT"
 
+# Import required types
+from typing import Optional, Dict, Any
+from pathlib import Path
+
 # Import main components
 from .core import (
     MathematicalTTSEngine,

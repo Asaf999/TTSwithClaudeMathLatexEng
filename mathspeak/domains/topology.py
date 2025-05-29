@@ -56,6 +56,30 @@ class TopologyVocabulary:
         self.terms = self._build_vocabulary()
         self.patterns = self._build_patterns()
         self.compiled_patterns = self._compile_patterns()
+    
+    def _escape_for_both_backslashes(self, pattern: str) -> str:
+        """Convert a pattern to match both single and double backslash versions"""
+        # This handles the fact that sometimes LaTeX commands come with single \
+        # and sometimes with double \\
+        import re as regex
+        
+        # Find all LaTeX commands in the pattern (they start with \\)
+        # Replace each \\command with a pattern that matches both \\ and \\\\
+        def replace_command(match):
+            cmd = match.group(0)
+            # Extract just the command name without backslashes
+            if cmd.startswith(r'\\'):
+                cmd_name = cmd[2:]  # Remove the \\
+            else:
+                return cmd  # Not a LaTeX command
+            
+            # Return pattern that matches both single and double backslash versions
+            return r'(?:\\\\|\\)' + regex.escape(cmd_name)
+        
+        # Replace all LaTeX commands
+        pattern = regex.sub(r'\\\\[a-zA-Z]+', replace_command, pattern)
+        
+        return pattern
         
     def _build_vocabulary(self) -> Dict[str, Union[str, Callable]]:
         """Build comprehensive topology vocabulary"""
@@ -401,14 +425,24 @@ class TopologyVocabulary:
         # Compile vocabulary patterns
         for pattern, replacement in self.terms.items():
             try:
-                compiled.append((re.compile(pattern), replacement))
+                # Check if pattern contains LaTeX commands (backslashes)
+                if r'\\' in pattern:  # Pattern contains LaTeX commands
+                    # Make pattern flexible for both single and double backslashes
+                    flexible_pattern = self._escape_for_both_backslashes(pattern)
+                    compiled.append((re.compile(flexible_pattern), replacement))
+                else:
+                    compiled.append((re.compile(pattern), replacement))
             except re.error as e:
                 logger.warning(f"Failed to compile pattern {pattern}: {e}")
         
         # Compile larger patterns
         for pattern, replacement in self.patterns:
             try:
-                compiled.append((re.compile(pattern), replacement))
+                if r'\\' in pattern:  # Pattern contains LaTeX commands
+                    flexible_pattern = self._escape_for_both_backslashes(pattern)
+                    compiled.append((re.compile(flexible_pattern), replacement))
+                else:
+                    compiled.append((re.compile(pattern), replacement))
             except re.error as e:
                 logger.warning(f"Failed to compile pattern {pattern}: {e}")
         

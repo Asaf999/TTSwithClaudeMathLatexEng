@@ -298,14 +298,14 @@ class TestTopologyVocabulary:
         spoken_text = processor.process(latex_input)
         assert_spoken_contains(spoken_text, expected_keywords_parts)
 
-    @pytest.mark.parametrize("latex_input, arg1, arg2, expected_keywords", [
+    @pytest.mark.parametrize("latex_input, args, expected_keywords", [
         (r"d(x,y)", "x,y", ["distance from x to y"]),
         (r"\\rho(a,b)", "a,b", ["rho of a and b"]),
         (r"B(p, \\epsilon)", "p, \\epsilon", ["open ball centered at p with radius epsilon"]),
         (r"\\overline{B}(z_0, r)", "z_0, r", ["closed ball centered at z naught with radius r"]),
         (r"S(0,1)", "0,1", ["sphere centered at 0 with radius 1"]),
     ])
-    def test_metric_space_lambda_terms(self, processor, latex_input, arg1, arg2, expected_keywords):
+    def test_metric_space_lambda_terms(self, processor, latex_input, args, expected_keywords):
         spoken_text = processor.process(latex_input)
         assert_spoken_contains(spoken_text, expected_keywords)
 
@@ -462,7 +462,7 @@ class TestTopologyProcessing:
         assert_spoken_contains(spoken_text, expected)
 
     def test_metric_space_definition(self, processor):
-        latex = "A metric space $(M, d)$ consists of a set $M$ and a metric $d: M \\times M \\to \\mathbb{R}_{\ge 0}$."
+        latex = "A metric space $(M, d)$ consists of a set $M$ and a metric $d: M \\times M \\to \\mathbb{R}_{\\ge 0}$."
         spoken_text = processor.process(latex)
         expected = ["metric space", "M comma d", "set M", "metric d from M cross M to", "non-negative real numbers"] # R_>=0 might need specific handling
         assert_spoken_contains(spoken_text, expected)

@@ -63,26 +63,35 @@ class ComplexAnalysisVocabulary:
     
     def _escape_for_both_backslashes(self, pattern: str) -> str:
         """Convert a pattern to match both single and double backslash versions"""
-        # This handles the fact that sometimes LaTeX commands come with single \
-        # and sometimes with double \\
-        import re as regex
-        
-        # Find all LaTeX commands in the pattern (they start with \\)
-        # Replace each \\command with a pattern that matches both \\ and \\\\
-        def replace_command(match):
-            cmd = match.group(0)
-            # Extract just the command name without backslashes
-            if cmd.startswith(r'\\'):
-                cmd_name = cmd[2:]  # Remove the \\
-            else:
-                return cmd  # Not a LaTeX command
-            
-            # Return pattern that matches both single and double backslash versions
-            return r'(?:\\\\|\\)' + regex.escape(cmd_name)
-        
-        # Replace all LaTeX commands
-        pattern = regex.sub(r'\\\\[a-zA-Z]+', replace_command, pattern)
-        
+        # Replace single backslashes with a pattern that matches both single and double
+        # This is a bit tricky because we need to handle regex escaping properly
+        # For now, we'll handle the most common cases
+        pattern = pattern.replace(r'\\text', r'(\\\\text|\\text)')
+        pattern = pattern.replace(r'\\mathbb', r'(\\\\mathbb|\\mathbb)')
+        pattern = pattern.replace(r'\\frac', r'(\\\\frac|\\frac)')
+        pattern = pattern.replace(r'\\cdot', r'(\\\\cdot|\\cdot)')
+        pattern = pattern.replace(r'\\in', r'(\\\\in|\\in)')
+        pattern = pattern.replace(r'\\partial', r'(\\\\partial|\\partial)')
+        pattern = pattern.replace(r'\\theta', r'(\\\\theta|\\theta)')
+        pattern = pattern.replace(r'\\pi', r'(\\\\pi|\\pi)')
+        pattern = pattern.replace(r'\\alpha', r'(\\\\alpha|\\alpha)')
+        pattern = pattern.replace(r'\\exp', r'(\\\\exp|\\exp)')
+        pattern = pattern.replace(r'\\sin', r'(\\\\sin|\\sin)')
+        pattern = pattern.replace(r'\\cos', r'(\\\\cos|\\cos)')
+        pattern = pattern.replace(r'\\tan', r'(\\\\tan|\\tan)')
+        pattern = pattern.replace(r'\\sinh', r'(\\\\sinh|\\sinh)')
+        pattern = pattern.replace(r'\\cosh', r'(\\\\cosh|\\cosh)')
+        pattern = pattern.replace(r'\\tanh', r'(\\\\tanh|\\tanh)')
+        pattern = pattern.replace(r'\\sqrt', r'(\\\\sqrt|\\sqrt)')
+        pattern = pattern.replace(r'\\bar', r'(\\\\bar|\\bar)')
+        pattern = pattern.replace(r'\\overline', r'(\\\\overline|\\overline)')
+        pattern = pattern.replace(r'\\Re', r'(\\\\Re|\\Re)')
+        pattern = pattern.replace(r'\\Im', r'(\\\\Im|\\Im)')
+        pattern = pattern.replace(r'\\log', r'(\\\\log|\\log)')
+        pattern = pattern.replace(r'\\ln', r'(\\\\ln|\\ln)')
+        pattern = pattern.replace(r'\\arg', r'(\\\\arg|\\arg)')
+        pattern = pattern.replace(r'\\arcsin', r'(\\\\arcsin|\\arcsin)')
+        pattern = pattern.replace(r'\\arccos', r'(\\\\arccos|\\arccos)')
         return pattern
     
     def _build_vocabulary(self) -> Dict[str, Union[str, Callable]]:
@@ -391,9 +400,9 @@ class ComplexAnalysisVocabulary:
         # Compile vocabulary patterns
         for pattern, replacement in self.terms.items():
             try:
-                # Check if pattern contains LaTeX commands (backslashes)
-                if r'\\' in pattern:  # Pattern contains LaTeX commands
-                    # Make pattern flexible for both single and double backslashes
+                # Apply the escape helper to patterns containing backslashes
+                if '\\\\' in pattern and not ('\\\\\\\\' in pattern):
+                    # This pattern has single backslashes, make it work for both
                     flexible_pattern = self._escape_for_both_backslashes(pattern)
                     compiled.append((re.compile(flexible_pattern), replacement))
                 else:
@@ -404,7 +413,7 @@ class ComplexAnalysisVocabulary:
         # Compile larger patterns
         for pattern, replacement in self.patterns:
             try:
-                if r'\\' in pattern:  # Pattern contains LaTeX commands
+                if '\\\\' in pattern and not ('\\\\\\\\' in pattern):
                     flexible_pattern = self._escape_for_both_backslashes(pattern)
                     compiled.append((re.compile(flexible_pattern), replacement))
                 else:

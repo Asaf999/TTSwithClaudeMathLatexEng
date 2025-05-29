@@ -18,7 +18,7 @@ Features:
 import re
 import random
 import logging
-from typing import Dict, List, Optional, Tuple, Set, Union, Callable
+from typing import Dict, List, Optional, Tuple, Set, Union, Callable, Any # Added Any here
 from dataclasses import dataclass, field
 from collections import defaultdict, deque
 from enum import Enum
@@ -629,7 +629,7 @@ class NaturalLanguageProcessor:
     
     def process(self, 
                 text: str, 
-                context: Optional[Dict[str, Any]] = None) -> str:
+                context: Optional[Dict[str, Any]] = None) -> str: # Corrected type hint here
         """Process text through all natural language components"""
         processed = text
         

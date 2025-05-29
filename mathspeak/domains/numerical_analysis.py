@@ -101,6 +101,9 @@ class NumericalAnalysisVocabulary:
             r'O\(n\s*\\log\s*n\)': 'big O of n log n',
             r'O\(1\)': 'big O of 1',
             r'O\(\\epsilon\)': 'big O of epsilon',
+            r'\\mathcal{O}\(h\^2\)': 'order h squared',
+            r'\\mathcal{O}\(h\^p\)': 'order h to the p',
+            r'\\mathcal{O}\(n\)': 'order n',
             
             # Other complexity notations
             r'\\Theta\(n\)': 'big theta of n',
@@ -160,11 +163,11 @@ class NumericalAnalysisVocabulary:
             r'x_{n\+1} = g\(x_n\)': 'x sub n plus 1 equals g of x sub n',
             
             # Convergence criteria
-            r'\\|x_{k\+1} - x_k\\| < \\epsilon':
+            r'\\\\\|x_{k\+1} - x_k\\\\\| < \\epsilon':
                 'the norm of x sub k plus 1 minus x sub k is less than epsilon',
-            r'\\|f\(x_k\)\\| < \\epsilon':
+            r'\\\\\|f\(x_k\)\\\\\| < \\epsilon':
                 'the norm of f of x sub k is less than epsilon',
-            r'\\|r_k\\| < \\epsilon':
+            r'\\\\\|r_k\\\\\| < \\epsilon':
                 'the norm of the residual r sub k is less than epsilon',
         })
         
@@ -289,6 +292,10 @@ class NumericalAnalysisVocabulary:
             
             # Backward differences
             r'\\nabla f_i': 'nabla f sub i',
+            r'\\nabla\^2 u': 'the Laplacian of u',
+            r'\\nabla\^2': 'the Laplacian',
+            r'\\Delta u': 'the Laplacian of u',
+            r'\\Delta': 'the Laplacian',
             r'f_i - f_{i-1}': 'f sub i minus f sub i minus 1',
             
             # Central differences

@@ -370,6 +370,10 @@ class MathematicalTTSEngine:
         self.unknown_tracker = UnknownLatexTracker()
         self.language_enhancer = NaturalLanguageEnhancer()
         
+        # Initialize pattern processor
+        from .patterns import PatternProcessor
+        self.pattern_processor = PatternProcessor()
+        
         # Performance optimization
         self.enable_caching = enable_caching
         self.expression_cache: Dict[str, ProcessedExpression] = {}
@@ -541,7 +545,8 @@ class MathematicalTTSEngine:
         if hasattr(self, 'pattern_processor'):
             processed_text = self.pattern_processor.process(text)
             # If pattern processor made significant changes, trust it more
-            if len(processed_text) > len(text) * 1.5 or 'integral' in processed_text:
+            if (len(processed_text) > len(text) * 1.2 or 
+                any(phrase in processed_text.lower() for phrase in ['integral', 'over', 'square root', 'limit'])):
                 # Pattern processor did substantial work, do minimal cleanup
                 processed_text = re.sub(r'\\(?=\w)', '', processed_text)  # Remove backslashes before words
                 return ' '.join(processed_text.split())
@@ -598,8 +603,9 @@ class MathematicalTTSEngine:
             # Handle integrals without braces
             (r'int_([^\\\s]+)\^\s*([^\\\s]+)', r'integral from \1 to \2'),
             
-            # Fractions
-            (r'\\frac{([^}]+)}{([^}]+)}', r'\1 over \2'),
+            # Fractions - only process if not already handled by pattern processor
+            # (Pattern processor handles special fractions like \frac{\sqrt{\pi}}{2})
+            # (r'\\frac{([^}]+)}{([^}]+)}', r'\1 over \2'),  # Commented out - handled by pattern processor
             
             # Exponents
             (r'e\^-([a-z])\^2', r'e to the negative \1 squared'),

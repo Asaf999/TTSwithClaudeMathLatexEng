@@ -786,7 +786,7 @@ class CommonExpressionHandler:
             # Fractions - general pattern first
             MathematicalPattern(
                 r'\\frac\{([^}]+)\}\{([^}]+)\}',
-                lambda m: f'{m.group(1)} over {m.group(2)}',
+                lambda m: self._process_fraction(m.group(1), m.group(2)),
                 PatternCategory.COMMON_EXPRESSION,
                 'General fraction',
                 priority=89
@@ -923,6 +923,28 @@ class CommonExpressionHandler:
             return 'pi'
         else:
             return limit
+    
+    def _process_fraction(self, numerator: str, denominator: str) -> str:
+        """Process fraction components"""
+        # Clean up any remaining LaTeX commands
+        numerator = numerator.strip()
+        denominator = denominator.strip()
+        
+        # Handle common denominators
+        if denominator == '2':
+            if numerator == '1':
+                return 'one half'
+            elif numerator == '\\pi':
+                return 'pi over 2'
+            elif numerator == 'pi':
+                return 'pi over 2'
+        elif denominator == '3' and numerator == '1':
+            return 'one third'
+        elif denominator == '4' and numerator == '1':
+            return 'one fourth'
+        
+        # General case
+        return f'{numerator} over {denominator}'
 
 # ===========================
 # Main Pattern Processor

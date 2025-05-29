@@ -654,7 +654,7 @@ class MathematicalTTSEngine:
         for segment in expression.segments:
             try:
                 voice = segment.voice_role.value if hasattr(segment, 'voice_role') else "en-US-AriaNeural"
-                rate = segment.rate_modifier if hasattr(segment, 'rate_modifier') else "0%"
+                rate = segment.rate_modifier if hasattr(segment, 'rate_modifier') else "+0%"
                 
                 # Add pauses
                 if hasattr(segment, 'pause_before') and segment.pause_before > 0:

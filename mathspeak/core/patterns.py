@@ -689,6 +689,29 @@ class CommonExpressionHandler:
     
     def __init__(self):
         self.patterns = [
+            # Integrals - must be before other patterns to catch full expressions
+            MathematicalPattern(
+                r'\\int_([^\\\s]+)\^([^\\\s]+)\s*([^\\]+?)\s*d([a-z])',
+                lambda m: f'integral from {self._process_limit(m.group(1))} to {self._process_limit(m.group(2))} of {m.group(3)} d {m.group(4)}',
+                PatternCategory.COMMON_EXPRESSION,
+                'Definite integral with limits',
+                priority=98
+            ),
+            MathematicalPattern(
+                r'\\int\s*([^\\]+?)\s*d([a-z])',
+                lambda m: f'integral of {m.group(1)} d {m.group(2)}',
+                PatternCategory.COMMON_EXPRESSION,
+                'Indefinite integral',
+                priority=97
+            ),
+            MathematicalPattern(
+                r'int_([^\\\s]+)\^\s*([^\\\s]+)\s*([^\\]+?)\s*d([a-z])',
+                lambda m: f'integral from {self._process_limit(m.group(1))} to {self._process_limit(m.group(2))} of {m.group(3)} d {m.group(4)}',
+                PatternCategory.COMMON_EXPRESSION,
+                'Definite integral without backslash',
+                priority=98
+            ),
+            
             # Common equalities
             MathematicalPattern(
                 r'e\^{i\\pi}\s*=\s*-1',
@@ -792,6 +815,29 @@ class CommonExpressionHandler:
                 priority=85
             ),
             
+            # Exponents and special functions
+            MathematicalPattern(
+                r'e\^{-([a-z])\^2}',
+                lambda m: f'e to the negative {m.group(1)} squared',
+                PatternCategory.COMMON_EXPRESSION,
+                'Gaussian exponent',
+                priority=92
+            ),
+            MathematicalPattern(
+                r'e\^{([^}]+)}',
+                lambda m: f'e to the {m.group(1)}',
+                PatternCategory.COMMON_EXPRESSION,
+                'General exponential',
+                priority=91
+            ),
+            MathematicalPattern(
+                r'e\^-([a-z])\^2',
+                lambda m: f'e to the negative {m.group(1)} squared',
+                PatternCategory.COMMON_EXPRESSION,
+                'Gaussian exponent without braces',
+                priority=92
+            ),
+            
             # Infinity
             MathematicalPattern(
                 r'\\infty',
@@ -807,6 +853,13 @@ class CommonExpressionHandler:
                 'Infinity symbol',
                 priority=95
             ),
+            MathematicalPattern(
+                r'infty',
+                'infinity',
+                PatternCategory.COMMON_EXPRESSION,
+                'Infinity without backslash',
+                priority=95
+            ),
             
             # Common functions
             MathematicalPattern(
@@ -817,6 +870,22 @@ class CommonExpressionHandler:
                 priority=90
             ),
         ]
+    
+    def _process_limit(self, limit: str) -> str:
+        """Process integral limits"""
+        limit = limit.strip()
+        if limit == '0':
+            return 'zero'
+        elif limit == '1':
+            return 'one'
+        elif limit in ['infty', '\\infty', '∞']:
+            return 'infinity'
+        elif limit == '-infty' or limit == '-\\infty':
+            return 'negative infinity'
+        elif limit == 'pi' or limit == '\\pi':
+            return 'pi'
+        else:
+            return limit
 
 # ===========================
 # Main Pattern Processor

@@ -46,7 +46,7 @@ class VoiceRole(Enum):
 class VoiceSettings:
     """Settings for a specific voice configuration"""
     role: VoiceRole
-    rate: str = "0%"
+    rate: str = "+0%"
     pitch: str = "0Hz"
     volume: str = "100%"
     emphasis_level: float = 1.0
@@ -56,7 +56,7 @@ class SpeechSegment:
     """A segment of speech with voice and timing information"""
     text: str
     voice_role: VoiceRole
-    rate_modifier: str = "0%"
+    rate_modifier: str = "+0%"
     pause_before: float = 0.0
     pause_after: float = 0.0
     add_commentary: Optional[str] = None
@@ -86,7 +86,7 @@ SPEED_PROFILES: Dict[SpeedProfile, str] = {
     SpeedProfile.DEFINITION: "-20%",           # Very slow and clear
     SpeedProfile.THEOREM_STATEMENT: "-15%",    # Deliberate
     SpeedProfile.PROOF_START: "-10%",          # Careful
-    SpeedProfile.PROOF_MIDDLE: "0%",           # Normal
+    SpeedProfile.PROOF_MIDDLE: "+0%",           # Normal
     SpeedProfile.PROOF_END: "-5%",             # Slightly slow for emphasis
     SpeedProfile.EXAMPLE: "+10%",              # Slightly faster
     SpeedProfile.ROUTINE_CALCULATION: "+15%",  # Quick
@@ -94,7 +94,7 @@ SPEED_PROFILES: Dict[SpeedProfile, str] = {
     SpeedProfile.SIMPLE_FORMULA: "+5%",        # Slightly quick
     SpeedProfile.KEY_INSIGHT: "-30%",          # Maximum emphasis
     SpeedProfile.WARNING: "-15%",              # Clear warning
-    SpeedProfile.NORMAL: "0%",                 # Default
+    SpeedProfile.NORMAL: "+0%",                 # Default
 }
 
 # ===========================

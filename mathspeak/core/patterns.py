@@ -783,7 +783,37 @@ class CommonExpressionHandler:
                 priority=85
             ),
             
-            # Common fractions
+            # Fractions - general pattern first
+            MathematicalPattern(
+                r'\\frac\{([^}]+)\}\{([^}]+)\}',
+                lambda m: f'{m.group(1)} over {m.group(2)}',
+                PatternCategory.COMMON_EXPRESSION,
+                'General fraction',
+                priority=89
+            ),
+            MathematicalPattern(
+                r'frac\{([^}]+)\}\{([^}]+)\}',
+                lambda m: f'{m.group(1)} over {m.group(2)}',
+                PatternCategory.COMMON_EXPRESSION,
+                'Fraction without backslash',
+                priority=89
+            ),
+            MathematicalPattern(
+                r'frac\s+(sqrt|\\sqrt)\s+(pi|\\pi)(\d*)',
+                lambda m: f'square root of pi{m.group(3)} over',
+                PatternCategory.COMMON_EXPRESSION,
+                'Special fraction sqrt pi',
+                priority=89
+            ),
+            
+            # Common fractions - handle special cases first
+            MathematicalPattern(
+                r'\\frac\{\\sqrt\{\\pi\}\}\{2\}',
+                'square root of pi over 2',
+                PatternCategory.COMMON_EXPRESSION,
+                'Sqrt(pi)/2',
+                priority=91
+            ),
             MathematicalPattern(
                 r'\\frac\{1\}\{2\}',
                 'one half',

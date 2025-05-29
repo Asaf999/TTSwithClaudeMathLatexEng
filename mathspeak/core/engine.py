@@ -539,7 +539,13 @@ class MathematicalTTSEngine:
         """General mathematical processing"""
         # First apply pattern processor if available
         if hasattr(self, 'pattern_processor'):
-            text = self.pattern_processor.process(text)
+            processed_text = self.pattern_processor.process(text)
+            # If pattern processor made significant changes, trust it more
+            if len(processed_text) > len(text) * 1.5 or 'integral' in processed_text:
+                # Pattern processor did substantial work, do minimal cleanup
+                processed_text = re.sub(r'\\(?=\w)', '', processed_text)  # Remove backslashes before words
+                return ' '.join(processed_text.split())
+            text = processed_text
         
         # Then apply remaining replacements
         replacements = OrderedDict([

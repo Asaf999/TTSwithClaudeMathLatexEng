@@ -40,8 +40,14 @@ from .manifolds import (
     ManifoldsVocabulary,
 )
 
+# Import ODE processor
+from .ode import (
+    ODEProcessor,
+    ODEContext,
+    ODEVocabulary,
+)
+
 # Future domain imports will go here
-# from .ode import ODEProcessor
 # from .real_analysis import RealAnalysisProcessor
 # from .measure_theory import MeasureTheoryProcessor
 # from .combinatorics import CombinatoricsProcessor
@@ -53,6 +59,7 @@ DOMAIN_REGISTRY = {
     'complex_analysis': ComplexAnalysisProcessor,
     'numerical_analysis': NumericalAnalysisProcessor,
     'manifolds': ManifoldsProcessor,
+    'ode': ODEProcessor,
     # Add more as implemented
 }
 
@@ -87,7 +94,6 @@ DOMAIN_INFO = {
         'description': 'ODEs, systems, and qualitative analysis',
         'subcontexts': ['basic_ode', 'systems', 'stability', 'phase_portraits'],
         'priority': 3,
-        'status': 'planned',
     },
     'real_analysis': {
         'name': 'Real Analysis',
@@ -150,18 +156,21 @@ __all__ = [
     'ComplexAnalysisProcessor',
     'NumericalAnalysisProcessor',
     'ManifoldsProcessor',
+    'ODEProcessor',
     
     # Context enums
     'TopologyContext',
     'ComplexContext',
     'NumericalContext',
     'ManifoldsContext',
+    'ODEContext',
     
     # Vocabularies (for advanced users)
     'TopologyVocabulary',
     'ComplexAnalysisVocabulary',
     'NumericalAnalysisVocabulary',
     'ManifoldsVocabulary',
+    'ODEVocabulary',
     
     # Registry and info
     'DOMAIN_REGISTRY',

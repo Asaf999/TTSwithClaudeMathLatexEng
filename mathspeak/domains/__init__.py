@@ -33,8 +33,14 @@ from .numerical_analysis import (
     NumericalAnalysisVocabulary,
 )
 
+# Import manifolds processor
+from .manifolds import (
+    ManifoldsProcessor,
+    ManifoldsContext,
+    ManifoldsVocabulary,
+)
+
 # Future domain imports will go here
-# from .manifolds import ManifoldsProcessor
 # from .ode import ODEProcessor
 # from .real_analysis import RealAnalysisProcessor
 # from .measure_theory import MeasureTheoryProcessor
@@ -46,6 +52,7 @@ DOMAIN_REGISTRY = {
     'topology': TopologyProcessor,
     'complex_analysis': ComplexAnalysisProcessor,
     'numerical_analysis': NumericalAnalysisProcessor,
+    'manifolds': ManifoldsProcessor,
     # Add more as implemented
 }
 
@@ -74,7 +81,6 @@ DOMAIN_INFO = {
         'description': 'Manifolds, connections, and curvature',
         'subcontexts': ['charts', 'tangent_bundles', 'differential_forms', 'connections'],
         'priority': 3,
-        'status': 'planned',
     },
     'ode': {
         'name': 'Ordinary Differential Equations',
@@ -143,16 +149,19 @@ __all__ = [
     'TopologyProcessor',
     'ComplexAnalysisProcessor',
     'NumericalAnalysisProcessor',
+    'ManifoldsProcessor',
     
     # Context enums
     'TopologyContext',
     'ComplexContext',
     'NumericalContext',
+    'ManifoldsContext',
     
     # Vocabularies (for advanced users)
     'TopologyVocabulary',
     'ComplexAnalysisVocabulary',
     'NumericalAnalysisVocabulary',
+    'ManifoldsVocabulary',
     
     # Registry and info
     'DOMAIN_REGISTRY',

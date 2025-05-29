@@ -1,0 +1,626 @@
+[
+  {
+    "test": "Empty input",
+    "input": "",
+    "success": true,
+    "output": "",
+    "error": "",
+    "duration": 0.005309581756591797
+  },
+  {
+    "test": "Single character",
+    "input": "x",
+    "success": true,
+    "output": "x",
+    "error": "",
+    "duration": 0.0003478527069091797
+  },
+  {
+    "test": "Simple expression",
+    "input": "x + y",
+    "success": true,
+    "output": "x + y",
+    "error": "",
+    "duration": 0.00018906593322753906
+  },
+  {
+    "test": "Basic fraction",
+    "input": "\\frac{1}{2}",
+    "success": true,
+    "output": "one half",
+    "error": "",
+    "duration": 0.0001537799835205078
+  },
+  {
+    "test": "Greek letters",
+    "input": "\\alpha + \\beta = \\gamma",
+    "success": true,
+    "output": "alpha + beta equals gamma",
+    "error": "",
+    "duration": 0.00017261505126953125
+  },
+  {
+    "test": "Integral",
+    "input": "\\int_0^1 x dx",
+    "success": true,
+    "output": "integral from zero to one of x d x",
+    "error": "",
+    "duration": 0.00019097328186035156
+  },
+  {
+    "test": "Sum",
+    "input": "\\sum_{n=1}^{\\infty} \\frac{1}{n^2}",
+    "success": true,
+    "output": "the sum from n equals 1 to infinity of 1 over n^2",
+    "error": "",
+    "duration": 0.00013518333435058594
+  },
+  {
+    "test": "Matrix",
+    "input": "\\begin{pmatrix} a & b \\\\ c & d \\end{pmatrix}",
+    "success": true,
+    "output": "\\beginpmatrix a & b c & d \\endpmatrix",
+    "error": "",
+    "duration": 0.00020933151245117188
+  },
+  {
+    "test": "Complex number",
+    "input": "z = re^{i\\theta}",
+    "success": true,
+    "output": "z is equal to re to the itheta",
+    "error": "",
+    "duration": 0.00011229515075683594
+  },
+  {
+    "test": "Limit",
+    "input": "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1",
+    "success": true,
+    "output": "the limit as x approaches zero of sin x over x is 1",
+    "error": "",
+    "duration": 0.00015544891357421875
+  },
+  {
+    "test": "Malformed: Unmatched braces open",
+    "input": "\\frac{1{2}",
+    "success": true,
+    "output": "\\frac1{2",
+    "error": "",
+    "duration": 0.0001590251922607422
+  },
+  {
+    "test": "Malformed: Unmatched braces close",
+    "input": "\\frac1}{2}",
+    "success": true,
+    "output": "\\frac1}2",
+    "error": "",
+    "duration": 0.00015044212341308594
+  },
+  {
+    "test": "Malformed: Missing arguments",
+    "input": "\\frac{}{}",
+    "success": true,
+    "output": "\\frac",
+    "error": "",
+    "duration": 0.00015425682067871094
+  },
+  {
+    "test": "Malformed: Incomplete command",
+    "input": "\\fra",
+    "success": true,
+    "output": "\\fra",
+    "error": "",
+    "duration": 0.00017547607421875
+  },
+  {
+    "test": "Malformed: Invalid command",
+    "input": "\\notacommand{x}",
+    "success": true,
+    "output": "\\notacommandx",
+    "error": "",
+    "duration": 0.0001614093780517578
+  },
+  {
+    "test": "Malformed: Nested unmatched",
+    "input": "\\frac{\\frac{1}{2}{3}",
+    "success": true,
+    "output": "\\fracone half{3",
+    "error": "",
+    "duration": 0.00015807151794433594
+  },
+  {
+    "test": "Malformed: Empty subscript",
+    "input": "x_{}",
+    "success": true,
+    "output": "x_",
+    "error": "",
+    "duration": 0.00013446807861328125
+  },
+  {
+    "test": "Malformed: Empty superscript",
+    "input": "x^{}",
+    "success": true,
+    "output": "x^",
+    "error": "",
+    "duration": 0.00013399124145507812
+  },
+  {
+    "test": "Malformed: Multiple errors",
+    "input": "\\frac{1}{} + \\sum_{}^{} x_",
+    "success": true,
+    "output": "\\frac1 + \\sum_^ x_",
+    "error": "",
+    "duration": 0.00016617774963378906
+  },
+  {
+    "test": "Malformed: Just backslash",
+    "input": "\\",
+    "success": true,
+    "output": "",
+    "error": "",
+    "duration": 0.0001316070556640625
+  },
+  {
+    "test": "Malformed: Random backslashes",
+    "input": "\\\\\\\\\\",
+    "success": true,
+    "output": "",
+    "error": "",
+    "duration": 0.00013566017150878906
+  },
+  {
+    "test": "Malformed: Null bytes",
+    "input": "x\u0000y",
+    "success": true,
+    "output": "x\u0000y",
+    "error": "",
+    "duration": 0.0001220703125
+  },
+  {
+    "test": "Malformed: Unicode mess",
+    "input": "\u222b\u2202\u2207\u2297\u2295\u2211\u220f",
+    "success": true,
+    "output": "\u222b\u2202\u2207\u2297\u2295\u2211\u220f",
+    "error": "",
+    "duration": 0.00014448165893554688
+  },
+  {
+    "test": "Malformed: Mixed valid/invalid",
+    "input": "\\int_0^1 \\notreal{x} dx",
+    "success": true,
+    "output": "integral from zero to one of notreal{x} d x",
+    "error": "",
+    "duration": 0.00015091896057128906
+  },
+  {
+    "test": "Very long expression (1000 terms)",
+    "input": "x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + ...",
+    "success": true,
+    "output": "x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + x + ...",
+    "error": "",
+    "duration": 0.0022966861724853516
+  },
+  {
+    "test": "Deeply nested (50 levels)",
+    "input": "\\frac{\\frac{\\frac{\\frac{\\frac{\\frac{\\frac{\\frac{\\frac{\\frac{\\frac{\\frac{\\frac{\\frac{\\frac{\\frac{\\fra...",
+    "success": true,
+    "output": "\\frac{frac{frac{frac{frac{frac{frac{frac{frac{frac{frac{frac{frac{frac{frac{frac{frac{frac{frac{frac...",
+    "error": "",
+    "duration": 0.0008444786071777344
+  },
+  {
+    "test": "Many subscripts (100)",
+    "input": "x_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i...",
+    "success": true,
+    "output": "x_i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_{i_...",
+    "error": "",
+    "duration": 0.0010881423950195312
+  },
+  {
+    "test": "Unicode heavy",
+    "input": "\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211...",
+    "success": true,
+    "output": "\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211\u220f\u2297\u2295\u2202\u2207\u222b\u2211...",
+    "error": "",
+    "duration": 0.0011036396026611328
+  },
+  {
+    "test": "Security: Path traversal attempt",
+    "input": "\\input{../../../../etc/passwd}",
+    "success": true,
+    "output": "in put../../../../etc/passwd",
+    "error": "",
+    "duration": 0.00024771690368652344
+  },
+  {
+    "test": "Security: Command injection",
+    "input": "\\write18{rm -rf /}",
+    "success": true,
+    "output": "\\write18rm -rf /",
+    "error": "",
+    "duration": 0.0001678466796875
+  },
+  {
+    "test": "Security: File write attempt",
+    "input": "\\openout{/tmp/evil.txt}",
+    "success": true,
+    "output": "\\openout/tmp/evil.txt",
+    "error": "",
+    "duration": 0.00025725364685058594
+  },
+  {
+    "test": "Security: Infinite loop attempt",
+    "input": "\\def\\x{\\x}\\x",
+    "success": true,
+    "output": "\\def\\x\\x\\x",
+    "error": "",
+    "duration": 0.000232696533203125
+  },
+  {
+    "test": "Security: Memory bomb",
+    "input": "\\def\\x{AAAA}\\def\\y{\\x\\x\\x\\x}\\def\\x{AAAA}\\def\\y{\\x\\x\\x\\x}\\def\\x{AAAA}\\def\\y{\\x\\x\\x\\x}\\def\\x{AAAA}\\def...",
+    "success": true,
+    "output": "\\def\\xAAAA\\def\\y\\x\\x\\x\\x\\def\\xAAAA\\def\\y\\x\\x\\x\\x\\def\\xAAAA\\def\\y\\x\\x\\x\\x\\def\\xAAAA\\def\\y\\x\\x\\x\\x\\def...",
+    "error": "",
+    "duration": 0.0007491111755371094
+  },
+  {
+    "test": "Security: Format string",
+    "input": "%s%s%s%s%s%s%s",
+    "success": true,
+    "output": "%s%s%s%s%s%s%s",
+    "error": "",
+    "duration": 0.0002620220184326172
+  },
+  {
+    "test": "Security: SQL injection style",
+    "input": "'; DROP TABLE users; --",
+    "success": true,
+    "output": "'; DROP TABLE users; --",
+    "error": "",
+    "duration": 0.00023603439331054688
+  },
+  {
+    "test": "Security: Script injection",
+    "input": "<script>alert('xss')</script>",
+    "success": true,
+    "output": "<script>alert('xss')</script>",
+    "error": "",
+    "duration": 0.00021409988403320312
+  },
+  {
+    "test": "Security: Binary data",
+    "input": "\u0000\u0001\u0002\u0003\u0004\u0005",
+    "success": true,
+    "output": "\u0000\u0001\u0002\u0003\u0004\u0005",
+    "error": "",
+    "duration": 0.00012874603271484375
+  },
+  {
+    "test": "Security: Control characters",
+    "input": "\r\n\t\b\f",
+    "success": true,
+    "output": "\b",
+    "error": "",
+    "duration": 0.00015592575073242188
+  },
+  {
+    "test": "Domain switch 0: Topology",
+    "input": "Let (X, \\tau) be a T_2 space",
+    "success": true,
+    "output": "Let the open interval from X to tau be a T_2 space",
+    "error": "",
+    "duration": 0.0001919269561767578
+  },
+  {
+    "test": "Domain switch 19: Manifolds",
+    "input": "TM = \\bigsqcup_{p \\in M} T_p M",
+    "success": true,
+    "output": "TM equals \\bigsqcup_p in M T_p M",
+    "error": "",
+    "duration": 1.1920928955078125e-06
+  },
+  {
+    "test": "Concurrent processing (50 expressions)",
+    "input": "50 expressions",
+    "success": true,
+    "output": "50/50 successful",
+    "error": "Total time: 0.00s",
+    "duration": 0.0011436939239501953
+  },
+  {
+    "test": "Special char: Emoji in text",
+    "input": "Let \ud83d\ude80 = velocity",
+    "success": true,
+    "output": "Let \ud83d\ude80 yields velocity",
+    "error": "",
+    "duration": 0.0002288818359375
+  },
+  {
+    "test": "Special char: Chinese characters",
+    "input": "\u8bbe x = \u901f\u5ea6",
+    "success": true,
+    "output": "\u8bbe x equals \u901f\u5ea6",
+    "error": "",
+    "duration": 0.00019860267639160156
+  },
+  {
+    "test": "Special char: Arabic RTL",
+    "input": "\u062f\u0639 x = \u0627\u0644\u0633\u0631\u0639\u0629",
+    "success": true,
+    "output": "\u062f\u0639 x is equal to \u0627\u0644\u0633\u0631\u0639\u0629",
+    "error": "",
+    "duration": 0.00015997886657714844
+  },
+  {
+    "test": "Special char: Mixed scripts",
+    "input": "\u222b \ud55c\uae00 dx = \u65e5\u672c\u8a9e",
+    "success": true,
+    "output": "\u222b \ud55c\uae00 dx is \u65e5\u672c\u8a9e",
+    "error": "",
+    "duration": 0.00013947486877441406
+  },
+  {
+    "test": "Special char: Combining marks",
+    "input": "x\u0303 + \u1ef9 = z\u0303",
+    "success": true,
+    "output": "x\u0303 + \u1ef9 gives us z\u0303",
+    "error": "",
+    "duration": 0.0001342296600341797
+  },
+  {
+    "test": "Special char: Zero width spaces",
+    "input": "x\u200b+\u200by\u200b=\u200bz",
+    "success": true,
+    "output": "x\u200b+\u200by\u200b yields \u200bz",
+    "error": "",
+    "duration": 0.0001277923583984375
+  },
+  {
+    "test": "Special char: Surrogate pairs",
+    "input": "\ud835\udd4f + \ud835\udd50 = \u2124",
+    "success": true,
+    "output": "\ud835\udd4f + \ud835\udd50 equals \u2124",
+    "error": "",
+    "duration": 0.0001461505889892578
+  },
+  {
+    "test": "Special char: Control chars",
+    "input": "x\u200by\u200c=\u200dz",
+    "success": true,
+    "output": "x\u200by\u200c is equal to \u200dz",
+    "error": "",
+    "duration": 0.00015115737915039062
+  },
+  {
+    "test": "Special char: BOM marker",
+    "input": "\ufeffx + y = z",
+    "success": true,
+    "output": "\ufeffx + y is z",
+    "error": "",
+    "duration": 0.00014138221740722656
+  },
+  {
+    "test": "Special char: Invalid UTF-8",
+    "input": "x\ufffdy\ufffdz",
+    "success": true,
+    "output": "x\ufffdy\ufffdz",
+    "error": "",
+    "duration": 0.00011968612670898438
+  },
+  {
+    "test": "Cache hit performance",
+    "input": "\\int_0^1 x^2 dx",
+    "success": false,
+    "output": "First: 0.000s, Second: 0.000s",
+    "error": "Cache not improving performance",
+    "duration": 1.9073486328125e-06
+  },
+  {
+    "test": "Cache overflow (2000 unique expressions)",
+    "input": "Many unique expressions",
+    "success": true,
+    "output": "Processed 2000 expressions",
+    "error": "",
+    "duration": 0.32603907585144043
+  },
+  {
+    "test": "Recovery after error",
+    "input": "Valid after invalid",
+    "success": true,
+    "output": "a + b yields c",
+    "error": "",
+    "duration": 0.00014281272888183594
+  },
+  {
+    "test": "Memory leak test (1000 expressions)",
+    "input": "1000 different expressions",
+    "success": true,
+    "output": "Memory increase: 0.0MB",
+    "error": "",
+    "duration": 0
+  },
+  {
+    "test": "Edge case: Empty topology",
+    "input": "(X, \\{\\emptyset, X\\})",
+    "success": true,
+    "output": "the open interval from X to \\{the empty set, X\\}",
+    "error": "",
+    "duration": 0.0001304149627685547
+  },
+  {
+    "test": "Edge case: Infinite union",
+    "input": "\\bigcup_{i=1}^{\\infty} U_i",
+    "success": true,
+    "output": "\\bigcup_i equals 1^infinity U_i",
+    "error": "",
+    "duration": 0.00017690658569335938
+  },
+  {
+    "test": "Edge case: Strange space names",
+    "input": "T_{2\\frac{1}{2}}",
+    "success": true,
+    "output": "T_2one half",
+    "error": "",
+    "duration": 0.0001533031463623047
+  },
+  {
+    "test": "Edge case: Branch cuts",
+    "input": "\\log z, z \\in \\mathbb{C} \\setminus (-\\infty, 0]",
+    "success": true,
+    "output": "log z, z in the complex numbers \\setminus (-infinity, 0]",
+    "error": "",
+    "duration": 0.00018072128295898438
+  },
+  {
+    "test": "Edge case: Multi-valued",
+    "input": "z^{1/3}",
+    "success": true,
+    "output": "z^1/3",
+    "error": "",
+    "duration": 0.00012540817260742188
+  },
+  {
+    "test": "Edge case: Essential singularity",
+    "input": "e^{1/z}",
+    "success": true,
+    "output": "e to the 1/z",
+    "error": "",
+    "duration": 8.106231689453125e-05
+  },
+  {
+    "test": "Edge case: Convergence criteria",
+    "input": "\\|x_{k+1} - x_k\\| < 10^{-16}",
+    "success": true,
+    "output": "\\|x_the set of all k+1} - x_k\\ such that < 10^{-16",
+    "error": "",
+    "duration": 0.00023412704467773438
+  },
+  {
+    "test": "Edge case: Ill-conditioned",
+    "input": "\\kappa(A) = 10^{15}",
+    "success": true,
+    "output": "\\kappa(A) is equal to 10^15",
+    "error": "",
+    "duration": 0.0001678466796875
+  },
+  {
+    "test": "Edge case: Special matrices",
+    "input": "A \\in \\mathbb{R}^{1000 \\times 1000}",
+    "success": true,
+    "output": "A in the real numbers^1000 times 1000",
+    "error": "",
+    "duration": 0.000186920166015625
+  },
+  {
+    "test": "Edge case: Stiff equation",
+    "input": "y' = -1000(y - \\cos(t)) - \\sin(t)",
+    "success": true,
+    "output": "y' is -1000(y - cosine(t)) - sine(t)",
+    "error": "",
+    "duration": 0.00018715858459472656
+  },
+  {
+    "test": "Edge case: Singular point",
+    "input": "x^2 y'' + xy' + (x^2 - n^2)y = 0",
+    "success": true,
+    "output": "x^2 y'' + xy' + (x^2 - n^2)y gives us 0",
+    "error": "",
+    "duration": 0.00016546249389648438
+  },
+  {
+    "test": "Edge case: DAE system",
+    "input": "F(t, y, y') = 0",
+    "success": true,
+    "output": "Fthe open interval from t to y, y' yields 0",
+    "error": "",
+    "duration": 0.00011658668518066406
+  },
+  {
+    "test": "Edge case: Exotic manifold",
+    "input": "E_8 \\times E_8",
+    "success": true,
+    "output": "E_8 times E_8",
+    "error": "",
+    "duration": 0.00014710426330566406
+  },
+  {
+    "test": "Edge case: Non-orientable",
+    "input": "\\mathbb{RP}^2",
+    "success": true,
+    "output": "\\mathbbRP^2",
+    "error": "",
+    "duration": 0.0001614093780517578
+  },
+  {
+    "test": "Edge case: Infinite dimensional",
+    "input": "\\text{Diff}(S^1)",
+    "success": true,
+    "output": "\\textDif and only if(S^1)",
+    "error": "",
+    "duration": 0.0001735687255859375
+  },
+  {
+    "test": "Calculus: Chain rule",
+    "input": "\\frac{d}{dx}[f(g(x))] = f'(g(x)) \\cdot g'(x)",
+    "success": true,
+    "output": "d over dx[f(g(x))] equals f'(g(x)) cdot g'(x)",
+    "error": "",
+    "duration": 0.00012493133544921875
+  },
+  {
+    "test": "LinAlg: Eigenvalue equation",
+    "input": "(A - \\lambda I)\\mathbf{v} = \\mathbf{0}",
+    "success": true,
+    "output": "(A - lambda I)\\mathbfv is equal to \\mathbf0",
+    "error": "",
+    "duration": 0.00022029876708984375
+  },
+  {
+    "test": "DiffGeo: Gauss-Bonnet",
+    "input": "\\int_M K dA + \\int_{\\partial M} k_g ds = 2\\pi \\chi(M)",
+    "success": true,
+    "output": "in t_M K dA + in t_partial M k_g ds is 2pi \\chi(M)",
+    "error": "",
+    "duration": 0.00023031234741210938
+  },
+  {
+    "test": "Quantum: Schr\u00f6dinger",
+    "input": "i\\hbar\\frac{\\partial}{\\partial t}\\Psi = \\hat{H}\\Psi",
+    "success": true,
+    "output": "ihbarpartial over partial tPsi gives us hat{H}Psi",
+    "error": "",
+    "duration": 0.00021886825561523438
+  },
+  {
+    "test": "Stats: Normal distribution",
+    "input": "f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}\\left(\\frac{x-\\mu}{\\sigma}\\right)^2}",
+    "success": true,
+    "output": "f(x) yields 1 over sigmasquare root of 2pi e to the -frac{1{2}left(x-mu over sigmaright)^2}",
+    "error": "",
+    "duration": 0.0002753734588623047
+  },
+  {
+    "test": "Number theory: Euler's theorem",
+    "input": "a^{\\phi(n)} \\equiv 1 \\pmod{n}",
+    "success": true,
+    "output": "a^\\phi(n) \\equiv 1 plus or minus odn",
+    "error": "",
+    "duration": 0.00023603439331054688
+  },
+  {
+    "test": "Functional: Riesz representation",
+    "input": "\\langle f, g \\rangle = \\int_X f(x)\\overline{g(x)} d\\mu(x)",
+    "success": true,
+    "output": "langle f, g rangle equals int_X f(x)overline{g(x)} dmu(x)",
+    "error": "",
+    "duration": 0.00016164779663085938
+  },
+  {
+    "test": "AlgTop: Mayer-Vietoris",
+    "input": "\\cdots \\to H_n(A \\cap B) \\to H_n(A) \\oplus H_n(B) \\to H_n(X) \\to H_{n-1}(A \\cap B) \\to \\cdots",
+    "success": true,
+    "output": "dot s \\to H_n(A intersect B) \\to H_n(A) \\oplus H_n(B) \\to H_n(X) \\to H_n-1(A intersect B) \\to dot s",
+    "error": "",
+    "duration": 0.0002605915069580078
+  }
+]

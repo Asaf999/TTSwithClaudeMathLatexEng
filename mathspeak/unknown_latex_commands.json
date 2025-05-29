@@ -1,4 +1,12 @@
 {
+  "Psi": {
+    "contexts": [
+      "i\\hbar\\frac{\\partial}{\\partial t}\\Psi = \\hat{H}\\Ps"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
   "_comment": "This file tracks LaTeX commands that the system doesn't recognize yet",
   "_examples": {
     "\\mathscr": {
@@ -21,13 +29,87 @@
       "last_seen": "timestamp"
     }
   },
-  "cong": {
+  "bigcup": {
     "contexts": [
-      "\\pi_1(S^1) \\cong \\mathbb{Z}"
+      "\\bigcup_{i=1}^{\\infty} U_i"
     ],
     "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "bigsqcup": {
+    "contexts": [
+      "TM = \\bigsqcup_{p \\in M} T_p M"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "cdots": {
+    "contexts": [
+      "\\cdots \\to H_n(A \\cap B) \\to H_n(A) \\oplus H_n(B) "
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "chi": {
+    "contexts": [
+      "\\int_M K dA + \\int_{\\partial M} k_g ds = 2\\pi \\chi"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "cong": {
+    "contexts": [
+      "\\pi_1(S^1) \\cong \\mathbb{Z}",
+      "\\pi_1(S^1) \\cong \\mathbb{Z}"
+    ],
+    "count": 2,
     "first_seen": "2025-05-30 02:13:57",
-    "last_seen": "2025-05-30 02:13:57"
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "def": {
+    "contexts": [
+      "\\def\\x{\\x}\\x",
+      "\\def\\x{AAAA}\\def\\y{\\x\\x\\x\\x}\\def\\x{AAAA}\\def\\y{\\x\\"
+    ],
+    "count": 2,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "emptyset": {
+    "contexts": [
+      "(X, \\{\\emptyset, X\\})"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "equiv": {
+    "contexts": [
+      "a^{\\phi(n)} \\equiv 1 \\pmod{n}"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "fra": {
+    "contexts": [
+      "\\fra"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "hbar": {
+    "contexts": [
+      "i\\hbar\\frac{\\partial}{\\partial t}\\Psi = \\hat{H}\\Ps"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
   },
   "iff": {
     "contexts": [
@@ -37,6 +119,71 @@
     "first_seen": "2025-05-30 02:13:58",
     "last_seen": "2025-05-30 02:13:58"
   },
+  "input": {
+    "contexts": [
+      "\\input{../../../../etc/passwd}"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "kappa": {
+    "contexts": [
+      "\\kappa(A) = 10^{15}"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "lambda": {
+    "contexts": [
+      "(A - \\lambda I)\\mathbf{v} = \\mathbf{0}"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "langle": {
+    "contexts": [
+      "\\langle f, g \\rangle = \\int_X f(x)\\overline{g(x)} "
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "log": {
+    "contexts": [
+      "\\log z, z \\in \\mathbb{C} \\setminus (-\\infty, 0]"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "mu": {
+    "contexts": [
+      "f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}",
+      "\\langle f, g \\rangle = \\int_X f(x)\\overline{g(x)} "
+    ],
+    "count": 2,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "notacommand": {
+    "contexts": [
+      "\\notacommand{x}"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "notreal": {
+    "contexts": [
+      "\\int_0^1 \\notreal{x} dx"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
   "oint": {
     "contexts": [
       "\\oint_\\gamma f(z)dz = 2\\pi i \\sum \\text{Res}(f, z_"
@@ -44,5 +191,104 @@
     "count": 1,
     "first_seen": "2025-05-30 02:14:00",
     "last_seen": "2025-05-30 02:14:00"
+  },
+  "openout": {
+    "contexts": [
+      "\\openout{/tmp/evil.txt}"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "oplus": {
+    "contexts": [
+      "\\cdots \\to H_n(A \\cap B) \\to H_n(A) \\oplus H_n(B) "
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "phi": {
+    "contexts": [
+      "a^{\\phi(n)} \\equiv 1 \\pmod{n}"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "pmod": {
+    "contexts": [
+      "a^{\\phi(n)} \\equiv 1 \\pmod{n}"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "rangle": {
+    "contexts": [
+      "\\langle f, g \\rangle = \\int_X f(x)\\overline{g(x)} "
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "setminus": {
+    "contexts": [
+      "\\log z, z \\in \\mathbb{C} \\setminus (-\\infty, 0]"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "tau": {
+    "contexts": [
+      "Let (X, \\tau) be a T_2 space"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "to": {
+    "contexts": [
+      "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1",
+      "\\lim_{x \\to \\infty} \\frac{1}{x}",
+      "\\cdots \\to H_n(A \\cap B) \\to H_n(A) \\oplus H_n(B) "
+    ],
+    "count": 3,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "undefined": {
+    "contexts": [
+      "\\undefined{command}"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "write": {
+    "contexts": [
+      "\\write18{rm -rf /}"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "x": {
+    "contexts": [
+      "\\def\\x{\\x}\\x",
+      "\\def\\x{AAAA}\\def\\y{\\x\\x\\x\\x}\\def\\x{AAAA}\\def\\y{\\x\\"
+    ],
+    "count": 2,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
+  },
+  "y": {
+    "contexts": [
+      "\\def\\x{AAAA}\\def\\y{\\x\\x\\x\\x}\\def\\x{AAAA}\\def\\y{\\x\\"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 02:47:29",
+    "last_seen": "2025-05-30 02:47:29"
   }
 }

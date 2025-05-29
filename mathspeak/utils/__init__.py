@@ -10,6 +10,9 @@ Modules:
 - logger: Comprehensive logging and performance tracking
 """
 
+from pathlib import Path
+from typing import Dict
+
 from .config import (
     Config,
     VoiceConfig,

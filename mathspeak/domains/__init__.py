@@ -12,6 +12,8 @@ Available domains:
 - (More domains to be implemented)
 """
 
+from typing import List, Dict, Any, Optional
+
 # Import all domain processors
 from .topology import (
     TopologyProcessor,
@@ -165,7 +167,7 @@ __all__ = [
 ]
 
 # Type imports
-from typing import List, Dict, Any, Optional
+from typing import List, Dict, Any, Optional, Optional
 
 import logging
 logger = logging.getLogger(__name__)

@@ -472,10 +472,21 @@ class MathematicalTTSEngine:
             
         except Exception as e:
             logger.error(f"Error processing LaTeX: {e}", exc_info=True)
-            # Return safe fallback
+            if progress:
+                progress.finish("Processing failed")
+            
+            # Return safe fallback with better error message
+            error_msg = "I encountered an error processing this mathematical expression. "
+            if "timeout" in str(e).lower():
+                error_msg += "The expression was too complex and timed out. "
+            elif unknown_commands:
+                error_msg += f"Unknown LaTeX commands were found: {', '.join(unknown_commands[:3])}. "
+            else:
+                error_msg += "Please check the LaTeX syntax. "
+            
             return ProcessedExpression(
                 original=latex,
-                processed=f"Error processing expression: {latex}",
+                processed=error_msg,
                 context="error",
                 segments=[],
                 processing_time=time.time() - start_time

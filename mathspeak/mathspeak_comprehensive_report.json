@@ -1,0 +1,140 @@
+{
+  "metadata": {
+    "test_date": "2025-05-30T03:46:29.366918",
+    "system_info": {
+      "platform": "linux",
+      "python_version": "3.13.3",
+      "cpu_count": 8,
+      "memory_gb": 30.8,
+      "disk_space_gb": 212.3,
+      "architecture": "x86_64"
+    },
+    "mathspeak_version": "1.0.0",
+    "test_suite_version": "1.0.0"
+  },
+  "executive_summary": {
+    "overall_pass_rate": 50.0,
+    "passed_categories": 2,
+    "total_categories": 4,
+    "critical_issues": [],
+    "production_status": "NOT READY",
+    "confidence": "VERY LOW",
+    "recommendation": "Major development work required"
+  },
+  "test_results": {
+    "core_functionality": {
+      "total_tests": 10,
+      "successful": 10,
+      "success_rate": 100.0,
+      "avg_processing_time": 0.0016214609146118163,
+      "max_processing_time": 0.007470846176147461,
+      "errors": [],
+      "status": "PASS"
+    },
+    "stress_tests": {
+      "throughput_expr_per_sec": 1169.088572806306,
+      "expressions_processed": 100,
+      "total_expressions": 100,
+      "memory_initial_mb": 28.15625,
+      "memory_final_mb": 28.15625,
+      "memory_increase_mb": 0.0,
+      "status": "PASS"
+    },
+    "security": {
+      "malicious_inputs_blocked": 1,
+      "total_malicious_tests": 6,
+      "edge_cases_handled": 6,
+      "total_edge_cases": 6,
+      "vulnerabilities": [
+        "Potential injection: ../../../etc/passwd",
+        "Potential injection: '; DROP TABLE users; --",
+        "Potential injection: <script>alert('xss')</script>",
+        "Potential injection: \\input{/etc/passwd}",
+        "Potential injection: ${system('rm -rf /')}"
+      ],
+      "security_score": 16.666666666666664,
+      "robustness_score": 100.0,
+      "status": "FAIL"
+    },
+    "cli": {
+      "tests": [
+        {
+          "test": "Basic expression",
+          "success": true,
+          "expected": true,
+          "passed": true,
+          "stdout_length": 353,
+          "stderr_length": 1979
+        },
+        {
+          "test": "Help command",
+          "success": true,
+          "expected": true,
+          "passed": true,
+          "stdout_length": 2357,
+          "stderr_length": 334
+        },
+        {
+          "test": "Version command",
+          "success": true,
+          "expected": true,
+          "passed": true,
+          "stdout_length": 130,
+          "stderr_length": 334
+        },
+        {
+          "test": "Stats flag",
+          "success": false,
+          "expected": true,
+          "passed": false,
+          "stdout_length": 417,
+          "stderr_length": 3447
+        }
+      ],
+      "passed": 3,
+      "total": 4,
+      "pass_rate": 75.0,
+      "status": "FAIL"
+    }
+  },
+  "performance_analysis": {
+    "avg_response_time_ms": 1.6214609146118164,
+    "throughput_expr_per_sec": 1169.088572806306,
+    "memory_efficiency_mb": 0.0,
+    "scalability_rating": "HIGH"
+  },
+  "security_assessment": {
+    "security_score": 16.666666666666664,
+    "robustness_score": 100.0,
+    "vulnerabilities_found": 5,
+    "security_rating": "LOW"
+  },
+  "user_experience": {},
+  "production_readiness": {},
+  "recommendations": [
+    {
+      "category": "Security",
+      "priority": "CRITICAL",
+      "issue": "5 vulnerabilities found",
+      "recommendation": "Address security vulnerabilities immediately"
+    },
+    {
+      "category": "Monitoring",
+      "priority": "MEDIUM",
+      "issue": "Production monitoring needed",
+      "recommendation": "Implement comprehensive logging and monitoring"
+    },
+    {
+      "category": "Documentation",
+      "priority": "LOW",
+      "issue": "User documentation",
+      "recommendation": "Create comprehensive user guides and API documentation"
+    },
+    {
+      "category": "Testing",
+      "priority": "LOW",
+      "issue": "Continuous testing",
+      "recommendation": "Set up automated testing pipeline for regression detection"
+    }
+  ]
+}

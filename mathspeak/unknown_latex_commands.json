@@ -65,11 +65,12 @@
     "contexts": [
       "\\pi_1(S^1) \\cong \\mathbb{Z}",
       "\\pi_1(S^1) \\cong \\mathbb{Z}",
+      "\\pi_1(S^1) \\cong \\mathbb{Z}",
       "\\pi_1(S^1) \\cong \\mathbb{Z}"
     ],
-    "count": 3,
+    "count": 4,
     "first_seen": "2025-05-30 02:13:57",
-    "last_seen": "2025-05-30 02:50:44"
+    "last_seen": "2025-05-30 03:46:29"
   },
   "def": {
     "contexts": [
@@ -86,11 +87,12 @@
     "contexts": [
       "\\det(A) = ad - bc",
       "\\det=\\cdot-\\cdot=-=-",
-      "\\det(A) = 2 \\cdot 4 - 1 \\cdot 3 = 8 - 3 = 5"
+      "\\det(A) = 2 \\cdot 4 - 1 \\cdot 3 = 8 - 3 = 5",
+      "\\det(A) = ad - bc"
     ],
-    "count": 3,
+    "count": 4,
     "first_seen": "2025-05-30 03:43:46",
-    "last_seen": "2025-05-30 03:43:56"
+    "last_seen": "2025-05-30 03:46:29"
   },
   "documentclass": {
     "contexts": [
@@ -151,11 +153,12 @@
   "input": {
     "contexts": [
       "\\input{../../../../etc/passwd}",
+      "\\input{/etc/passwd}",
       "\\input{/etc/passwd}"
     ],
-    "count": 2,
+    "count": 3,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 02:53:21"
+    "last_seen": "2025-05-30 03:46:29"
   },
   "kappa": {
     "contexts": [
@@ -200,11 +203,14 @@
   "mu": {
     "contexts": [
       "f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{1}{2}",
-      "\\langle f, g \\rangle = \\int_X f(x)\\overline{g(x)} "
+      "\\langle f, g \\rangle = \\int_X f(x)\\overline{g(x)} ",
+      "\\int_{-\\infty}^{\\infty} e^{-\\frac{(x-\\mu)^2}{2\\sig",
+      "\\int_{-\\infty}^{\\infty} e^{-\\frac{(x-\\mu)^2}{2\\sig",
+      "\\int_{-\\infty}^{\\infty} e^{-\\frac{(x-\\mu)^2}{2\\sig"
     ],
-    "count": 2,
+    "count": 22,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 02:47:29"
+    "last_seen": "2025-05-30 03:46:29"
   },
   "notacommand": {
     "contexts": [
@@ -224,11 +230,12 @@
   },
   "oint": {
     "contexts": [
-      "\\oint_\\gamma f(z)dz = 2\\pi i \\sum \\text{Res}(f, z_"
+      "\\oint_\\gamma f(z)dz = 2\\pi i \\sum \\text{Res}(f, z_",
+      "\\oint_C f(z) dz = 2\\pi i \\sum \\text{Res}(f, z_k)"
     ],
-    "count": 1,
+    "count": 2,
     "first_seen": "2025-05-30 02:14:00",
-    "last_seen": "2025-05-30 02:14:00"
+    "last_seen": "2025-05-30 03:46:29"
   },
   "openout": {
     "contexts": [
@@ -303,18 +310,19 @@
       "\\lim_{x \\to 0} \\frac{\\sin x}{x}",
       "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1"
     ],
-    "count": 10,
+    "count": 11,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 03:43:58"
+    "last_seen": "2025-05-30 03:46:29"
   },
   "undefined": {
     "contexts": [
       "\\undefined{command}",
-      "\\undefined{command}"
+      "\\undefined{command}",
+      "\\undefined{x}"
     ],
-    "count": 2,
+    "count": 3,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 02:51:37"
+    "last_seen": "2025-05-30 03:46:29"
   },
   "unknowncommand": {
     "contexts": [

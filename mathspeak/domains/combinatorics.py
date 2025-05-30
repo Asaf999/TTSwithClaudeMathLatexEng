@@ -275,8 +275,8 @@ class CombinatoricsVocabulary:
             r'\\text{lattice}': 'lattice',
             r'\\text{Boolean lattice}': 'Boolean lattice',
             r'\\text{distributive lattice}': 'distributive lattice',
-            r'\\text{Möbius function}': 'Möbius function',
-            r'\\mu\\(x,y\\)': 'the Möbius function mu of x comma y',
+            r'\\text{Mï¿½bius function}': 'Mï¿½bius function',
+            r'\\mu\\(x,y\\)': 'the Mï¿½bius function mu of x comma y',
             r'\\text{incidence algebra}': 'incidence algebra',
         })
         
@@ -423,6 +423,8 @@ class CombinatoricsVocabulary:
     
     def _process_nested(self, content: str) -> str:
         """Process nested mathematical content"""
+        if content is None:
+            return ""
         content = content.strip()
         
         # Handle common nested patterns
@@ -569,7 +571,7 @@ class CombinatoricsProcessor:
                 (r'Inclusion-Exclusion Principle', 'the Inclusion-Exclusion Principle'),
                 (r'Pigeonhole Principle', 'the Pigeonhole Principle'),
                 (r'Burnside\'s Lemma', 'Burnside\'s Lemma'),
-                (r'Pólya Enumeration', 'Pólya Enumeration'),
+                (r'Pï¿½lya Enumeration', 'Pï¿½lya Enumeration'),
             ]
             
             for pattern, replacement in theorem_patterns:

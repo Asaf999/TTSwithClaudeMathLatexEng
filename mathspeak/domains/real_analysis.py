@@ -83,8 +83,8 @@ class RealAnalysisVocabulary:
         
         vocab.update({
             r'\\mathbb{R}': 'the real numbers',
-            r'\\mathbb{R}^+': 'the positive real numbers',
-            r'\\mathbb{R}^-': 'the negative real numbers',
+            r'\\mathbb{R}^\\+': 'the positive real numbers',
+            r'\\mathbb{R}^\\-': 'the negative real numbers',
             r'\\mathbb{R}_+': 'the non-negative real numbers',
             r'\\mathbb{R}_{++}': 'the strictly positive real numbers',
             r'\\mathbb{R}^n': 'n-dimensional real space',
@@ -129,7 +129,7 @@ class RealAnalysisVocabulary:
             r'C^\\infty\\(([^)]+)\\)': lambda m: f"the space of smooth functions on {self._process_nested(m.group(1))}",
             r'\\text{uniformly continuous}': 'uniformly continuous',
             r'\\text{Lipschitz continuous}': 'Lipschitz continuous',
-            r'\\text{Hölder continuous}': 'Hölder continuous',
+            r'\\text{Holder continuous}': 'Holder continuous',
         })
         
         # ===== DIFFERENTIATION =====
@@ -341,6 +341,8 @@ class RealAnalysisVocabulary:
     
     def _process_nested(self, content: str) -> str:
         """Process nested mathematical content"""
+        if content is None:
+            return ""
         content = content.strip()
         
         # Handle common nested patterns

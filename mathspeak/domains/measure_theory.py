@@ -288,7 +288,7 @@ class MeasureTheoryVocabulary:
         # ===== INEQUALITIES =====
         
         vocab.update({
-            r'\\text{Hölder\'s inequality}': 'Hölder\'s inequality',
+            r'\\text{Hï¿½lder\'s inequality}': 'Hï¿½lder\'s inequality',
             r'\\text{Minkowski\'s inequality}': 'Minkowski\'s inequality',
             r'\\text{Jensen\'s inequality}': 'Jensen\'s inequality',
             r'\\text{Markov\'s inequality}': 'Markov\'s inequality',
@@ -393,6 +393,8 @@ class MeasureTheoryVocabulary:
     
     def _process_nested(self, content: str) -> str:
         """Process nested mathematical content"""
+        if content is None:
+            return ""
         content = content.strip()
         
         # Handle common nested patterns
@@ -605,7 +607,7 @@ def test_measure_theory_processor():
         # Lp spaces
         r"The space $L^p(X, \mu)$ consists of functions $f$ with $\|f\|_p = \left(\int |f|^p \, d\mu\right)^{1/p} < \infty$.",
         r"For $f \in L^\infty$, $\|f\|_\infty = \text{esssup} |f|$.",
-        r"By Hölder's inequality, $\|fg\|_1 \leq \|f\|_p \|g\|_q$ where $1/p + 1/q = 1$.",
+        r"By Hï¿½lder's inequality, $\|fg\|_1 \leq \|f\|_p \|g\|_q$ where $1/p + 1/q = 1$.",
         
         # Product measures
         r"Fubini's theorem: if $f \geq 0$ or $f \in L^1(\mu \times \nu)$, then $\int f \, d(\mu \times \nu) = \int \int f(x,y) \, d\mu(x) \, d\nu(y)$.",

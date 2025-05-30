@@ -362,7 +362,8 @@ class MathematicalTTSEngine:
     def __init__(self, 
                  voice_manager: Optional['VoiceManager'] = None,
                  config_path: Optional[Path] = None,
-                 enable_caching: bool = True):
+                 enable_caching: bool = True,
+                 **kwargs):
         
         # Initialize components
         self.voice_manager = voice_manager  # or VoiceManager()
@@ -376,8 +377,19 @@ class MathematicalTTSEngine:
         
         # Performance optimization
         self.enable_caching = enable_caching
-        self.expression_cache: Dict[str, ProcessedExpression] = {}
+        self.prefer_offline_tts = kwargs.get('prefer_offline_tts', False)
+        
+        # Initialize advanced cache
+        if enable_caching:
+            from ..utils.cache import get_expression_cache
+            self.expression_cache = get_expression_cache()
+        else:
+            self.expression_cache = {}
         self.max_cache_size = 1000
+        
+        # Initialize TTS engine manager
+        from .tts_engines import TTSEngineManager
+        self.tts_manager = TTSEngineManager(prefer_offline=self.prefer_offline_tts)
         
         # Configuration
         self.config = self._load_config(config_path) if config_path else {}
@@ -401,49 +413,112 @@ class MathematicalTTSEngine:
     
     def process_latex(self, 
                       latex: str, 
-                      force_context: Optional[MathematicalContext] = None) -> ProcessedExpression:
+                      force_context: Optional[MathematicalContext] = None,
+                      show_progress: bool = False) -> ProcessedExpression:
         """Process LaTeX expression into speech segments"""
         start_time = time.time()
         
+        # Validate input
+        if not latex or not latex.strip():
+            return ProcessedExpression(
+                original=latex,
+                processed="No mathematical expression provided.",
+                context="empty",
+                segments=[],
+                processing_time=0.0,
+                unknown_commands=[]
+            )
+        
+        # Initialize progress tracking
+        progress = None
+        if show_progress and len(latex) > 100:
+            from ..utils.progress import ProgressIndicator
+            progress = ProgressIndicator(total=6, description="Processing LaTeX")
+            progress.start()
+        
         # Check cache
         cache_key = self._get_cache_key(latex, force_context)
-        if self.enable_caching and cache_key in self.expression_cache:
-            self.metrics.cache_hits += 1
-            return self.expression_cache[cache_key]
+        if self.enable_caching:
+            cached = self.expression_cache.get(cache_key)
+            if cached:
+                self.metrics.cache_hits += 1
+                if progress:
+                    progress.finish("Loaded from cache")
+                return cached
         
         self.metrics.cache_misses += 1
         
         try:
-            # Detect context
-            context, confidence = self.context_detector.detect_context(latex)
+            # Step 1: Detect context
+            if progress:
+                progress.set_progress(1)
+            
+            from ..utils.timeout import timeout_with_fallback
+            context, confidence = timeout_with_fallback(
+                lambda: self.context_detector.detect_context(latex),
+                timeout_seconds=5.0,
+                fallback=(MathematicalContext.GENERAL, 0.0),
+                operation="context detection"
+            )
+            
             if force_context:
                 context = force_context
             
             logger.debug(f"Detected context: {context.value} (confidence: {confidence:.2f})")
             
-            # Pre-process
-            processed_text = self._preprocess_latex(latex)
+            # Step 2: Pre-process
+            if progress:
+                progress.set_progress(2)
             
-            # Extract unknown commands
+            processed_text = timeout_with_fallback(
+                lambda: self._preprocess_latex(latex),
+                timeout_seconds=3.0,
+                fallback=latex,
+                operation="preprocessing"
+            )
+            
+            # Step 3: Extract unknown commands
+            if progress:
+                progress.set_progress(3)
+            
             unknown_commands = self._extract_unknown_commands(processed_text)
             if unknown_commands:
                 for cmd in unknown_commands:
                     self.unknown_tracker.track_command(cmd, latex[:50])
                 self.metrics.unknown_commands_found += len(unknown_commands)
             
-            # Domain-specific processing
-            if context in self.domain_processors:
-                processed_text = self.domain_processors[context].process(processed_text)
-            else:
-                processed_text = self._general_processing(processed_text)
+            # Step 4: Domain-specific processing
+            if progress:
+                progress.set_progress(4)
             
-            # Natural language enhancement
+            if context in self.domain_processors:
+                processed_text = timeout_with_fallback(
+                    lambda: self.domain_processors[context].process(processed_text),
+                    timeout_seconds=5.0,
+                    fallback=processed_text,
+                    operation=f"{context.value} processing"
+                )
+            else:
+                processed_text = timeout_with_fallback(
+                    lambda: self._general_processing(processed_text),
+                    timeout_seconds=5.0,
+                    fallback=processed_text,
+                    operation="general processing"
+                )
+            
+            # Step 5: Natural language enhancement
+            if progress:
+                progress.set_progress(5)
+            
             processed_text = self.language_enhancer.enhance_text(processed_text)
             
             # Split into sentences
             sentences = self._intelligent_sentence_split(processed_text)
             
-            # Process with voice manager
+            # Step 6: Process with voice manager
+            if progress:
+                progress.set_progress(6)
+            
             if self.voice_manager:
                 segments = self.voice_manager.process_text(processed_text, sentences)
                 segments = self.voice_manager.combine_speech_segments(segments)
@@ -466,7 +541,13 @@ class MathematicalTTSEngine:
             
             # Cache result
             if self.enable_caching:
-                self._add_to_cache(cache_key, result)
+                if hasattr(self.expression_cache, 'set'):
+                    self.expression_cache.set(cache_key, result)
+                else:
+                    self._add_to_cache(cache_key, result)
+            
+            if progress:
+                progress.finish("Processing complete")
             
             return result
             
@@ -496,6 +577,18 @@ class MathematicalTTSEngine:
         """Generate cache key for expression"""
         content = f"{latex}:{context.value if context else 'auto'}"
         return hashlib.md5(content.encode()).hexdigest()
+    
+    def _get_cache_stats(self) -> Dict[str, Any]:
+        """Get cache statistics"""
+        if hasattr(self.expression_cache, 'get_stats'):
+            return self.expression_cache.get_stats()
+        else:
+            # Fallback for simple dict cache
+            return {
+                'size': len(self.expression_cache),
+                'max_size': self.max_cache_size,
+                'type': 'simple'
+            }
     
     def _add_to_cache(self, key: str, result: ProcessedExpression) -> None:
         """Add result to cache with size limit"""
@@ -680,45 +773,69 @@ class MathematicalTTSEngine:
         
         return True
     
-    async def speak_expression(self, expression: ProcessedExpression, output_file: Optional[str] = None) -> None:
-        """Convert expression to speech using edge-tts
+    async def speak_expression(self, 
+                             expression: ProcessedExpression, 
+                             output_file: Optional[str] = None,
+                             engine_name: Optional[str] = None,
+                             show_progress: bool = False) -> bool:
+        """Convert expression to speech using TTS engine manager
         
         Args:
             expression: The processed expression to speak
             output_file: Optional output file path. If None, plays audio directly.
-        """
-        if edge_tts is None:
-            logger.warning("edge-tts not available, skipping speech generation")
-            return
+            engine_name: Specific TTS engine to use
+            show_progress: Show progress indicator
             
-        for segment in expression.segments:
-            try:
-                voice = getattr(segment.voice_role, 'value', "en-US-AriaNeural")
-                rate = getattr(segment, 'rate_modifier', "+0%")
-                
-                # Add pauses
-                if hasattr(segment, 'pause_before') and segment.pause_before > 0:
-                    await asyncio.sleep(segment.pause_before)
-                
-                # Generate speech
-                tts = edge_tts.Communicate(segment.text, voice, rate=rate)
-                audio_file = output_file if output_file else f"temp_speech_{time.time()}.mp3"
-                await tts.save(audio_file)
-                
-                # Play audio if no output file specified
-                # if not output_file:
-                #     subprocess.run(['mpv', '--really-quiet', audio_file])
-                
-                # Clean up temp file only if it was temporary
-                if not output_file:
-                    Path(audio_file).unlink(missing_ok=True)
-                
-                # Add pause after
-                if hasattr(segment, 'pause_after') and segment.pause_after > 0:
-                    await asyncio.sleep(segment.pause_after)
-                    
-            except Exception as e:
-                logger.error(f"Error speaking segment: {e}")
+        Returns:
+            bool: True if successful, False otherwise
+        """
+        if not hasattr(self, 'tts_manager'):
+            logger.warning("TTS manager not available")
+            return False
+        
+        if not expression.segments:
+            logger.warning("No segments to speak")
+            return False
+        
+        progress = None
+        if show_progress:
+            from ..utils.progress import ProgressIndicator
+            progress = ProgressIndicator(
+                total=len(expression.segments),
+                description="Generating speech"
+            )
+            progress.start()
+        
+        try:
+            # Combine all segments into one text for better continuity
+            full_text = ' '.join(segment.text for segment in expression.segments)
+            
+            # Use the most common voice from segments
+            voice_counts = {}
+            for segment in expression.segments:
+                voice = getattr(segment, 'voice_role', 'narrator')
+                voice_counts[voice] = voice_counts.get(voice, 0) + 1
+            main_voice = max(voice_counts.items(), key=lambda x: x[1])[0] if voice_counts else 'narrator'
+            
+            # Generate speech
+            success = await self.tts_manager.synthesize(
+                text=full_text,
+                output_file=output_file or f"temp_speech_{int(time.time())}.mp3",
+                voice_role=main_voice,
+                rate=1.0,
+                engine_name=engine_name
+            )
+            
+            if progress:
+                progress.finish("Speech generation complete" if success else "Speech generation failed")
+            
+            return success
+            
+        except Exception as e:
+            logger.error(f"Error in speech generation: {e}")
+            if progress:
+                progress.finish("Speech generation failed")
+            return False
     
     def get_performance_report(self) -> Dict[str, Any]:
         """Get comprehensive performance report"""
@@ -730,10 +847,7 @@ class MathematicalTTSEngine:
                 'cache_hit_rate': self.metrics.cache_hits / max(self.metrics.cache_hits + self.metrics.cache_misses, 1),
                 'unknown_commands': self.metrics.unknown_commands_found,
             },
-            'cache': {
-                'size': len(self.expression_cache),
-                'max_size': self.max_cache_size,
-            },
+            'cache': self._get_cache_stats(),
             'unknown_commands': self.unknown_tracker.get_session_summary(),
         }
     

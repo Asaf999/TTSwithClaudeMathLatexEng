@@ -353,17 +353,48 @@ class InteractiveMode:
         """Show configuration"""
         print("\n⚙️  Current Configuration:")
         print(f"  Cache enabled: {self.engine.enable_caching}")
-        print(f"  Cache size: {len(self.engine.expression_cache)}/{self.engine.max_cache_size}")
+        
+        # Get cache size safely
+        if hasattr(self.engine.expression_cache, '__len__'):
+            cache_size = len(self.engine.expression_cache)
+        elif hasattr(self.engine.expression_cache, 'size'):
+            cache_size = self.engine.expression_cache.size
+        else:
+            cache_size = "unknown"
+        
+        print(f"  Cache size: {cache_size}/{self.engine.max_cache_size}")
         print(f"  Voice system: {len(list(VoiceRole))} voices available")
     
     def _cmd_stats(self, args: str) -> None:
         """Show performance statistics"""
         report = self.engine.get_performance_report()
         print("\n📊 Performance Statistics:")
-        print(f"  Tokens/second: {report['metrics']['tokens_per_second']:.1f}")
-        print(f"  Cache hit rate: {report['metrics']['cache_hit_rate']*100:.1f}%")
-        print(f"  Unknown commands: {report['metrics']['unknown_commands']}")
-        print(f"  Total processing time: {report['metrics']['total_time']:.2f}s")
+        
+        # Metrics
+        metrics = report.get('metrics', {})
+        print(f"  Tokens/second: {metrics.get('tokens_per_second', 0):.1f}")
+        print(f"  Cache hit rate: {metrics.get('cache_hit_rate', 0)*100:.1f}%")
+        print(f"  Unknown commands: {metrics.get('unknown_commands', 0)}")
+        print(f"  Total processing time: {metrics.get('total_time', 0):.2f}s")
+        
+        # Cache info
+        if 'cache' in report:
+            cache = report['cache']
+            print(f"\n💾 Cache Status:")
+            print(f"  Current size: {cache.get('size', 0)}/{cache.get('max_size', 0)}")
+            if 'hit_rate' in cache:
+                print(f"  Session hit rate: {cache['hit_rate']*100:.1f}%")
+        
+        # TTS engines
+        if hasattr(self.engine, 'tts_manager'):
+            print(f"\n🔊 TTS Engines:")
+            try:
+                engines = self.engine.tts_manager.get_available_engines()
+                for eng in engines:
+                    status = "✓" if eng['available'] else "✗"
+                    print(f"  {status} {eng['name']}")
+            except:
+                print("  Engine status unavailable")
     
     def _cmd_clear(self, args: str) -> None:
         """Clear screen"""
@@ -476,6 +507,19 @@ For more information: https://github.com/yourusername/mathspeak
         help='Show performance statistics after processing'
     )
     parser.add_argument(
+        '--batch',
+        type=str,
+        metavar='FILE',
+        help='Process multiple expressions from a file (one per line)'
+    )
+    parser.add_argument(
+        '--batch-output',
+        type=str,
+        metavar='DIR',
+        default='.',
+        help='Output directory for batch processing (default: current directory)'
+    )
+    parser.add_argument(
         '--debug',
         action='store_true',
         help='Enable debug logging'
@@ -504,7 +548,7 @@ async def process_single_expression(
     
     # Process expression
     start_time = time.time()
-    result = engine.process_latex(expression, force_context=context)
+    result = engine.process_latex(expression, force_context=context, show_progress=True)
     
     # Show results
     print(f"\n📝 Natural speech: {result.processed[:200]}{'...' if len(result.processed) > 200 else ''}")
@@ -543,7 +587,135 @@ async def process_single_expression(
     if args.stats:
         print("\n📊 Performance Report:")
         report = engine.get_performance_report()
-        print(json.dumps(report, indent=2))
+        
+        # Pretty print the report
+        print("\nMetrics:")
+        for key, value in report.get('metrics', {}).items():
+            if isinstance(value, float):
+                print(f"  {key}: {value:.2f}")
+            else:
+                print(f"  {key}: {value}")
+        
+        if 'cache' in report:
+            print("\nCache:")
+            for key, value in report['cache'].items():
+                print(f"  {key}: {value}")
+        
+        if 'unknown_commands' in report:
+            print("\nUnknown Commands:")
+            unk = report['unknown_commands']
+            print(f"  Total: {unk.get('total_unknown', 0)}")
+            if unk.get('commands'):
+                print(f"  Commands: {', '.join(unk['commands'][:5])}...")
+
+async def process_batch(engine: MathematicalTTSEngine, 
+                       batch_file: str, 
+                       output_dir: str,
+                       args: argparse.Namespace) -> None:
+    """Process multiple expressions from a file"""
+    from pathlib import Path
+    import asyncio
+    
+    # Ensure output directory exists
+    output_path = Path(output_dir)
+    output_path.mkdir(exist_ok=True)
+    
+    # Read expressions from file
+    try:
+        with open(batch_file, 'r', encoding='utf-8') as f:
+            expressions = [line.strip() for line in f if line.strip()]
+    except Exception as e:
+        print(f"❌ Error reading batch file: {e}")
+        return
+    
+    if not expressions:
+        print("❌ No expressions found in batch file")
+        return
+    
+    print(f"\n📦 Processing batch of {len(expressions)} expressions...")
+    
+    # Progress tracking
+    from utils.progress import BatchProgress
+    batch_progress = BatchProgress(expressions, "Processing expressions")
+    
+    async def process_one(idx: int, expr: str) -> Tuple[int, bool, str]:
+        """Process a single expression"""
+        try:
+            # Process
+            result = engine.process_latex(expr, show_progress=False)
+            
+            # Generate filename
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            filename = f"mathspeak_{idx+1:04d}_{timestamp}.mp3"
+            output_file = output_path / filename
+            
+            # Generate speech
+            success = await engine.speak_expression(
+                result, 
+                output_file=str(output_file),
+                show_progress=False
+            )
+            
+            if success:
+                return idx, True, f"✓ {filename}"
+            else:
+                return idx, False, f"✗ Failed to generate speech"
+                
+        except Exception as e:
+            return idx, False, f"✗ Error: {str(e)[:50]}"
+    
+    # Process in parallel with limited concurrency
+    semaphore = asyncio.Semaphore(3)  # Limit concurrent processing
+    
+    async def process_with_semaphore(idx: int, expr: str):
+        async with semaphore:
+            return await process_one(idx, expr)
+    
+    # Create tasks
+    tasks = [
+        process_with_semaphore(i, expr) 
+        for i, expr in enumerate(expressions)
+    ]
+    
+    # Process with progress
+    batch_progress.progress.start()
+    results = []
+    
+    for future in asyncio.as_completed(tasks):
+        idx, success, message = await future
+        results.append((idx, success, message))
+        batch_progress.progress.update()
+        
+        # Show individual result
+        expr_preview = expressions[idx][:50] + "..." if len(expressions[idx]) > 50 else expressions[idx]
+        print(f"  [{idx+1}/{len(expressions)}] {message} - {expr_preview}")
+    
+    batch_progress.progress.finish()
+    
+    # Summary
+    successful = sum(1 for _, success, _ in results if success)
+    print(f"\n✅ Batch processing complete!")
+    print(f"  Successful: {successful}/{len(expressions)}")
+    print(f"  Output directory: {output_path.absolute()}")
+    
+    # Save batch report
+    report_file = output_path / f"batch_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.txt"
+    with open(report_file, 'w', encoding='utf-8') as f:
+        f.write("MathSpeak Batch Processing Report\n")
+        f.write("=" * 50 + "\n\n")
+        f.write(f"Date: {datetime.now().isoformat()}\n")
+        f.write(f"Total expressions: {len(expressions)}\n")
+        f.write(f"Successful: {successful}\n")
+        f.write(f"Failed: {len(expressions) - successful}\n\n")
+        
+        f.write("Results:\n")
+        f.write("-" * 50 + "\n")
+        for idx, success, message in sorted(results):
+            status = "SUCCESS" if success else "FAILED"
+            f.write(f"{idx+1:4d}. [{status}] {message}\n")
+            f.write(f"      Expression: {expressions[idx][:100]}...\n\n")
+    
+    print(f"  Report saved: {report_file.name}")
 
 def main():
     """Main entry point"""
@@ -560,7 +732,8 @@ def main():
     voice_manager = VoiceManager()
     engine = MathematicalTTSEngine(
         voice_manager=voice_manager,
-        enable_caching=not args.no_cache
+        enable_caching=not args.no_cache,
+        prefer_offline_tts=False  # Use online engines by default for better quality
     )
     
     # Load domain processors
@@ -607,6 +780,10 @@ def main():
             for expr in tests:
                 asyncio.run(process_single_expression(engine, expr, args))
                 print("\n" + "="*60)
+        
+        # Batch mode
+        elif args.batch:
+            asyncio.run(process_batch(engine, args.batch, args.batch_output, args))
         
         # File input
         elif args.file:

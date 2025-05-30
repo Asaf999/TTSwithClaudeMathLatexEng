@@ -767,12 +767,16 @@ class MathematicalTTSEngine:
             (r'\\ln', 'natural log'),
             (r'\\exp', 'exponential'),
             
-            # Limits and sums
-            (r'\\lim_{([^}]+)}', r'the limit as \1 of'),
-            (r'\\sum_{([^}]+)}^{([^}]+)}', r'the sum from \1 to \2 of'),
-            (r'\\int_{([^}]+)}^{([^}]+)}', r'the integral from \1 to \2 of'),
+            # Limits and sums - Professor style
+            (r'\\lim_{([^}]+)\\to\\s*0}', r'the limit as \1 approaches 0'),
+            (r'\\lim_{([^}]+)\\to\\s*\\infty}', r'the limit as \1 goes to infinity'),
+            (r'\\lim_{([^}]+)}', r'the limit as \1'),
+            (r'\\sum_{i=1}^n', 'the sum from i equals 1 to n'),
+            (r'\\sum_{([^}]+)}^{([^}]+)}', r'the sum from \1 to \2'),
+            (r'\\int_0^1', 'the integral from 0 to 1'),
+            (r'\\int_{([^}]+)}^{([^}]+)}', r'the integral from \1 to \2'),
             # Handle integrals without braces
-            (r'int_([^\\\s]+)\^\s*([^\\\s]+)', r'integral from \1 to \2'),
+            (r'int_([^\\\s]+)\^\s*([^\\\s]+)', r'the integral from \1 to \2'),
             
             # Fractions - only process if not already handled by pattern processor
             # (Pattern processor handles special fractions like \frac{\sqrt{\pi}}{2})
@@ -789,11 +793,32 @@ class MathematicalTTSEngine:
             (r'e\^-([a-z])\^2', r'e to the negative \1 squared'),
             (r'e\^{-([a-z])\^2}', r'e to the negative \1 squared'),
             
+            # Professor style expressions
+            (r'f\s*:\s*X\s*\\to\s*Y', 'f maps X to Y'),
+            (r'f\s*:\s*X\s*→\s*Y', 'f maps X to Y'),
+            (r'\\implies', 'implies'),
+            (r'⇒', 'implies'),
+            (r'\\therefore', 'therefore'),
+            (r'∴', 'therefore'),
+            (r'\\iff', 'if and only if'),
+            (r'⇔', 'if and only if'),
+            (r'\|\|([^|]+)\|\|', r'the norm of \1'),
+            (r'\|([^|]+)\|', r'the absolute value of \1'),
+            (r'\\mathbb\{R\}\^n', 'R n'),
+            (r'\\left\(', '('),  # Remove \left and \right
+            (r'\\right\)', ')'),
+            (r'\\left\[', '['),
+            (r'\\right\]', ']'),
+            
             # Other
             (r'\\infty', 'infinity'),
             (r'infty', 'infinity'),  # Handle without backslash
             (r'\\partial', 'partial'),
             (r'\\nabla', 'nabla'),
+            (r'\\approx', 'approximately'),
+            (r'≈', 'approximately'),
+            (r'\\neq', 'not equal to'),
+            (r'≠', 'not equal to'),
         ])
         
         for pattern, replacement in replacements.items():

@@ -1,4 +1,12 @@
 {
+  "Gamma": {
+    "contexts": [
+      "\\Gamma_{ij}^k = \\frac{1}{2}g^{kl}\\left(\\frac{\\part"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 04:57:05",
+    "last_seen": "2025-05-30 04:57:05"
+  },
   "Psi": {
     "contexts": [
       "i\\hbar\\frac{\\partial}{\\partial t}\\Psi = \\hat{H}\\Ps"
@@ -36,6 +44,14 @@
     "count": 1,
     "first_seen": "2025-05-30 02:47:29",
     "last_seen": "2025-05-30 02:47:29"
+  },
+  "bigg": {
+    "contexts": [
+      "\\oint_C \\frac{e^{iz}}{z^2(z^2+1)} dz = 2\\pi i \\sum"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 04:56:26",
+    "last_seen": "2025-05-30 04:56:26"
   },
   "bigsqcup": {
     "contexts": [
@@ -103,6 +119,14 @@
     "first_seen": "2025-05-30 02:51:01",
     "last_seen": "2025-05-30 02:51:01"
   },
+  "dot": {
+    "contexts": [
+      "\\langle q_f, t_f  < /dev/null |  q_i, t_i \\rangle "
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 04:57:29",
+    "last_seen": "2025-05-30 04:57:29"
+  },
   "emptyset": {
     "contexts": [
       "(X, \\{\\emptyset, X\\})"
@@ -119,6 +143,14 @@
     "first_seen": "2025-05-30 02:47:29",
     "last_seen": "2025-05-30 02:47:29"
   },
+  "exp": {
+    "contexts": [
+      "\\langle q_f, t_f  < /dev/null |  q_i, t_i \\rangle "
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 04:57:29",
+    "last_seen": "2025-05-30 04:57:29"
+  },
   "fra": {
     "contexts": [
       "\\fra"
@@ -129,11 +161,12 @@
   },
   "hbar": {
     "contexts": [
-      "i\\hbar\\frac{\\partial}{\\partial t}\\Psi = \\hat{H}\\Ps"
+      "i\\hbar\\frac{\\partial}{\\partial t}\\Psi = \\hat{H}\\Ps",
+      "\\langle q_f, t_f  < /dev/null |  q_i, t_i \\rangle "
     ],
-    "count": 1,
+    "count": 2,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 02:47:29"
+    "last_seen": "2025-05-30 04:57:29"
   },
   "iff": {
     "contexts": [
@@ -145,11 +178,12 @@
   },
   "implies": {
     "contexts": [
-      "\\forall \\epsilon > 0 \\, \\exists \\delta > 0 : 0 < |"
+      "\\forall \\epsilon > 0 \\, \\exists \\delta > 0 : 0 < |",
+      "dX_t = \\mu(X_t, t)dt + \\sigma(X_t, t)dW_t \\implies"
     ],
-    "count": 1,
+    "count": 2,
     "first_seen": "2025-05-30 03:43:57",
-    "last_seen": "2025-05-30 03:43:57"
+    "last_seen": "2025-05-30 04:56:47"
   },
   "input": {
     "contexts": [
@@ -179,11 +213,12 @@
   },
   "langle": {
     "contexts": [
-      "\\langle f, g \\rangle = \\int_X f(x)\\overline{g(x)} "
+      "\\langle f, g \\rangle = \\int_X f(x)\\overline{g(x)} ",
+      "\\langle q_f, t_f  < /dev/null |  q_i, t_i \\rangle "
     ],
-    "count": 1,
+    "count": 2,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 02:47:29"
+    "last_seen": "2025-05-30 04:57:29"
   },
   "log": {
     "contexts": [
@@ -209,9 +244,9 @@
       "\\int_{-\\infty}^{\\infty} e^{-\\frac{(x-\\mu)^2}{2\\sig",
       "\\int_{-\\infty}^{\\infty} e^{-\\frac{(x-\\mu)^2}{2\\sig"
     ],
-    "count": 22,
+    "count": 23,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 03:46:29"
+    "last_seen": "2025-05-30 04:56:47"
   },
   "notacommand": {
     "contexts": [
@@ -232,11 +267,12 @@
   "oint": {
     "contexts": [
       "\\oint_\\gamma f(z)dz = 2\\pi i \\sum \\text{Res}(f, z_",
-      "\\oint_C f(z) dz = 2\\pi i \\sum \\text{Res}(f, z_k)"
+      "\\oint_C f(z) dz = 2\\pi i \\sum \\text{Res}(f, z_k)",
+      "\\oint_C \\frac{e^{iz}}{z^2(z^2+1)} dz = 2\\pi i \\sum"
     ],
-    "count": 2,
+    "count": 3,
     "first_seen": "2025-05-30 02:14:00",
-    "last_seen": "2025-05-30 03:46:29"
+    "last_seen": "2025-05-30 04:56:26"
   },
   "openout": {
     "contexts": [
@@ -281,11 +317,12 @@
   },
   "rangle": {
     "contexts": [
-      "\\langle f, g \\rangle = \\int_X f(x)\\overline{g(x)} "
+      "\\langle f, g \\rangle = \\int_X f(x)\\overline{g(x)} ",
+      "\\langle q_f, t_f  < /dev/null |  q_i, t_i \\rangle "
     ],
-    "count": 1,
+    "count": 2,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 02:47:29"
+    "last_seen": "2025-05-30 04:57:29"
   },
   "setminus": {
     "contexts": [
@@ -311,9 +348,9 @@
       "\\lim_{x \\to 0} \\frac{\\sin x}{x}",
       "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1"
     ],
-    "count": 11,
+    "count": 12,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 03:46:29"
+    "last_seen": "2025-05-30 04:57:29"
   },
   "undefined": {
     "contexts": [

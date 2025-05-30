@@ -723,15 +723,8 @@ class MathematicalTTSEngine:
             
             # Check if this looks like a complete sentence
             if self._is_complete_sentence(' '.join(current)):
-                sentences.append(' '.join(current))
-                current = []
-        
-        if current:
-            sentences.append(' '.join(current))
-        
-        return sentences
-    
-    def _is_complete_sentence(self, text: str) -> bool:
+            (r'([a-zA-Z])\^2', lambda m: f'{m.group(1)} squared'),
+            (r'([a-zA-Z])\^3', lambda m: f'{m.group(1)} cubed'),
             (r'([a-zA-Z])\^\{([^}]+)\}', lambda m: f'{m.group(1)} to the {m.group(2)}'),
             (r'([a-zA-Z])\^([a-zA-Z0-9])', lambda m: f'{m.group(1)} to the {m.group(2)}' if m.group(2) not in ['2', '3'] else f'{m.group(1)} {"squared" if m.group(2) == "2" else "cubed"}'),
             

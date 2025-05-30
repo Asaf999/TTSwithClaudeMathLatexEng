@@ -75,11 +75,12 @@
     "contexts": [
       "\\def\\x{\\x}\\x",
       "\\def\\x{AAAA}\\def\\y{\\x\\x\\x\\x}\\def\\x{AAAA}\\def\\y{\\x\\",
+      "\\def\\x{\\x}\\x",
       "\\def\\x{\\x}\\x"
     ],
-    "count": 3,
+    "count": 4,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 02:53:43"
+    "last_seen": "2025-05-30 02:55:59"
   },
   "documentclass": {
     "contexts": [
@@ -300,11 +301,12 @@
       "\\def\\x{\\x}\\x",
       "\\def\\x{AAAA}\\def\\y{\\x\\x\\x\\x}\\def\\x{AAAA}\\def\\y{\\x\\",
       "x\\x00y",
+      "\\def\\x{\\x}\\x",
       "\\def\\x{\\x}\\x"
     ],
-    "count": 4,
+    "count": 5,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 02:53:43"
+    "last_seen": "2025-05-30 02:55:59"
   },
   "y": {
     "contexts": [

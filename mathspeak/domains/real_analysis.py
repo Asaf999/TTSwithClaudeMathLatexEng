@@ -198,7 +198,7 @@ class RealAnalysisVocabulary:
             r'\\|f\\|_\\infty': 'the L infinity norm of f',
             r'\\|f\\|_{\\infty}': 'the supremum norm of f',
             # Fixed to prevent infinite recursion
-            r'\\|([^|]+)\\|': lambda m: f"the norm of {m.group(1)}" if '|' not in m.group(1) else f"the norm of {m.group(1)}",
+            r'\\|([^|]+)\\|': lambda m: f"the norm of {m.group(1)}" if m.group(1) and '|' not in m.group(1) else f"the norm of {m.group(1) or ''}",
             r'\\sup_{x \\in ([^}]+)} \\|f\\(x\\)\\|': lambda m: f"the supremum over x in {self._process_nested(m.group(1))} of the norm of f of x",
             r'\\text{esssup}': 'essential supremum',
             r'\\text{ess sup}': 'essential supremum',

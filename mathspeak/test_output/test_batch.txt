@@ -1,0 +1,5 @@
+x^2 + y^2 = r^2
+\int_0^1 x dx
+\pi_1(S^1) \cong \mathbb{Z}
+e^{i\pi} + 1 = 0
+\sum_{n=1}^\infty \frac{1}{n^2}

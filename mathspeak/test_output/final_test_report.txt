@@ -1,0 +1,102 @@
+MathSpeak Final System Test Report
+============================================================
+
+Generated: 2025-05-30T04:32:00.572367
+Total Duration: 69.13s
+
+Summary
+------------------------------
+Total Tests: 63
+Passed: 59
+Failed: 4
+Pass Rate: 93.7%
+
+Results by Category
+------------------------------
+
+Basic:
+  Tests: 10
+  Passed: 10
+  Failed: 0
+  Pass Rate: 100.0%
+  Avg Duration: 0.001s
+
+Advanced:
+  Tests: 20
+  Passed: 20
+  Failed: 0
+  Pass Rate: 100.0%
+  Avg Duration: 1.079s
+
+CLI:
+  Tests: 11
+  Passed: 10
+  Failed: 1
+  Pass Rate: 90.9%
+  Avg Duration: 3.990s
+
+Performance:
+  Tests: 4
+  Passed: 4
+  Failed: 0
+  Pass Rate: 100.0%
+  Avg Duration: 0.068s
+
+Edge:
+  Tests: 8
+  Passed: 8
+  Failed: 0
+  Pass Rate: 100.0%
+  Avg Duration: 0.005s
+
+TTS:
+  Tests: 2
+  Passed: 0
+  Failed: 2
+  Pass Rate: 0.0%
+  Avg Duration: 0.000s
+
+Batch Processing:
+  Tests: 1
+  Passed: 1
+  Failed: 0
+  Pass Rate: 100.0%
+  Avg Duration: 2.685s
+
+Interactive Mode:
+  Tests: 1
+  Passed: 1
+  Failed: 0
+  Pass Rate: 100.0%
+  Avg Duration: 0.000s
+
+Error Handling:
+  Tests: 5
+  Passed: 5
+  Failed: 0
+  Pass Rate: 100.0%
+  Avg Duration: 0.000s
+
+Caching:
+  Tests: 1
+  Passed: 0
+  Failed: 1
+  Pass Rate: 0.0%
+  Avg Duration: 0.000s
+
+Failed Tests
+------------------------------
+
+CLI: File input:
+  Error: None
+  Details: {'command': 'python mathspeak.py --file test_input.tex', 'returncode': 1, 'stdout_lines': 4, 'stderr': '<frozen importlib._bootstrap>:488: RuntimeWarning: Your system is avx2 capable but pygame was not built with support for it. The performance of some of your blits could be adversely affected. Consider'}
+
+TTS: Online Engine:
+  Error: 'TTSEngineManager' object has no attribute 'generate_speech'
+
+TTS: Offline Engine:
+  Error: 'TTSEngineManager' object has no attribute 'generate_speech'
+
+Caching:
+  Error: None
+  Details: {'first_call_time': 0.0021452903747558594, 'second_call_time': 0.0018203258514404297, 'speedup': 1.1785199738048462, 'outputs_match': True}

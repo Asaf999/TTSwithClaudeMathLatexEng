@@ -82,6 +82,16 @@
     "first_seen": "2025-05-30 02:47:29",
     "last_seen": "2025-05-30 02:55:59"
   },
+  "det": {
+    "contexts": [
+      "\\det(A) = ad - bc",
+      "\\det=\\cdot-\\cdot=-=-",
+      "\\det(A) = 2 \\cdot 4 - 1 \\cdot 3 = 8 - 3 = 5"
+    ],
+    "count": 3,
+    "first_seen": "2025-05-30 03:43:46",
+    "last_seen": "2025-05-30 03:43:56"
+  },
   "documentclass": {
     "contexts": [
       "\\documentclass{article}\n\\begin{document}\nThe funda"
@@ -130,6 +140,14 @@
     "first_seen": "2025-05-30 02:13:58",
     "last_seen": "2025-05-30 02:13:58"
   },
+  "implies": {
+    "contexts": [
+      "\\forall \\epsilon > 0 \\, \\exists \\delta > 0 : 0 < |"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 03:43:57",
+    "last_seen": "2025-05-30 03:43:57"
+  },
   "input": {
     "contexts": [
       "\\input{../../../../etc/passwd}",
@@ -170,6 +188,14 @@
     "count": 1,
     "first_seen": "2025-05-30 02:47:29",
     "last_seen": "2025-05-30 02:47:29"
+  },
+  "min": {
+    "contexts": [
+      "\\delta = \\min(1, \\frac{\\epsilon}{5})"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 03:43:57",
+    "last_seen": "2025-05-30 03:43:57"
   },
   "mu": {
     "contexts": [
@@ -230,11 +256,12 @@
   },
   "pm": {
     "contexts": [
-      "x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}"
+      "x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}",
+      "\\pm\\infty"
     ],
-    "count": 1,
+    "count": 2,
     "first_seen": "2025-05-30 02:50:36",
-    "last_seen": "2025-05-30 02:50:36"
+    "last_seen": "2025-05-30 03:43:58"
   },
   "pmod": {
     "contexts": [
@@ -272,11 +299,13 @@
     "contexts": [
       "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1",
       "\\lim_{x \\to \\infty} \\frac{1}{x}",
-      "\\cdots \\to H_n(A \\cap B) \\to H_n(A) \\oplus H_n(B) "
+      "\\cdots \\to H_n(A \\cap B) \\to H_n(A) \\oplus H_n(B) ",
+      "\\lim_{x \\to 0} \\frac{\\sin x}{x}",
+      "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1"
     ],
-    "count": 3,
+    "count": 10,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 02:47:29"
+    "last_seen": "2025-05-30 03:43:58"
   },
   "undefined": {
     "contexts": [
@@ -286,6 +315,14 @@
     "count": 2,
     "first_seen": "2025-05-30 02:47:29",
     "last_seen": "2025-05-30 02:51:37"
+  },
+  "unknowncommand": {
+    "contexts": [
+      "\\unknowncommand{x}"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 03:43:46",
+    "last_seen": "2025-05-30 03:43:46"
   },
   "write": {
     "contexts": [

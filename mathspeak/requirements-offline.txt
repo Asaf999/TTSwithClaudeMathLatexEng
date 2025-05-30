@@ -1,0 +1,27 @@
+# Offline TTS Requirements
+# Install these packages for offline TTS support
+
+# Core offline TTS
+pyttsx3>=2.90          # Cross-platform offline TTS engine
+
+# Platform-specific offline TTS
+py-espeak-ng>=0.1.8 ; sys_platform == 'linux'    # Linux: espeak-ng bindings
+pywin32>=305 ; sys_platform == 'win32'           # Windows: COM interface for SAPI5
+pyobjc>=9.0 ; sys_platform == 'darwin'            # macOS: Objective-C bridge
+
+# Optional enhancements
+phonemizer>=3.2.1      # For better pronunciation (requires espeak-ng)
+
+# System dependencies (install with system package manager):
+# Linux:
+#   - espeak-ng (apt: espeak-ng, dnf: espeak-ng, pacman: espeak-ng)
+#   - espeak-ng-data (for additional languages)
+#   - mbrola (optional, for better voices)
+#
+# macOS:
+#   - espeak-ng (brew install espeak-ng) - optional
+#   - Built-in 'say' command works out of the box
+#
+# Windows:
+#   - Built-in SAPI5 works out of the box
+#   - Additional voices from Windows settings

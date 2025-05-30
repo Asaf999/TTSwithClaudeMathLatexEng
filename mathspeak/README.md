@@ -19,17 +19,22 @@ Transform LaTeX mathematical expressions into natural, professor-quality speech 
 - **High Performance**: 1000+ tokens/second with intelligent caching
 - **Professor Commentary**: Optional explanatory comments like a real math professor
 - **Cross-Platform**: Works on Windows, macOS, and Linux
+- **Offline Support**: Full offline TTS engine support (pyttsx3, espeak-ng)
+- **Multiple TTS Engines**: EdgeTTS, Google TTS, pyttsx3, espeak with automatic fallback
 
 ## 🚀 Quick Start
 
 ### Installation
 
 ```bash
-# Basic installation
-pip install mathspeak
+# Basic installation (online TTS only)
+pip install -r requirements.txt
 
-# With audio playback support
-pip install mathspeak[audio]
+# With offline TTS support
+pip install -r requirements.txt -r requirements-offline.txt
+
+# Install system dependencies for offline TTS
+python install_offline_tts.py
 
 # Development installation
 git clone https://github.com/yourusername/mathspeak.git
@@ -98,6 +103,28 @@ mathspeak --test
 # Numerical Analysis
 "‖x_{k+1} - x_k‖ < ε"  # "the norm of x sub k plus 1 minus x sub k is less than epsilon"
 ```
+
+## 🔌 Offline Usage
+
+MathSpeak fully supports offline TTS engines for use without internet:
+
+```bash
+# Use offline TTS engines
+python mathspeak.py --offline "\\int_0^\\infty e^{-x^2} dx"
+
+# Check available offline engines
+python install_offline_tts.py
+
+# Force offline mode in API
+from mathspeak.core.engine import MathematicalTTSEngine
+engine = MathematicalTTSEngine(prefer_offline_tts=True)
+```
+
+Available offline engines:
+- **pyttsx3**: Cross-platform (Windows SAPI5, macOS NSSpeech, Linux espeak)
+- **espeak-ng**: Lightweight, fast (Linux/macOS)
+
+See [OFFLINE_TTS_SETUP.md](OFFLINE_TTS_SETUP.md) for detailed setup instructions.
 
 ## 🎤 Voice System
 

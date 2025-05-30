@@ -1,0 +1,10 @@
+{
+    "name": "MathSpeak - Mathematical Text-to-Speech",
+    "package": "mathspeak_tts",
+    "author": "MathSpeak Team",
+    "version": "1.0.0",
+    "description": "Automatically generate natural speech audio for mathematical expressions in your Anki cards. Supports LaTeX notation and provides professor-quality pronunciation.",
+    "homepage": "https://github.com/your-repo/mathspeak",
+    "conflicts": [],
+    "min_anki_version": "2.1.50"
+}

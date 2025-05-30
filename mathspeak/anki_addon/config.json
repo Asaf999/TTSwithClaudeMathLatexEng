@@ -1,0 +1,7 @@
+{
+    "prefer_offline": false,
+    "auto_play": true,
+    "voice_speed": 1.0,
+    "process_on_add": false,
+    "mathspeak_path": "~/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak"
+}

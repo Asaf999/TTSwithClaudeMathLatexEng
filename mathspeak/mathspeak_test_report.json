@@ -1,0 +1,268 @@
+{
+  "start_time": "2025-05-30T03:39:32.058542",
+  "end_time": "2025-05-30T03:39:33.233051",
+  "duration": 1.174509,
+  "categories": {
+    "Performance": {
+      "total_tests": 4,
+      "passed": 3,
+      "failed": 1,
+      "pass_rate": 75.0,
+      "tests": [
+        {
+          "name": "response_times",
+          "passed": true,
+          "duration": 0.0035965442657470703,
+          "error": "",
+          "metrics": {
+            "response_times": {
+              "simple": {
+                "avg": 0.0007317860921223959,
+                "max": 0.001422882080078125,
+                "min": 0.000316619873046875
+              },
+              "complex": {
+                "avg": 0.0002872149149576823,
+                "max": 0.00030159950256347656,
+                "min": 0.0002789497375488281
+              },
+              "lecture": {
+                "avg": 0.0002573728561401367,
+                "max": 0.0002655982971191406,
+                "min": 0.0002491474151611328
+              }
+            }
+          }
+        },
+        {
+          "name": "throughput",
+          "passed": true,
+          "duration": 0.03908181190490723,
+          "error": "",
+          "metrics": {
+            "throughput": {
+              "size_10": {
+                "expressions_per_second": 3930.563208696467,
+                "total_time": 0.0025441646575927734
+              },
+              "size_50": {
+                "expressions_per_second": 4153.269695409355,
+                "total_time": 0.012038707733154297
+              },
+              "size_100": {
+                "expressions_per_second": 4083.995287290289,
+                "total_time": 0.02448582649230957
+              }
+            }
+          }
+        },
+        {
+          "name": "cache_effectiveness",
+          "passed": false,
+          "duration": 0.0025517940521240234,
+          "error": "string indices must be integers, not 'str'",
+          "metrics": {}
+        },
+        {
+          "name": "memory_usage",
+          "passed": true,
+          "duration": 0.5324804782867432,
+          "error": "",
+          "metrics": {
+            "initial_memory_mb": 30.97265625,
+            "final_memory_mb": 30.97265625,
+            "increase_mb": 0.0
+          }
+        }
+      ]
+    },
+    "Robustness": {
+      "total_tests": 4,
+      "passed": 4,
+      "failed": 0,
+      "pass_rate": 100.0,
+      "tests": [
+        {
+          "name": "edge_cases",
+          "passed": true,
+          "duration": 0.003451824188232422,
+          "error": "",
+          "metrics": {
+            "total_failures": 0,
+            "failures": []
+          }
+        },
+        {
+          "name": "malicious_inputs",
+          "passed": true,
+          "duration": 0.005232095718383789,
+          "error": "",
+          "metrics": {
+            "vulnerabilities_found": 0
+          }
+        },
+        {
+          "name": "timeout_handling",
+          "passed": true,
+          "duration": 0.00025010108947753906,
+          "error": "",
+          "metrics": {}
+        },
+        {
+          "name": "recovery",
+          "passed": true,
+          "duration": 0.0007176399230957031,
+          "error": "",
+          "metrics": {}
+        }
+      ]
+    },
+    "Concurrency": {
+      "total_tests": 3,
+      "passed": 3,
+      "failed": 0,
+      "pass_rate": 100.0,
+      "tests": [
+        {
+          "name": "concurrent_processing",
+          "passed": true,
+          "duration": 0.005261659622192383,
+          "error": "",
+          "metrics": {
+            "concurrent_tasks": 20,
+            "errors": 0,
+            "avg_time": 0.0002482175827026367
+          }
+        },
+        {
+          "name": "thread_safety",
+          "passed": true,
+          "duration": 0.12366485595703125,
+          "error": "",
+          "metrics": {
+            "thread_count": 10,
+            "errors": 0
+          }
+        },
+        {
+          "name": "resource_contention",
+          "passed": true,
+          "duration": 0.06989884376525879,
+          "error": "",
+          "metrics": {
+            "total_tasks": 250
+          }
+        }
+      ]
+    },
+    "Real World": {
+      "total_tests": 3,
+      "passed": 2,
+      "failed": 1,
+      "pass_rate": 66.66666666666666,
+      "tests": [
+        {
+          "name": "lecture_processing",
+          "passed": true,
+          "duration": 0.0037717819213867188,
+          "error": "",
+          "metrics": {
+            "expressions_found": 14,
+            "successfully_processed": 14,
+            "avg_processing_time": 0.00025594234466552734
+          }
+        },
+        {
+          "name": "textbook_chapter",
+          "passed": true,
+          "duration": 0.011613845825195312,
+          "error": "",
+          "metrics": {
+            "total_formulas": 45,
+            "success_rate": 1.0,
+            "avg_processing_time": 0.00025768809848361547,
+            "errors": 0
+          }
+        },
+        {
+          "name": "exam_paper",
+          "passed": false,
+          "duration": 6.67572021484375e-06,
+          "error": "name 're' is not defined",
+          "metrics": {}
+        }
+      ]
+    },
+    "Usability": {
+      "total_tests": 3,
+      "passed": 3,
+      "failed": 0,
+      "pass_rate": 100.0,
+      "tests": [
+        {
+          "name": "error_messages",
+          "passed": true,
+          "duration": 0.0005609989166259766,
+          "error": "",
+          "metrics": {
+            "helpful_errors": 3,
+            "total": 3
+          }
+        },
+        {
+          "name": "api_consistency",
+          "passed": true,
+          "duration": 0.001390695571899414,
+          "error": "",
+          "metrics": {
+            "unique_outputs": 1
+          }
+        },
+        {
+          "name": "progress_feedback",
+          "passed": true,
+          "duration": 0.0008676052093505859,
+          "error": "",
+          "metrics": {}
+        }
+      ]
+    },
+    "Integration": {
+      "total_tests": 3,
+      "passed": 0,
+      "failed": 3,
+      "pass_rate": 0.0,
+      "tests": [
+        {
+          "name": "cli_integration",
+          "passed": false,
+          "duration": 0.3650393486022949,
+          "error": "<frozen importlib._bootstrap>:488: RuntimeWarning: Your system is avx2 capable but pygame was not built with support for it. The performance of some of your blits could be adversely affected. Consider",
+          "metrics": {}
+        },
+        {
+          "name": "domain_processors",
+          "passed": false,
+          "duration": 0.001961946487426758,
+          "error": "",
+          "metrics": {
+            "correct_contexts": 0,
+            "total": 3
+          }
+        },
+        {
+          "name": "tts_engines",
+          "passed": false,
+          "duration": 0.0023279190063476562,
+          "error": "",
+          "metrics": {
+            "available_engines": 0,
+            "total_engines": 4,
+            "speech_generated": false,
+            "file_size": 0
+          }
+        }
+      ]
+    }
+  }
+}

@@ -173,3 +173,26 @@ class ProcessingTimeout:
 quick_timeout = timeout(1.0)
 standard_timeout = timeout(10.0)
 long_timeout = timeout(30.0)
+
+
+def timeout_with_fallback(func: Callable[..., T], 
+                         timeout_seconds: float,
+                         fallback: T,
+                         operation: str = "operation") -> T:
+    """
+    Execute a function with timeout and fallback value.
+    
+    Args:
+        func: Function to execute
+        timeout_seconds: Timeout in seconds
+        fallback: Value to return if timeout occurs
+        operation: Name of operation for error logging
+        
+    Returns:
+        Result of func or fallback if timeout
+    """
+    try:
+        return with_timeout(func, timeout_seconds)
+    except (TimeoutError, Exception):
+        # Return fallback on any error
+        return fallback

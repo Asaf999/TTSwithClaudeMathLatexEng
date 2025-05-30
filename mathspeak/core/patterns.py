@@ -57,10 +57,10 @@ class EpsilonDeltaHandler:
     
     def __init__(self):
         self.patterns = [
-            # Classic epsilon-delta definition
+            # Classic epsilon-delta definition - Professor style
             MathematicalPattern(
                 r'∀\s*ε\s*>\s*0\s*[,.]?\s*∃\s*δ\s*>\s*0\s*(?:such that|s\.t\.)',
-                'for every epsilon greater than zero, there exists delta greater than zero such that',
+                'for all epsilon greater than 0, there exists delta greater than 0 such that',
                 PatternCategory.EPSILON_DELTA,
                 'Classic epsilon-delta opener',
                 priority=90
@@ -143,13 +143,20 @@ class LimitPatternHandler:
     
     def __init__(self):
         self.patterns = [
-            # Basic limits
+            # Basic limits - Professor style
             MathematicalPattern(
                 r'\\lim_{([^}]+)\\to([^}]+)}\s*([^=\s]+)',
                 lambda m: f'the limit as {self._process_variable(m.group(1))} approaches {self._process_value(m.group(2))} of {m.group(3)}',
                 PatternCategory.LIMIT_EXPRESSION,
                 'Basic limit notation',
                 priority=85
+            ),
+            MathematicalPattern(
+                r'\\lim_{([^}]+)\\to\s*0}',
+                lambda m: f'the limit as {self._process_variable(m.group(1))} approaches 0',
+                PatternCategory.LIMIT_EXPRESSION,
+                'Limit to 0',
+                priority=86
             ),
             MathematicalPattern(
                 r'\\lim_{([^}]+)}\s*([^=\s]+)',
@@ -243,13 +250,20 @@ class SequenceSeriesHandler:
     
     def __init__(self):
         self.patterns = [
-            # Summation notation
+            # Summation notation - Professor style
             MathematicalPattern(
                 r'\\sum_{([^}]+)=([^}]+)}\^{([^}]+)}\s*([^=\s]+)',
                 lambda m: f'the sum from {m.group(1)} equals {m.group(2)} to {m.group(3)} of {m.group(4)}',
                 PatternCategory.SEQUENCE_SERIES,
                 'Finite sum with bounds',
                 priority=85
+            ),
+            MathematicalPattern(
+                r'\\sum_{i=1}\^n',
+                'the sum from i equals 1 to n',
+                PatternCategory.SEQUENCE_SERIES,
+                'Standard sum notation',
+                priority=86
             ),
             MathematicalPattern(
                 r'\\sum_{([^}]+)=([^}]+)}\^{\\infty}\s*([^=\s]+)',
@@ -689,13 +703,20 @@ class CommonExpressionHandler:
     
     def __init__(self):
         self.patterns = [
-            # Integrals - must be before other patterns to catch full expressions
+            # Integrals - Professor style (say "d x" not "d space x")
             MathematicalPattern(
                 r'\\int_([^\s\{]+)\^([^\s\{]+)\s*(.+?)\s*d([a-z])',
-                lambda m: f'integral from {self._process_limit(m.group(1))} to {self._process_limit(m.group(2))} of {m.group(3)} d {m.group(4)}',
+                lambda m: f'the integral from {self._process_limit(m.group(1))} to {self._process_limit(m.group(2))} of {m.group(3)} d {m.group(4)}',
                 PatternCategory.COMMON_EXPRESSION,
                 'Definite integral with limits no braces',
                 priority=99
+            ),
+            MathematicalPattern(
+                r'\\int_0\^1\s*([^\\]+?)\s*dx',
+                lambda m: f'the integral from 0 to 1 of {m.group(1)} d x',
+                PatternCategory.COMMON_EXPRESSION,
+                'Common 0 to 1 integral',
+                priority=100
             ),
             MathematicalPattern(
                 r'\\int_\{([^}]+)\}\^\{([^}]+)\}\s*([^\\]+?)\s*d([a-z])',
@@ -901,7 +922,21 @@ class CommonExpressionHandler:
                 priority=86
             ),
             
-            # Exponents and special functions
+            # Exponents and special functions - Professor style
+            MathematicalPattern(
+                r'e\^x',
+                'e to the x',
+                PatternCategory.COMMON_EXPRESSION,
+                'e to the x',
+                priority=94
+            ),
+            MathematicalPattern(
+                r'e\^{-x\^2}',
+                'e to the minus x squared',
+                PatternCategory.COMMON_EXPRESSION,
+                'Gaussian exponent',
+                priority=94
+            ),
             MathematicalPattern(
                 r'([a-zA-Z])\^2',
                 lambda m: f'{m.group(1)} squared',
@@ -975,13 +1010,41 @@ class CommonExpressionHandler:
                 priority=95
             ),
             
-            # Common functions
+            # Common functions - Professor style
+            MathematicalPattern(
+                r'\\sin\^2\s*x',
+                'sine squared x',
+                PatternCategory.COMMON_EXPRESSION,
+                'Sine squared',
+                priority=91
+            ),
+            MathematicalPattern(
+                r'\\cos\^2\s*x',
+                'cosine squared x',
+                PatternCategory.COMMON_EXPRESSION,
+                'Cosine squared',
+                priority=91
+            ),
             MathematicalPattern(
                 r'\\sin\^2\s*([θx])\s*\+\s*\\cos\^2\s*([θx])',
                 lambda m: f'sine squared {m.group(1)} plus cosine squared {m.group(2)}',
                 PatternCategory.COMMON_EXPRESSION,
                 'Pythagorean identity',
                 priority=90
+            ),
+            MathematicalPattern(
+                r'\\log_2\s*x',
+                'log base 2 of x',
+                PatternCategory.COMMON_EXPRESSION,
+                'Log base 2',
+                priority=91
+            ),
+            MathematicalPattern(
+                r'\\sqrt\[3\]\{x\}',
+                'the cube root of x',
+                PatternCategory.COMMON_EXPRESSION,
+                'Cube root',
+                priority=91
             ),
             
             # Combined subscript and superscript patterns
@@ -1030,7 +1093,35 @@ class CommonExpressionHandler:
                 priority=94
             ),
             
-            # Differentials
+            # Differentials and derivatives - Professor style
+            MathematicalPattern(
+                r'\\frac\{df\}\{dx\}',
+                'd f d x',
+                PatternCategory.COMMON_EXPRESSION,
+                'Derivative df/dx',
+                priority=96
+            ),
+            MathematicalPattern(
+                r'\\frac\{\\partial f\}\{\\partial x\}',
+                'partial f partial x',
+                PatternCategory.COMMON_EXPRESSION,
+                'Partial derivative',
+                priority=96
+            ),
+            MathematicalPattern(
+                r'f\'\(x\)',
+                'f prime of x',
+                PatternCategory.COMMON_EXPRESSION,
+                'f prime notation',
+                priority=96
+            ),
+            MathematicalPattern(
+                r'f\'\'\(x\)',
+                'f double prime of x',
+                PatternCategory.COMMON_EXPRESSION,
+                'f double prime notation',
+                priority=96
+            ),
             MathematicalPattern(
                 r'dx',
                 'd x',
@@ -1058,6 +1149,106 @@ class CommonExpressionHandler:
                 PatternCategory.COMMON_EXPRESSION,
                 'Differential dt',
                 priority=95
+            ),
+            
+            # Mathematical phrasing - Professor style
+            MathematicalPattern(
+                r'f\s*:\s*X\s*\\to\s*Y',
+                'f maps X to Y',
+                PatternCategory.COMMON_EXPRESSION,
+                'Function mapping',
+                priority=97
+            ),
+            MathematicalPattern(
+                r'f\s*:\s*X\s*→\s*Y',
+                'f maps X to Y',
+                PatternCategory.COMMON_EXPRESSION,
+                'Function mapping arrow',
+                priority=97
+            ),
+            MathematicalPattern(
+                r'x\s*\\in\s*A',
+                'x is in A',
+                PatternCategory.COMMON_EXPRESSION,
+                'Element membership',
+                priority=97
+            ),
+            MathematicalPattern(
+                r'x\s*∈\s*A',
+                'x belongs to A',
+                PatternCategory.COMMON_EXPRESSION,
+                'Element membership symbol',
+                priority=97
+            ),
+            MathematicalPattern(
+                r'A\s*\\subset\s*B',
+                'A is a subset of B',
+                PatternCategory.COMMON_EXPRESSION,
+                'Subset relation',
+                priority=97
+            ),
+            MathematicalPattern(
+                r'\\therefore',
+                'therefore',
+                PatternCategory.COMMON_EXPRESSION,
+                'Therefore symbol',
+                priority=97
+            ),
+            MathematicalPattern(
+                r'\\implies',
+                'implies',
+                PatternCategory.COMMON_EXPRESSION,
+                'Implies symbol',
+                priority=97
+            ),
+            MathematicalPattern(
+                r'⇒',
+                'which implies',
+                PatternCategory.COMMON_EXPRESSION,
+                'Implies arrow',
+                priority=97
+            ),
+            MathematicalPattern(
+                r'\\forall\s*x\s*\\in\s*\\mathbb\{R\}',
+                'for all x in the real numbers',
+                PatternCategory.COMMON_EXPRESSION,
+                'For all x in R',
+                priority=98
+            ),
+            MathematicalPattern(
+                r'\\exists\s*y',
+                'there exists a y',
+                PatternCategory.COMMON_EXPRESSION,
+                'Exists y',
+                priority=97
+            ),
+            MathematicalPattern(
+                r'\|\|x\|\|',
+                'the norm of x',
+                PatternCategory.COMMON_EXPRESSION,
+                'Norm notation',
+                priority=97
+            ),
+            MathematicalPattern(
+                r'\|x\|',
+                'the absolute value of x',
+                PatternCategory.COMMON_EXPRESSION,
+                'Absolute value',
+                priority=97
+            ),
+            MathematicalPattern(
+                r'\\mathbb\{R\}\^n',
+                'R n',
+                PatternCategory.COMMON_EXPRESSION,
+                'n-dimensional real space',
+                priority=98
+            ),
+            MathematicalPattern(
+                r'2\\pi i',
+                'two pi i',
+                PatternCategory.COMMON_EXPRESSION,
+                'Two pi i',
+                priority=97
             ),
         ]
     

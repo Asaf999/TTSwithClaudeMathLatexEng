@@ -707,29 +707,31 @@ class MathematicalTTSEngine:
             (r'([a-zA-Z])\^\{([^}]+)\}', lambda m: f'{m.group(1)} to the {m.group(2)}'),
             (r'([a-zA-Z])\^([a-zA-Z0-9])', lambda m: f'{m.group(1)} to the {m.group(2)}' if m.group(2) not in ['2', '3'] else f'{m.group(1)} {"squared" if m.group(2) == "2" else "cubed"}'),
             
-            # Handle subscripts naturally
+            # Handle subscripts naturally - NEVER say "underscore"
             (r'([a-zA-Z])_\{([^}]+)\}', lambda m: f'{m.group(1)} sub {m.group(2)}'),
             (r'([a-zA-Z])_([a-zA-Z0-9])', lambda m: f'{m.group(1)} sub {m.group(2)}'),
-            (r'\\pi_1', 'pi sub 1'),
-            (r'\\pi_([0-9]+)', lambda m: f'pi sub {m.group(1)}'),
-            (r'([A-Z])_\{([ij])([ij])\}', lambda m: f'{m.group(1)} {m.group(2)} {m.group(3)}'),  # Matrix elements
+            (r'\\pi_1', 'pi 1'),  # Professor style: just say "pi 1"
+            (r'\\pi_([0-9]+)', lambda m: f'pi {m.group(1)}'),  # Professor style
+            (r'([A-Z])_\{([ij])([ij])\}', lambda m: f'{m.group(1)} {m.group(2)} {m.group(3)}'),  # Matrix elements A_ij -> "A i j"
             (r'([a-z])_([ij])', lambda m: f'{m.group(1)} sub {m.group(2)}'),
+            (r'x_0', 'x naught'),  # Professor style for x_0
+            (r'x_([0-9]+)', lambda m: f'x {m.group(1)}'),  # Just say "x 1", "x 2", etc.
             
-            # Replace underscore notation
-            (r'underscore', ' sub '),
-            
-            # Greek letters
+            # Greek letters - Natural pronunciation
             (r'\\alpha', 'alpha'),
             (r'\\beta', 'beta'),
             (r'\\gamma', 'gamma'),
             (r'\\delta', 'delta'),
-            (r'\\epsilon', 'epsilon'),
+            (r'\\epsilon', 'epsilon'),  # Not "ep-si-lon"
+            (r'\\varepsilon', 'epsilon'),  # Variant epsilon
             (r'\\theta', 'theta'),
             (r'\\lambda', 'lambda'),
             (r'\\mu', 'mu'),
             (r'\\pi', 'pi'),
             (r'\\sigma', 'sigma'),
             (r'\\omega', 'omega'),
+            (r'\\Delta', 'delta'),  # Capital delta
+            (r'\\Sigma', 'sigma'),  # Capital sigma
             
             # Operations
             (r'\\times', ' times '),
@@ -737,20 +739,25 @@ class MathematicalTTSEngine:
             (r'\\pm', ' plus or minus '),
             (r'\\mp', ' minus or plus '),
             
-            # Sets
-            (r'\\mathbb{R}', 'the real numbers'),
-            (r'\\mathbb{C}', 'the complex numbers'),
-            (r'\\mathbb{N}', 'the natural numbers'),
-            (r'\\mathbb{Z}', 'the integers'),
-            (r'\\mathbb{Q}', 'the rational numbers'),
+            # Sets - Professor style (often just say "R", "C", etc.)
+            (r'\\mathbb{R}', 'R'),  # Just "R" not "the real numbers"
+            (r'\\mathbb{C}', 'C'),  # Just "C" 
+            (r'\\mathbb{N}', 'N'),  # Just "N"
+            (r'\\mathbb{Z}', 'Z'),  # Just "Z"
+            (r'\\mathbb{Q}', 'Q'),  # Just "Q"
+            (r'\\mathbb{R}\^n', 'R n'),  # "R n" not "n-dimensional real space"
+            (r'\\mathbb{R}\^2', 'R 2'),  # "R 2"
+            (r'\\mathbb{R}\^3', 'R 3'),  # "R 3"
             
-            # Logic
+            # Logic - Professor style
             (r'\\forall', 'for all'),
             (r'\\exists', 'there exists'),
-            (r'\\in', ' in '),
-            (r'\\subset', ' is a subset of '),
+            (r'\\in', ' in '),  # "x in A"
+            (r'\\notin', ' not in '),  # "x not in A"
+            (r'\\subset', ' subset '),  # Just "subset"
+            (r'\\subseteq', ' subset or equal '),  
             (r'\\cup', ' union '),
-            (r'\\cap', ' intersection '),
+            (r'\\cap', ' intersect '),  # "intersect" not "intersection"
             
             # Functions
             (r'\\sin', 'sine'),

@@ -491,6 +491,11 @@ For more information: https://github.com/yourusername/mathspeak
         action='store_true',
         help='Disable expression caching'
     )
+    parser.add_argument(
+        '--offline',
+        action='store_true',
+        help='Prefer offline TTS engines (espeak-ng, pyttsx3)'
+    )
     
     # Information options
     parser.add_argument(
@@ -751,7 +756,7 @@ def main():
     engine = MathematicalTTSEngine(
         voice_manager=voice_manager,
         enable_caching=not args.no_cache,
-        prefer_offline_tts=False  # Use online engines by default for better quality
+        prefer_offline_tts=args.offline  # Use offline engines if requested
     )
     
     # Load domain processors

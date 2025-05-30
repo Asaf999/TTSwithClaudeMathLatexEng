@@ -1,0 +1,3 @@
+2025-05-30 04:18:36,878 - mathspeak - INFO - [logger.py:416] - setup_logging() - MathSpeak logging initialized
+2025-05-30 04:18:36,878 - mathspeak - INFO - [logger.py:417] - setup_logging() - Log level: INFO
+2025-05-30 04:18:36,878 - mathspeak - INFO - [logger.py:419] - setup_logging() - Log directory: test_output

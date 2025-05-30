@@ -1,0 +1,670 @@
+2025-05-30 04:18:36,878 - mathspeak - INFO - MathSpeak logging initialized
+2025-05-30 04:18:36,878 - mathspeak - INFO - Log level: INFO
+2025-05-30 04:18:36,878 - mathspeak - INFO - Log directory: test_output
+Failed to initialize advanced cache: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Critical error in Performance: cannot access local variable 'unknown_commands' where it is not associated with a value
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/comprehensive_system_test.py", line 210, in run_all_tests
+    await test_func()
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/comprehensive_system_test.py", line 382, in test_performance
+    self.engine.process_latex(simple_expr)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 584, in process_latex
+    elif unknown_commands:
+         ^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'unknown_commands' where it is not associated with a value
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Critical error in Cache Functionality: cannot access local variable 'unknown_commands' where it is not associated with a value
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/comprehensive_system_test.py", line 210, in run_all_tests
+    await test_func()
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/comprehensive_system_test.py", line 417, in test_cache
+    result1 = self.engine.process_latex(expr)
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 584, in process_latex
+    elif unknown_commands:
+         ^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'unknown_commands' where it is not associated with a value
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Critical error in Memory Usage: cannot access local variable 'unknown_commands' where it is not associated with a value
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/comprehensive_system_test.py", line 210, in run_all_tests
+    await test_func()
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/comprehensive_system_test.py", line 678, in test_memory_usage
+    self.engine.process_latex(expr)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 584, in process_latex
+    elif unknown_commands:
+         ^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'unknown_commands' where it is not associated with a value
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Error processing LaTeX: attempted relative import beyond top-level package
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+Critical error in Concurrent Processing: cannot access local variable 'unknown_commands' where it is not associated with a value
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 480, in process_latex
+    from ..utils.timeout import timeout_with_fallback
+ImportError: attempted relative import beyond top-level package
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/comprehensive_system_test.py", line 210, in run_all_tests
+    await test_func()
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/comprehensive_system_test.py", line 904, in test_concurrent_processing
+    result = self.engine.process_latex(expr)
+  File "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/core/engine.py", line 584, in process_latex
+    elif unknown_commands:
+         ^^^^^^^^^^^^^^^^
+UnboundLocalError: cannot access local variable 'unknown_commands' where it is not associated with a value
+🚀 Initializing MathSpeak Comprehensive Test Suite...
+✅ Engine initialized successfully
+
+📋 Running 18 test categories...
+
+
+============================================================
+🔬 Basic Expressions
+============================================================
+
+============================================================
+🔬 Complex Expressions
+============================================================
+
+============================================================
+🔬 Mathematical Domains
+============================================================
+
+============================================================
+🔬 Edge Cases
+============================================================
+
+============================================================
+🔬 Error Handling
+============================================================
+
+============================================================
+🔬 Performance
+============================================================
+
+⏱️  Performance Testing...
+
+============================================================
+🔬 Cache Functionality
+============================================================
+
+💾 Testing Cache...
+
+============================================================
+🔬 TTS Engines
+============================================================
+
+🔊 Testing TTS Engines...
+
+============================================================
+🔬 CLI Interface
+============================================================
+
+🖥️  Testing CLI Interface...
+
+============================================================
+🔬 Batch Processing
+============================================================
+
+📦 Testing Batch Processing...
+
+============================================================
+🔬 Interactive Mode
+============================================================
+
+💬 Testing Interactive Mode...
+
+============================================================
+🔬 Memory Usage
+============================================================
+
+🧠 Testing Memory Usage...
+
+============================================================
+🔬 File I/O
+============================================================
+
+📁 Testing File I/O...
+
+============================================================
+🔬 Unknown Commands
+============================================================
+
+❓ Testing Unknown Commands...
+
+============================================================
+🔬 Multi-language
+============================================================
+
+🌍 Testing Multi-language Support...
+
+============================================================
+🔬 Special Characters
+============================================================
+
+✨ Testing Special Characters...
+
+============================================================
+🔬 Long Expressions
+============================================================
+
+📏 Testing Long Expressions...
+
+============================================================
+🔬 Concurrent Processing
+============================================================
+
+🔄 Testing Concurrent Processing...
+
+📄 Reports saved to test_output/
+
+============================================================
+COMPREHENSIVE TEST COMPLETE
+============================================================
+
+📊 Results:
+   Total Tests: 115
+   ✅ Passed: 40 (34.8%)
+   ❌ Failed: 75
+   ⏱️  Duration: 9.1s
+
+❌ Failed Tests:
+   - Basic: Single variable: cannot access local variable 'unknown_commands' wh...
+   - Basic: Addition: cannot access local variable 'unknown_commands' wh...
+   - Basic: Subtraction: cannot access local variable 'unknown_commands' wh...
+   - Basic: Multiplication: cannot access local variable 'unknown_commands' wh...
+   - Basic: Division: cannot access local variable 'unknown_commands' wh...
+
+💡 Recommendations:
+
+❌ System has significant issues

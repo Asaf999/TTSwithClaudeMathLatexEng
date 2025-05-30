@@ -1,0 +1,75 @@
+MathSpeak Comprehensive Test Report
+============================================================
+
+Generated: 2025-05-30T04:18:45.995457
+
+TEST SUMMARY
+------------------------------
+Total Tests: 115
+Passed: 40 (34.8%)
+Failed: 75
+Duration: 9.1s
+Tests/second: 12.6
+
+PERFORMANCE METRICS
+------------------------------
+Average test duration: 0.195s
+Min duration: 0.000s
+Max duration: 4.453s
+
+RESOURCE USAGE
+------------------------------
+Average CPU: 0.0%
+Max memory: 50.0MB
+Average memory: 49.9MB
+
+DOMAIN COVERAGE
+------------------------------
+topology: 0 tests passed
+complex_analysis: 0 tests passed
+real_analysis: 0 tests passed
+measure_theory: 0 tests passed
+ode: 0 tests passed
+numerical_analysis: 0 tests passed
+algorithms: 0 tests passed
+combinatorics: 0 tests passed
+
+TTS ENGINE STATUS
+------------------------------
+edge: Available
+  Generation time: 0.10s
+pyttsx3: Available
+  Generation time: 0.10s
+
+ERRORS (First 10)
+------------------------------
+Test: Basic: Single variable
+Error: cannot access local variable 'unknown_commands' where it is not associated with a value
+
+Test: Basic: Addition
+Error: cannot access local variable 'unknown_commands' where it is not associated with a value
+
+Test: Basic: Subtraction
+Error: cannot access local variable 'unknown_commands' where it is not associated with a value
+
+Test: Basic: Multiplication
+Error: cannot access local variable 'unknown_commands' where it is not associated with a value
+
+Test: Basic: Division
+Error: cannot access local variable 'unknown_commands' where it is not associated with a value
+
+Test: Basic: Power
+Error: cannot access local variable 'unknown_commands' where it is not associated with a value
+
+Test: Basic: Square root
+Error: cannot access local variable 'unknown_commands' where it is not associated with a value
+
+Test: Basic: Greek letters
+Error: cannot access local variable 'unknown_commands' where it is not associated with a value
+
+Test: Basic: Parentheses
+Error: cannot access local variable 'unknown_commands' where it is not associated with a value
+
+Test: Basic: Mixed operations
+Error: cannot access local variable 'unknown_commands' where it is not associated with a value
+

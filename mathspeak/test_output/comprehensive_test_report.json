@@ -1,0 +1,298 @@
+{
+  "summary": {
+    "total_tests": 115,
+    "passed": 40,
+    "failed": 75,
+    "success_rate": 0.34782608695652173,
+    "total_duration": 9.115338325500488,
+    "tests_per_second": 12.616097822533185
+  },
+  "performance": {
+    "average_duration": 0.19521210193634034,
+    "max_duration": 4.45343542098999,
+    "min_duration": 2.384185791015625e-07,
+    "total_processing_time": 7.808484077453613
+  },
+  "resources": {
+    "average_cpu_percent": 0.0,
+    "max_memory_mb": 49.953125,
+    "average_memory_mb": 49.940625
+  },
+  "cache_stats": {},
+  "tts_engine_stats": {
+    "edge": {
+      "available": true,
+      "generation_time": 0.10056042671203613,
+      "file_size": 19
+    },
+    "pyttsx3": {
+      "available": true,
+      "generation_time": 0.10050415992736816,
+      "file_size": 19
+    }
+  },
+  "domain_coverage": {
+    "topology": 0,
+    "complex_analysis": 0,
+    "real_analysis": 0,
+    "measure_theory": 0,
+    "ode": 0,
+    "numerical_analysis": 0,
+    "algorithms": 0,
+    "combinatorics": 0
+  },
+  "errors": [
+    {
+      "test": "Basic: Single variable",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Basic: Addition",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Basic: Subtraction",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Basic: Multiplication",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Basic: Division",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Basic: Power",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Basic: Square root",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Basic: Greek letters",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Basic: Parentheses",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Basic: Mixed operations",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Basic: Subscripts",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Basic: Superscripts",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Basic: Fractions",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Basic: Nested fractions",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Basic: Basic trig",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Complex: Integral with limits",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Complex: Double integral",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Complex: Sum notation",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Complex: Product notation",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Complex: Limit expression",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Complex: Matrix",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Complex: Determinant",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Complex: Partial derivatives",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Complex: Vector notation",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Complex: Tensor",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Complex: Bra-ket",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Complex: Complex integral",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "topology: \\pi_1(S^1) \\cong \\mathbb{Z}...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "topology: X \\times Y is compact \\iff X a...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "topology: \\overline{A} = A \\cup \\partial...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "complex_analysis: f is holomorphic \\iff \\bar{\\pa...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "complex_analysis: \\text{Res}(f, z_0) = \\frac{1}{...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "real_analysis: \\forall \\epsilon > 0 \\, \\exist...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "real_analysis: \\limsup_{n \\to \\infty} a_n = \\...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "measure_theory: \\int_E f \\, d\\mu = \\int_{\\math...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "measure_theory: \\mu(\\bigcup_{n=1}^{\\infty} E_n...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "ode: y'' + p(x)y' + q(x)y = 0...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "ode: \\frac{dx}{dt} = Ax has solutio...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "numerical_analysis: ||x_{k+1} - x^*|| \\leq L ||x_k...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "numerical_analysis: \\text{cond}(A) = ||A|| \\cdot |...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "algorithms: T(n) = 2T(n/2) + O(n) \\implies...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "algorithms: P \\subseteq NP \\subseteq PSPAC...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "combinatorics: \\binom{n}{k} = \\frac{n!}{k!(n-...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "combinatorics: |A \\cup B| = |A| + |B| - |A \\c...",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Performance",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Cache Functionality",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "CLI: quiet_mode",
+      "error": "<frozen importlib._bootstrap>:488: RuntimeWarning: Your system is avx2 capable but pygame was not built with support for it. The performance of some of your blits could be adversely affected. Consider enabling compile time detection with environment variables like PYGAME_DETECT_AVX2=1 if you are compiling without cross compilation.\nusage: mathspeak.py [-h] [-f FILE | -i] [-o OUTPUT] [-s]\n                    [-v {narrator,definition,theorem,proof,example,emphasis,warning}]\n                    [--speed SPEED]\n                    [-c {topology,complex_analysis,numerical_analysis,manifolds,ode,real_analysis,measure_theory,combinatorics,algebra,general}]\n                    [--no-commentary] [--no-cache] [--offline]\n                    [--test [{basic,topology,complex,all}]] [--stats]\n                    [--batch FILE] [--batch-output DIR] [--debug] [--version]\n                    [expression]\nmathspeak.py: error: unrecognized arguments: -q\n",
+      "details": {}
+    },
+    {
+      "test": "CLI: from_file",
+      "error": "<frozen importlib._bootstrap>:488: RuntimeWarning: Your system is avx2 capable but pygame was not built with support for it. The performance of some of your blits could be adversely affected. Consider enabling compile time detection with environment variables like PYGAME_DETECT_AVX2=1 if you are compiling without cross compilation.\n2025-05-30 04:18:45,234 - mathspeak - INFO - MathSpeak logging initialized\n2025-05-30 04:18:45,234 - mathspeak - INFO - Log level: INFO\n2025-05-30 04:18:45,235 - mathspeak - INFO - Log directory: /home/puncher/.mathspeak/logs\n2025-05-30 04:18:45,236 - mathspeak.core.voice_manager - INFO - VoiceManager initialized\n2025-05-30 04:18:45,243 - mathspeak.core.patterns - INFO - Pattern processor initialized with 91 patterns\n2025-05-30 04:18:45,307 - mathspeak.core.tts_engines - INFO - Available TTS engines: ['Microsoft Edge TTS', 'Google TTS', 'Pyttsx3 (Offline)', 'Espeak (Offline)']\n2025-05-30 04:18:45,308 - mathspeak.core.engine - INFO - Mathematical TTS Engine initialized\n2025-05-30 04:18:45,322 - mathspeak.domains.topology - INFO - Topology processor initialized with complete vocabulary\nFatal error: [Errno 2] No such file or directory: 'test_input.tex'\nTraceback (most recent call last):\n  File \"/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak/mathspeak.py\", line 813, in main\n    with open(args.file, 'r', encoding='utf-8') as f:\n         ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nFileNotFoundError: [Errno 2] No such file or directory: 'test_input.tex'\n2025-05-30 04:18:45,323 - mathspeak.core.engine - INFO - TTS Engine shut down\n",
+      "details": {}
+    },
+    {
+      "test": "Batch: Processing",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    },
+    {
+      "test": "Interactive: x^2 + y^2 = r^2",
+      "error": "cannot access local variable 'unknown_commands' where it is not associated with a value",
+      "details": {}
+    }
+  ],
+  "edge_cases": [],
+  "warnings": []
+}

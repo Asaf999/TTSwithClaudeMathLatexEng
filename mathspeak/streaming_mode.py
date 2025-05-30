@@ -330,7 +330,7 @@ async def interactive_streaming():
     print("Enter text or LaTeX. Type 'quit' to exit.")
     print("Type '---' on a new line to start streaming.\n")
     
-    streamer = StreamingMathSpeak(look_ahead=1, prefer_offline=True)
+    streamer = StreamingMathSpeak(look_ahead=1, prefer_offline=False)
     
     try:
         while True:

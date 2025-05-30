@@ -829,10 +829,38 @@ class CommonExpressionHandler:
                 priority=90
             ),
             MathematicalPattern(
+                r'\\frac\{1\}\{4\}',
+                'one fourth',
+                PatternCategory.COMMON_EXPRESSION,
+                'One fourth',
+                priority=90
+            ),
+            MathematicalPattern(
+                r'\\frac\{3\}\{4\}',
+                'three fourths',
+                PatternCategory.COMMON_EXPRESSION,
+                'Three fourths',
+                priority=90
+            ),
+            MathematicalPattern(
+                r'\\frac\{2\}\{3\}',
+                'two thirds',
+                PatternCategory.COMMON_EXPRESSION,
+                'Two thirds',
+                priority=90
+            ),
+            MathematicalPattern(
                 r'\\frac\{\\pi\}\{2\}',
                 'pi over 2',
                 PatternCategory.COMMON_EXPRESSION,
                 'Pi/2',
+                priority=90
+            ),
+            MathematicalPattern(
+                r'\\frac\{\\pi\}\{4\}',
+                'pi over 4',
+                PatternCategory.COMMON_EXPRESSION,
+                'Pi/4',
                 priority=90
             ),
             
@@ -845,14 +873,63 @@ class CommonExpressionHandler:
                 priority=90
             ),
             MathematicalPattern(
+                r'\\sqrt\{3\}',
+                'square root of 3',
+                PatternCategory.COMMON_EXPRESSION,
+                'Sqrt(3)',
+                priority=90
+            ),
+            MathematicalPattern(
+                r'\\sqrt\{\\pi\}',
+                'square root of pi',
+                PatternCategory.COMMON_EXPRESSION,
+                'Sqrt(pi)',
+                priority=90
+            ),
+            MathematicalPattern(
                 r'\\sqrt\{([^}]+)\}',
                 lambda m: f'square root of {m.group(1)}',
                 PatternCategory.COMMON_EXPRESSION,
                 'General square root',
                 priority=85
             ),
+            MathematicalPattern(
+                r'\\sqrt\[([0-9]+)\]\{([^}]+)\}',
+                lambda m: f'{self._ordinal(m.group(1))} root of {m.group(2)}',
+                PatternCategory.COMMON_EXPRESSION,
+                'nth root',
+                priority=86
+            ),
             
             # Exponents and special functions
+            MathematicalPattern(
+                r'([a-zA-Z])\^2',
+                lambda m: f'{m.group(1)} squared',
+                PatternCategory.COMMON_EXPRESSION,
+                'Variable squared',
+                priority=93
+            ),
+            MathematicalPattern(
+                r'([a-zA-Z])\^3',
+                lambda m: f'{m.group(1)} cubed',
+                PatternCategory.COMMON_EXPRESSION,
+                'Variable cubed',
+                priority=93
+            ),
+            MathematicalPattern(
+                r'([a-zA-Z])\^n',
+                lambda m: f'{m.group(1)} to the n',
+                PatternCategory.COMMON_EXPRESSION,
+                'Variable to the n',
+                priority=93
+            ),
+            MathematicalPattern(
+                r'([a-zA-Z])\^\{([0-9]+)\}',
+                lambda m: f'{m.group(1)} to the {self._number_to_ordinal_power(m.group(2))}',
+                PatternCategory.COMMON_EXPRESSION,
+                'Variable to numeric power',
+                priority=93
+            ),
             MathematicalPattern(
                 r'e\^\{-([a-z])\^2\}',
                 lambda m: f'e to the negative {m.group(1)} squared',
@@ -906,6 +983,59 @@ class CommonExpressionHandler:
                 'Pythagorean identity',
                 priority=90
             ),
+            
+            # Subscripts and matrix elements
+            MathematicalPattern(
+                r'([a-zA-Z])_\{([ij])([ij])\}',
+                lambda m: f'{m.group(1)} {m.group(2)} {m.group(3)}',
+                PatternCategory.COMMON_EXPRESSION,
+                'Matrix element notation',
+                priority=94
+            ),
+            MathematicalPattern(
+                r'([a-zA-Z])_([0-9]+)',
+                lambda m: f'{m.group(1)} sub {m.group(2)}',
+                PatternCategory.COMMON_EXPRESSION,
+                'Numeric subscript',
+                priority=94
+            ),
+            MathematicalPattern(
+                r'([a-zA-Z])_([a-zA-Z])',
+                lambda m: f'{m.group(1)} sub {m.group(2)}',
+                PatternCategory.COMMON_EXPRESSION,
+                'Letter subscript',
+                priority=94
+            ),
+            
+            # Differentials
+            MathematicalPattern(
+                r'dx',
+                'd x',
+                PatternCategory.COMMON_EXPRESSION,
+                'Differential dx',
+                priority=95
+            ),
+            MathematicalPattern(
+                r'dy',
+                'd y',
+                PatternCategory.COMMON_EXPRESSION,
+                'Differential dy',
+                priority=95
+            ),
+            MathematicalPattern(
+                r'dz',
+                'd z',
+                PatternCategory.COMMON_EXPRESSION,
+                'Differential dz',
+                priority=95
+            ),
+            MathematicalPattern(
+                r'dt',
+                'd t',
+                PatternCategory.COMMON_EXPRESSION,
+                'Differential dt',
+                priority=95
+            ),
         ]
     
     def _process_limit(self, limit: str) -> str:
@@ -934,17 +1064,51 @@ class CommonExpressionHandler:
         if denominator == '2':
             if numerator == '1':
                 return 'one half'
+            elif numerator == '3':
+                return 'three halves'
             elif numerator == '\\pi':
                 return 'pi over 2'
             elif numerator == 'pi':
                 return 'pi over 2'
-        elif denominator == '3' and numerator == '1':
-            return 'one third'
-        elif denominator == '4' and numerator == '1':
-            return 'one fourth'
+        elif denominator == '3':
+            if numerator == '1':
+                return 'one third'
+            elif numerator == '2':
+                return 'two thirds'
+        elif denominator == '4':
+            if numerator == '1':
+                return 'one fourth'
+            elif numerator == '3':
+                return 'three fourths'
+        elif denominator == '5' and numerator == '1':
+            return 'one fifth'
+        elif denominator == '6' and numerator == '1':
+            return 'one sixth'
         
         # General case
         return f'{numerator} over {denominator}'
+    
+    def _number_to_ordinal_power(self, num: str) -> str:
+        """Convert number to ordinal for powers"""
+        ordinals = {
+            '0': 'zeroth', '1': 'first', '2': 'power of 2', '3': 'power of 3',
+            '4': 'fourth', '5': 'fifth', '6': 'sixth', '7': 'seventh',
+            '8': 'eighth', '9': 'ninth', '10': 'tenth'
+        }
+        if num == '2':
+            return 'power of 2'  # Special case to avoid "to the power of 2"
+        elif num == '3':
+            return 'power of 3'  # Special case to avoid "to the power of 3"
+        else:
+            return f'power of {num}'
+    
+    def _ordinal(self, num: str) -> str:
+        """Convert number to ordinal"""
+        ordinals = {
+            '2': 'square', '3': 'cube', '4': 'fourth', '5': 'fifth',
+            '6': 'sixth', '7': 'seventh', '8': 'eighth', '9': 'ninth', '10': 'tenth'
+        }
+        return ordinals.get(num, f'{num}th')
 
 # ===========================
 # Main Pattern Processor

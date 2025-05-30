@@ -695,6 +695,24 @@ class MathematicalTTSEngine:
         
         # Then apply remaining replacements
         replacements = OrderedDict([
+            # Subscripts and superscripts - must come first
+            # Handle subscripts naturally
+            (r'([a-zA-Z])_\{([^}]+)\}', lambda m: f'{m.group(1)} sub {m.group(2)}'),
+            (r'([a-zA-Z])_([a-zA-Z0-9])', lambda m: f'{m.group(1)} sub {m.group(2)}'),
+            (r'\\pi_1', 'pi sub 1'),
+            (r'\\pi_([0-9]+)', lambda m: f'pi sub {m.group(1)}'),
+            (r'([A-Z])_\{([ij])([ij])\}', lambda m: f'{m.group(1)} {m.group(2)} {m.group(3)}'),  # Matrix elements
+            (r'([a-z])_([ij])', lambda m: f'{m.group(1)} sub {m.group(2)}'),
+            
+            # Handle superscripts naturally
+            (r'([a-zA-Z])\^2', lambda m: f'{m.group(1)} squared'),
+            (r'([a-zA-Z])\^3', lambda m: f'{m.group(1)} cubed'),
+            (r'([a-zA-Z])\^\{([^}]+)\}', lambda m: f'{m.group(1)} to the {m.group(2)}'),
+            (r'([a-zA-Z])\^([a-zA-Z0-9])', lambda m: f'{m.group(1)} to the {m.group(2)}'),
+            
+            # Replace underscore notation
+            (r'underscore', ' sub '),
+            
             # Greek letters
             (r'\\alpha', 'alpha'),
             (r'\\beta', 'beta'),
@@ -747,6 +765,13 @@ class MathematicalTTSEngine:
             # Fractions - only process if not already handled by pattern processor
             # (Pattern processor handles special fractions like \frac{\sqrt{\pi}}{2})
             # (r'\\frac{([^}]+)}{([^}]+)}', r'\1 over \2'),  # Commented out - handled by pattern processor
+            
+            # Common differential notations
+            (r'dx', 'd x'),
+            (r'dy', 'd y'),
+            (r'dz', 'd z'),
+            (r'dt', 'd t'),
+            (r'd([a-z])', r'd \1'),
             
             # Exponents
             (r'e\^-([a-z])\^2', r'e to the negative \1 squared'),

@@ -984,6 +984,29 @@ class CommonExpressionHandler:
                 priority=90
             ),
             
+            # Combined subscript and superscript patterns
+            MathematicalPattern(
+                r'([a-zA-Z])_([0-9]+)\^2',
+                lambda m: f'{m.group(1)} sub {m.group(2)} squared',
+                PatternCategory.COMMON_EXPRESSION,
+                'Variable with subscript squared',
+                priority=96
+            ),
+            MathematicalPattern(
+                r'([a-zA-Z])_([0-9]+)\^3',
+                lambda m: f'{m.group(1)} sub {m.group(2)} cubed',
+                PatternCategory.COMMON_EXPRESSION,
+                'Variable with subscript cubed',
+                priority=96
+            ),
+            MathematicalPattern(
+                r'([a-zA-Z])_\{([^}]+)\}\^2',
+                lambda m: f'{m.group(1)} sub {m.group(2)} squared',
+                PatternCategory.COMMON_EXPRESSION,
+                'Variable with complex subscript squared',
+                priority=96
+            ),
+            
             # Subscripts and matrix elements
             MathematicalPattern(
                 r'([a-zA-Z])_\{([ij])([ij])\}',

@@ -645,6 +645,9 @@ class MathematicalTTSEngine:
         # Normalize whitespace
         text = ' '.join(latex.split())
         
+        # Remove dollar signs
+        text = text.replace('$', '')
+        
         # Fix common LaTeX issues
         fixes = [
             (r'\\\\', ' '),  # Line breaks
@@ -696,6 +699,14 @@ class MathematicalTTSEngine:
         # Then apply remaining replacements
         replacements = OrderedDict([
             # Subscripts and superscripts - must come first
+            # Handle superscripts first (before subscripts to avoid conflicts)
+            (r'([a-zA-Z])_([a-zA-Z0-9])\^2', lambda m: f'{m.group(1)} sub {m.group(2)} squared'),
+            (r'([a-zA-Z])_\{([^}]+)\}\^2', lambda m: f'{m.group(1)} sub {m.group(2)} squared'),
+            (r'([a-zA-Z])\^2', lambda m: f'{m.group(1)} squared'),
+            (r'([a-zA-Z])\^3', lambda m: f'{m.group(1)} cubed'),
+            (r'([a-zA-Z])\^\{([^}]+)\}', lambda m: f'{m.group(1)} to the {m.group(2)}'),
+            (r'([a-zA-Z])\^([a-zA-Z0-9])', lambda m: f'{m.group(1)} to the {m.group(2)}' if m.group(2) not in ['2', '3'] else f'{m.group(1)} {"squared" if m.group(2) == "2" else "cubed"}'),
+            
             # Handle subscripts naturally
             (r'([a-zA-Z])_\{([^}]+)\}', lambda m: f'{m.group(1)} sub {m.group(2)}'),
             (r'([a-zA-Z])_([a-zA-Z0-9])', lambda m: f'{m.group(1)} sub {m.group(2)}'),
@@ -703,12 +714,6 @@ class MathematicalTTSEngine:
             (r'\\pi_([0-9]+)', lambda m: f'pi sub {m.group(1)}'),
             (r'([A-Z])_\{([ij])([ij])\}', lambda m: f'{m.group(1)} {m.group(2)} {m.group(3)}'),  # Matrix elements
             (r'([a-z])_([ij])', lambda m: f'{m.group(1)} sub {m.group(2)}'),
-            
-            # Handle superscripts naturally
-            (r'([a-zA-Z])\^2', lambda m: f'{m.group(1)} squared'),
-            (r'([a-zA-Z])\^3', lambda m: f'{m.group(1)} cubed'),
-            (r'([a-zA-Z])\^\{([^}]+)\}', lambda m: f'{m.group(1)} to the {m.group(2)}'),
-            (r'([a-zA-Z])\^([a-zA-Z0-9])', lambda m: f'{m.group(1)} to the {m.group(2)}'),
             
             # Replace underscore notation
             (r'underscore', ' sub '),

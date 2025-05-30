@@ -170,14 +170,8 @@ class BasicArithmeticHandler(PatternHandler):
                 'Multiplication with cdot',
                 priority=70
             ),
-            # Implicit multiplication for single variables only
-            PatternRule(
-                r'\b([a-zA-Z])\s*([a-zA-Z])\b',
-                lambda m: f'{m.group(1)} {m.group(2)}' if m.group(1) != m.group(2) else f'{m.group(1)} squared',
-                self.domain,
-                'Implicit multiplication for variables',
-                priority=30  # Low priority to avoid breaking words
-            ),
+            # Note: Implicit multiplication is handled in the Algebra handler
+            # to avoid conflicts with word processing
             
             # Division - using "over" naturally
             PatternRule(
@@ -480,6 +474,22 @@ class AlgebraHandler(PatternHandler):
                 self.domain,
                 'Specific quadratic',
                 priority=96
+            ),
+            
+            # Implicit multiplication - only for specific cases to avoid breaking words
+            PatternRule(
+                r'(\d+)([a-zA-Z])\b',
+                lambda m: f'{m.group(1)} {m.group(2)}',
+                self.domain,
+                'Number times variable',
+                priority=85
+            ),
+            PatternRule(
+                r'\b([xyz])([xyz])\b',  # Only common math variables
+                lambda m: f'{m.group(1)} {m.group(2)}' if m.group(1) != m.group(2) else f'{m.group(1)} squared',
+                self.domain,
+                'Common variables multiplied',
+                priority=60
             ),
             
             # Binomial expansions

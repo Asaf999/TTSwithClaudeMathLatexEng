@@ -386,8 +386,12 @@ class MathematicalTTSEngine:
         self.language_enhancer = NaturalLanguageEnhancer()
         
         # Initialize pattern processor
-        from .patterns import PatternProcessor
-        self.pattern_processor = PatternProcessor()
+        try:
+            from .patterns import PatternProcessor
+            self.pattern_processor = PatternProcessor()
+        except ImportError:
+            logger.warning("Pattern processor not available, using basic processing")
+            self.pattern_processor = None
         
         # Performance optimization
         self.enable_caching = enable_caching
@@ -679,7 +683,7 @@ class MathematicalTTSEngine:
     def _general_processing(self, text: str) -> str:
         """General mathematical processing"""
         # First apply pattern processor if available
-        if hasattr(self, 'pattern_processor'):
+        if hasattr(self, 'pattern_processor') and self.pattern_processor:
             processed_text = self.pattern_processor.process(text)
             # If pattern processor made significant changes, trust it more
             if (len(processed_text) > len(text) * 1.2 or 

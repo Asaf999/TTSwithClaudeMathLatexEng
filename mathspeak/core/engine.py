@@ -218,15 +218,29 @@ class UnknownLatexTracker:
     
     def get_session_summary(self) -> Dict[str, Any]:
         """Get summary of unknown commands from this session"""
-        return {
-            'total_unknown': len(self.session_commands),
-            'commands': list(self.session_commands),
-            'most_frequent': sorted(
-                [(cmd, data['count']) for cmd, data in self.unknown_commands.items()],
-                key=lambda x: x[1],
-                reverse=True
-            )[:10]
-        }
+        try:
+            most_frequent = []
+            if isinstance(self.unknown_commands, dict):
+                for cmd, data in self.unknown_commands.items():
+                    if isinstance(data, dict) and 'count' in data:
+                        most_frequent.append((cmd, data['count']))
+                    elif isinstance(data, (int, float)):
+                        most_frequent.append((cmd, data))
+                
+                most_frequent = sorted(most_frequent, key=lambda x: x[1], reverse=True)[:10]
+            
+            return {
+                'total_unknown': len(self.session_commands),
+                'commands': list(self.session_commands),
+                'most_frequent': most_frequent
+            }
+        except Exception as e:
+            # Fallback to safe values
+            return {
+                'total_unknown': len(self.session_commands) if hasattr(self, 'session_commands') else 0,
+                'commands': list(self.session_commands) if hasattr(self, 'session_commands') else [],
+                'most_frequent': []
+            }
 
 # ===========================
 # Natural Language Enhancer
@@ -379,13 +393,23 @@ class MathematicalTTSEngine:
         self.enable_caching = enable_caching
         self.prefer_offline_tts = kwargs.get('prefer_offline_tts', False)
         
-        # Initialize advanced cache
+        # Initialize cache system
+        self.enable_caching = enable_caching
+        self.max_cache_size = 1000
+        
         if enable_caching:
-            from ..utils.cache import get_expression_cache
-            self.expression_cache = get_expression_cache()
+            try:
+                from ..utils.cache import get_expression_cache
+                self.expression_cache = get_expression_cache()
+                self._use_advanced_cache = True
+            except Exception as e:
+                logger.warning(f"Failed to initialize advanced cache: {e}")
+                # Fallback to simple dict cache
+                self.expression_cache = {}
+                self._use_advanced_cache = False
         else:
             self.expression_cache = {}
-        self.max_cache_size = 1000
+            self._use_advanced_cache = False
         
         # Initialize TTS engine manager
         from .tts_engines import TTSEngineManager
@@ -439,7 +463,7 @@ class MathematicalTTSEngine:
         # Check cache
         cache_key = self._get_cache_key(latex, force_context)
         if self.enable_caching:
-            cached = self.expression_cache.get(cache_key)
+            cached = self._get_from_cache(cache_key)
             if cached:
                 self.metrics.cache_hits += 1
                 if progress:
@@ -541,10 +565,7 @@ class MathematicalTTSEngine:
             
             # Cache result
             if self.enable_caching:
-                if hasattr(self.expression_cache, 'set'):
-                    self.expression_cache.set(cache_key, result)
-                else:
-                    self._add_to_cache(cache_key, result)
+                self._add_to_cache(cache_key, result)
             
             if progress:
                 progress.finish("Processing complete")
@@ -580,25 +601,40 @@ class MathematicalTTSEngine:
     
     def _get_cache_stats(self) -> Dict[str, Any]:
         """Get cache statistics"""
-        if hasattr(self.expression_cache, 'get_stats'):
+        if self._use_advanced_cache and hasattr(self.expression_cache, 'get_stats'):
             return self.expression_cache.get_stats()
         else:
             # Fallback for simple dict cache
+            cache_size = len(self.expression_cache) if hasattr(self.expression_cache, '__len__') else 0
             return {
-                'size': len(self.expression_cache),
+                'size': cache_size,
                 'max_size': self.max_cache_size,
-                'type': 'simple'
+                'type': 'simple',
+                'hit_rate': 0.0,  # Simple cache doesn't track this
+                'memory_mb': 0.0   # Simple cache doesn't track this
             }
     
+    def _get_from_cache(self, key: str) -> Optional[ProcessedExpression]:
+        """Get result from cache (handles both cache types)"""
+        if self._use_advanced_cache:
+            return self.expression_cache.get(key)
+        else:
+            return self.expression_cache.get(key)
+    
     def _add_to_cache(self, key: str, result: ProcessedExpression) -> None:
-        """Add result to cache with size limit"""
-        if len(self.expression_cache) >= self.max_cache_size:
-            # Remove oldest entries (simple FIFO)
-            oldest_keys = list(self.expression_cache.keys())[:self.max_cache_size // 10]
-            for k in oldest_keys:
-                del self.expression_cache[k]
-        
-        self.expression_cache[key] = result
+        """Add result to cache (handles both cache types)"""
+        if self._use_advanced_cache:
+            # Advanced cache handles its own size limits
+            self.expression_cache.set(key, result, result.processing_time)
+        else:
+            # Simple dict cache with manual size management
+            if len(self.expression_cache) >= self.max_cache_size:
+                # Remove oldest entries (simple FIFO)
+                oldest_keys = list(self.expression_cache.keys())[:self.max_cache_size // 10]
+                for k in oldest_keys:
+                    del self.expression_cache[k]
+            
+            self.expression_cache[key] = result
     
     def _preprocess_latex(self, latex: str) -> str:
         """Pre-process LaTeX for better handling"""

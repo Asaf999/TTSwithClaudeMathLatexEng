@@ -148,6 +148,30 @@ class LRUCache:
                 'avg_entry_size': self.total_memory / len(self.cache) if self.cache else 0
             }
     
+    def __len__(self) -> int:
+        """Return the number of items in cache"""
+        with self.lock:
+            return len(self.cache)
+    
+    def __contains__(self, key: str) -> bool:
+        """Check if key is in cache"""
+        with self.lock:
+            return key in self.cache
+    
+    def set(self, key: str, value: Any, computation_time: float = 0.0) -> None:
+        """Alias for put() method for compatibility"""
+        self.put(key, value, computation_time)
+    
+    def keys(self):
+        """Return cache keys"""
+        with self.lock:
+            return list(self.cache.keys())
+    
+    @property
+    def size(self) -> int:
+        """Property to get cache size"""
+        return len(self)
+    
     def save_to_disk(self, filepath: Path) -> None:
         """Save cache to disk"""
         with self.lock:

@@ -585,28 +585,46 @@ async def process_single_expression(
     
     # Show stats if requested
     if args.stats:
-        print("\n📊 Performance Report:")
-        report = engine.get_performance_report()
-        
-        # Pretty print the report
-        print("\nMetrics:")
-        for key, value in report.get('metrics', {}).items():
-            if isinstance(value, float):
-                print(f"  {key}: {value:.2f}")
-            else:
-                print(f"  {key}: {value}")
-        
-        if 'cache' in report:
-            print("\nCache:")
-            for key, value in report['cache'].items():
-                print(f"  {key}: {value}")
-        
-        if 'unknown_commands' in report:
-            print("\nUnknown Commands:")
-            unk = report['unknown_commands']
-            print(f"  Total: {unk.get('total_unknown', 0)}")
-            if unk.get('commands'):
-                print(f"  Commands: {', '.join(unk['commands'][:5])}...")
+        try:
+            print("\n📊 Performance Report:")
+            report = engine.get_performance_report()
+            
+            # Pretty print the report
+            print("\nMetrics:")
+            metrics = report.get('metrics', {})
+            for key, value in metrics.items():
+                if isinstance(value, float):
+                    print(f"  {key}: {value:.2f}")
+                else:
+                    print(f"  {key}: {value}")
+            
+            if 'cache' in report:
+                print("\nCache:")
+                cache_info = report['cache']
+                for key, value in cache_info.items():
+                    if isinstance(value, float):
+                        print(f"  {key}: {value:.2f}")
+                    else:
+                        print(f"  {key}: {value}")
+            
+            if 'unknown_commands' in report:
+                print("\nUnknown Commands:")
+                try:
+                    unk = report['unknown_commands']
+                    if isinstance(unk, dict):
+                        print(f"  Total: {unk.get('total_unknown', 0)}")
+                        if unk.get('commands'):
+                            commands = unk['commands'][:5] if isinstance(unk.get('commands'), list) else []
+                            if commands:
+                                print(f"  Commands: {', '.join(commands)}...")
+                    else:
+                        print(f"  Total: {unk}")
+                except Exception as e:
+                    print(f"  Error displaying unknown commands: {str(e)}")
+                    
+        except Exception as e:
+            print(f"\n❌ Error generating performance report: {str(e)}")
+            print("Core functionality is working, but statistics are unavailable.")
 
 async def process_batch(engine: MathematicalTTSEngine, 
                        batch_file: str, 

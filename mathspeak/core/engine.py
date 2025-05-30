@@ -732,14 +732,147 @@ class MathematicalTTSEngine:
         return sentences
     
     def _is_complete_sentence(self, text: str) -> bool:
-            (r'([a-zA-Z])\^\{([^}]+)\}', lambda m: f'{m.group(1)} to the {m.group(2)}'),
-            (r'([a-zA-Z])\^([a-zA-Z0-9])', lambda m: f'{m.group(1)} to the {m.group(2)}' if m.group(2) not in ['2', '3'] else f'{m.group(1)} {"squared" if m.group(2) == "2" else "cubed"}'),
+        """Check if text appears to be a complete sentence"""
+        # Simple heuristic - would be more sophisticated
+        if not text:
+            return False
+        
+        # Must end with sentence terminator
+        if not re.search(r'[.!?]$', text):
+            return False
+        
+        # Should have reasonable length
+        if len(text.split()) < 3:
+            return False
+        
+        # Check for balanced parentheses/brackets
+        if text.count('(') != text.count(')'):
+            return False
+        
+        return True
+    
+    async def speak_expression(self, 
+                             expression: ProcessedExpression, 
+                             output_file: Optional[str] = None,
+                             engine_name: Optional[str] = None,
+                             show_progress: bool = False) -> bool:
+        """Convert expression to speech using TTS engine manager
+        
+        Args:
+            expression: The processed expression to speak
+            output_file: Optional output file path. If None, plays audio directly.
+            engine_name: Specific TTS engine to use
+            show_progress: Show progress indicator
             
-            # Handle subscripts naturally - NEVER say "underscore"
-            (r'([a-zA-Z])_\{([^}]+)\}', lambda m: f'{m.group(1)} sub {m.group(2)}'),
-            (r'([a-zA-Z])_([a-zA-Z0-9])', lambda m: f'{m.group(1)} sub {m.group(2)}'),
-            (r'\\pi_1', 'pi 1'),  # Professor style: just say "pi 1"
-            (r'\\pi_([0-9]+)', lambda m: f'pi {m.group(1)}'),  # Professor style
+        Returns:
+            bool: True if successful, False otherwise
+        """
+        if not hasattr(self, 'tts_manager'):
+            logger.warning("TTS manager not available")
+            return False
+        
+        if not expression.segments:
+            logger.warning("No segments to speak")
+            return False
+        
+        progress = None
+        if show_progress:
+            from ..utils.progress import ProgressIndicator
+            progress = ProgressIndicator(
+                total=len(expression.segments),
+                description="Generating speech"
+            )
+            progress.start()
+        
+        try:
+            # Combine all segments into one text for better continuity
+            full_text = ' '.join(segment.text for segment in expression.segments)
+            
+            # Use the most common voice from segments
+            voice_counts = {}
+            for segment in expression.segments:
+                voice = getattr(segment, 'voice_role', 'narrator')
+                voice_counts[voice] = voice_counts.get(voice, 0) + 1
+            main_voice = max(voice_counts.items(), key=lambda x: x[1])[0] if voice_counts else 'narrator'
+            
+            # Generate speech
+            success = await self.tts_manager.synthesize(
+                text=full_text,
+                output_file=output_file or f"temp_speech_{int(time.time())}.mp3",
+                voice="en-US-AriaNeural",  # Use a specific voice instead of voice_role
+                rate="+0%",
+                engine_name=engine_name
+            )
+            
+            if progress:
+                progress.finish("Speech generation complete" if success else "Speech generation failed")
+            
+            return success
+            
+        except Exception as e:
+            logger.error(f"Error in speech generation: {e}")
+            if progress:
+                progress.finish("Speech generation failed")
+            return False
+    
+    def get_performance_report(self) -> Dict[str, Any]:
+        """Get comprehensive performance report"""
+        return {
+            'metrics': {
+                'tokens_per_second': self.metrics.tokens_per_second,
+                'total_tokens': self.metrics.tokens_processed,
+                'total_time': self.metrics.total_time,
+                'cache_hit_rate': self.metrics.cache_hits / max(self.metrics.cache_hits + self.metrics.cache_misses, 1),
+                'unknown_commands': self.metrics.unknown_commands_found,
+            },
+            'cache': self._get_cache_stats(),
+            'unknown_commands': self.unknown_tracker.get_session_summary(),
+        }
+    
+    def save_unknown_commands(self) -> None:
+        """Save unknown commands database"""
+        self.unknown_tracker.save_database()
+    
+    def shutdown(self) -> None:
+        """Clean shutdown of engine"""
+        self.save_unknown_commands()
+        logger.info("TTS Engine shut down")
+
+# ===========================
+# Testing Functions
+# ===========================
+
+def _test_engine():
+    """Test the TTS engine"""
+    engine = MathematicalTTSEngine()
+    
+    test_expressions = [
+        r"Let $f: \mathbb{R} \to \mathbb{R}$ be continuous.",
+        r"$\forall \epsilon > 0 \, \exists \delta > 0$ such that $|x - x_0| < \delta \implies |f(x) - f(x_0)| < \epsilon$",
+        r"Theorem 3.1. Every compact Hausdorff space is normal.",
+        r"$\int_0^\infty e^{-x^2} dx = \frac{\sqrt{\pi}}{2}$",
+    ]
+    
+    print("Testing Mathematical TTS Engine")
+    print("=" * 50)
+    
+    for expr in test_expressions:
+        print(f"\nProcessing: {expr[:50]}...")
+        result = engine.process_latex(expr)
+        
+        print(f"Context: {result.context}")
+        print(f"Processed: {result.processed[:100]}...")
+        print(f"Processing time: {result.processing_time:.3f}s")
+        print(f"Unknown commands: {result.unknown_commands}")
+    
+    print("\nPerformance Report:")
+    report = engine.get_performance_report()
+    print(json.dumps(report, indent=2))
+    
+    engine.shutdown()
+
+if __name__ == "__main__":
+    _test_engine()
             (r'([A-Z])_\{([ij])([ij])\}', lambda m: f'{m.group(1)} {m.group(2)} {m.group(3)}'),  # Matrix elements A_ij -> "A i j"
             (r'([a-z])_([ij])', lambda m: f'{m.group(1)} sub {m.group(2)}'),
             (r'x_0', 'x naught'),  # Professor style for x_0

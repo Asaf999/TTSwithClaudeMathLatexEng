@@ -24,8 +24,39 @@ from .base import (
     PatternHandler,
     DomainProcessor
 )
-from .processor import MathSpeechProcessor
-from .special_symbols import SpecialSymbolsHandler
+from .arithmetic import BasicArithmeticHandler
+from .algebra import AlgebraHandler
+
+# Import backward compatibility classes from the original patterns module
+try:
+    from ..patterns import (
+        PatternProcessor,
+        PatternCategory,
+        MathematicalPattern,
+        EpsilonDeltaHandler,
+        LimitPatternHandler,
+        SequenceSeriesHandler,
+        SetNotationHandler,
+        ProofPatternHandler,
+        ReferencePatternHandler,
+        CommonExpressionHandler,
+        apply_common_patterns,
+        apply_epsilon_delta_patterns,
+        apply_proof_patterns,
+    )
+except ImportError:
+    pass
+
+# Note: Some imports may fail if modules don't exist yet
+try:
+    from .processor import MathSpeechProcessor
+except ImportError:
+    pass
+
+try:
+    from .special_symbols import SpecialSymbolsHandler
+except ImportError:
+    pass
 
 __all__ = [
     'AudienceLevel',
@@ -33,6 +64,20 @@ __all__ = [
     'PatternRule',
     'PatternHandler',
     'DomainProcessor',
-    'MathSpeechProcessor',
-    'SpecialSymbolsHandler'
+    'BasicArithmeticHandler',
+    'AlgebraHandler',
+    # Backward compatibility exports
+    'PatternProcessor',
+    'PatternCategory',
+    'MathematicalPattern',
+    'EpsilonDeltaHandler',
+    'LimitPatternHandler',
+    'SequenceSeriesHandler',
+    'SetNotationHandler',
+    'ProofPatternHandler',
+    'ReferencePatternHandler',
+    'CommonExpressionHandler',
+    'apply_common_patterns',
+    'apply_epsilon_delta_patterns',
+    'apply_proof_patterns'
 ]

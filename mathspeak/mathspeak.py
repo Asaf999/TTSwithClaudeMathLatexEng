@@ -496,6 +496,17 @@ For more information: https://github.com/yourusername/mathspeak
         action='store_true',
         help='Prefer offline TTS engines (espeak-ng, pyttsx3)'
     )
+    parser.add_argument(
+        '--stream',
+        action='store_true',
+        help='Stream mode - generate and play audio on-the-fly'
+    )
+    parser.add_argument(
+        '--look-ahead',
+        type=int,
+        default=2,
+        help='Lines to process ahead in stream mode (default: 2)'
+    )
     
     # Information options
     parser.add_argument(
@@ -807,6 +818,28 @@ def main():
         # Batch mode
         elif args.batch:
             asyncio.run(process_batch(engine, args.batch, args.batch_output, args))
+        
+        # Streaming mode
+        elif args.stream:
+            from mathspeak.streaming_mode import StreamingMathSpeak
+            streamer = StreamingMathSpeak(
+                look_ahead=args.look_ahead,
+                prefer_offline=args.offline
+            )
+            
+            try:
+                if args.file:
+                    # Stream file
+                    asyncio.run(streamer.stream_file(args.file))
+                elif args.expression:
+                    # Stream single expression
+                    asyncio.run(streamer.stream_document(args.expression))
+                else:
+                    # Interactive streaming
+                    from mathspeak.streaming_mode import interactive_streaming
+                    asyncio.run(interactive_streaming())
+            finally:
+                streamer.cleanup()
         
         # File input
         elif args.file:

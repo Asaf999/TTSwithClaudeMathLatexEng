@@ -47,11 +47,11 @@ from .ode import (
     ODEVocabulary,
 )
 
-# Future domain imports will go here
-# from .real_analysis import RealAnalysisProcessor
-# from .measure_theory import MeasureTheoryProcessor
-# from .combinatorics import CombinatoricsProcessor
-# from .algorithms import AlgorithmsProcessor
+# Import the new domain processors
+from .real_analysis import RealAnalysisProcessor
+from .measure_theory import MeasureTheoryProcessor
+from .combinatorics import CombinatoricsProcessor
+from .algorithms import AlgorithmsProcessor
 
 # Domain registry for dynamic loading
 DOMAIN_REGISTRY = {
@@ -60,7 +60,10 @@ DOMAIN_REGISTRY = {
     'numerical_analysis': NumericalAnalysisProcessor,
     'manifolds': ManifoldsProcessor,
     'ode': ODEProcessor,
-    # Add more as implemented
+    'real_analysis': RealAnalysisProcessor,
+    'measure_theory': MeasureTheoryProcessor,
+    'combinatorics': CombinatoricsProcessor,
+    'algorithms': AlgorithmsProcessor,
 }
 
 # Domain metadata
@@ -98,30 +101,30 @@ DOMAIN_INFO = {
     'real_analysis': {
         'name': 'Real Analysis',
         'description': 'Limits, continuity, measure theory connections',
-        'subcontexts': ['limits', 'continuity', 'differentiation', 'integration'],
-        'priority': 4,
-        'status': 'planned',
+        'subcontexts': ['limits', 'continuity', 'differentiation', 'integration', 'sequences', 'series', 'function_spaces'],
+        'priority': 1,
+        'status': 'active',
     },
     'measure_theory': {
         'name': 'Measure Theory',
         'description': 'Measures, integration, and Lp spaces',
-        'subcontexts': ['measures', 'integration', 'lp_spaces', 'convergence'],
-        'priority': 4,
-        'status': 'planned',
+        'subcontexts': ['sigma_algebras', 'measures', 'integration', 'lp_spaces', 'convergence', 'radon_nikodym'],
+        'priority': 2,
+        'status': 'active',
     },
     'combinatorics': {
         'name': 'Combinatorics',
         'description': 'Counting, graphs, and generating functions',
-        'subcontexts': ['counting', 'graph_theory', 'generating_functions', 'partitions'],
-        'priority': 5,
-        'status': 'planned',
+        'subcontexts': ['counting', 'graph_theory', 'generating_functions', 'partitions', 'trees', 'posets'],
+        'priority': 3,
+        'status': 'active',
     },
     'algorithms': {
         'name': 'Computer Science Algorithms',
         'description': 'Algorithm notation and complexity',
-        'subcontexts': ['complexity', 'pseudocode', 'data_structures', 'graph_algorithms'],
-        'priority': 5,
-        'status': 'planned',
+        'subcontexts': ['complexity', 'algorithm_notation', 'data_structures', 'graph_algorithms', 'machine_learning', 'optimization'],
+        'priority': 3,
+        'status': 'active',
     },
 }
 
@@ -157,6 +160,10 @@ __all__ = [
     'NumericalAnalysisProcessor',
     'ManifoldsProcessor',
     'ODEProcessor',
+    'RealAnalysisProcessor',
+    'MeasureTheoryProcessor',
+    'CombinatoricsProcessor',
+    'AlgorithmsProcessor',
     
     # Context enums
     'TopologyContext',

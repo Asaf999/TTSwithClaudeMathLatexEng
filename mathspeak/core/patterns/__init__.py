@@ -26,6 +26,7 @@ from .base import (
 )
 from .arithmetic import BasicArithmeticHandler
 from .algebra import AlgebraHandler
+from .calculus import CalculusHandler
 
 # Import backward compatibility classes from the original patterns module
 try:
@@ -44,8 +45,21 @@ try:
         apply_epsilon_delta_patterns,
         apply_proof_patterns,
     )
-except ImportError:
-    pass
+except ImportError as e:
+    # Create placeholder imports if the patterns module doesn't have these
+    PatternProcessor = None
+    PatternCategory = None
+    MathematicalPattern = None
+    EpsilonDeltaHandler = None
+    LimitPatternHandler = None
+    SequenceSeriesHandler = None
+    SetNotationHandler = None
+    ProofPatternHandler = None
+    ReferencePatternHandler = None
+    CommonExpressionHandler = None
+    apply_common_patterns = None
+    apply_epsilon_delta_patterns = None
+    apply_proof_patterns = None
 
 # Note: Some imports may fail if modules don't exist yet
 try:
@@ -66,6 +80,7 @@ __all__ = [
     'DomainProcessor',
     'BasicArithmeticHandler',
     'AlgebraHandler',
+    'CalculusHandler',
     # Backward compatibility exports
     'PatternProcessor',
     'PatternCategory',

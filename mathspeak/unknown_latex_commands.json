@@ -1,1 +1,18 @@
-{}
+{
+  "invalid": {
+    "contexts": [
+      "\\invalid{command}"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 06:48:30",
+    "last_seen": "2025-05-30 06:48:30"
+  },
+  "subseteq": {
+    "contexts": [
+      "X \\subseteq Y"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-30 06:47:27",
+    "last_seen": "2025-05-30 06:47:27"
+  }
+}

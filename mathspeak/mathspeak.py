@@ -635,7 +635,7 @@ async def process_batch(engine: MathematicalTTSEngine,
     print(f"\n📦 Processing batch of {len(expressions)} expressions...")
     
     # Progress tracking
-    from utils.progress import BatchProgress
+    from mathspeak.utils.progress import BatchProgress
     batch_progress = BatchProgress(expressions, "Processing expressions")
     
     async def process_one(idx: int, expr: str) -> Tuple[int, bool, str]:

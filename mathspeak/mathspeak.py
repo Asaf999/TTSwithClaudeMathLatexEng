@@ -37,14 +37,8 @@ from mathspeak.core.voice_manager import VoiceManager, VoiceRole
 from mathspeak.utils.logger import setup_logging
 from mathspeak.utils.config import Config
 
-# For audio playback
-try:
-    import pygame
-    PYGAME_AVAILABLE = True
-except ImportError:
-    PYGAME_AVAILABLE = False
-    print("Warning: pygame not installed. Audio playback disabled.")
-    print("Install with: pip install pygame")
+# For audio playback - use our clean audio player
+from mathspeak.utils.audio_player import get_audio_player, play_audio
 
 # Version info
 __version__ = "1.0.0"
@@ -57,52 +51,7 @@ logger = logging.getLogger(__name__)
 # Audio Player
 # ===========================
 
-class AudioPlayer:
-    """Handles audio playback with fallback options"""
-    
-    def __init__(self):
-        self.initialized = False
-        if PYGAME_AVAILABLE:
-            try:
-                pygame.mixer.init()
-                self.initialized = True
-            except Exception as e:
-                logger.warning(f"Failed to initialize pygame mixer: {e}")
-    
-    def play_file(self, audio_file: str) -> None:
-        """Play audio file with best available method"""
-        if not Path(audio_file).exists():
-            logger.error(f"Audio file not found: {audio_file}")
-            return
-        
-        if self.initialized and PYGAME_AVAILABLE:
-            try:
-                pygame.mixer.music.load(audio_file)
-                pygame.mixer.music.play()
-                while pygame.mixer.music.get_busy():
-                    time.sleep(0.1)
-            except Exception as e:
-                logger.error(f"Pygame playback failed: {e}")
-                self._fallback_play(audio_file)
-        else:
-            self._fallback_play(audio_file)
-    
-    def _fallback_play(self, audio_file: str) -> None:
-        """Fallback audio playback using system commands"""
-        system = sys.platform
-        try:
-            if system == "darwin":  # macOS
-                os.system(f"afplay {audio_file}")
-            elif system == "linux":
-                # Try multiple Linux audio players
-                for player in ["mpv", "mplayer", "aplay", "paplay"]:
-                    if os.system(f"which {player} > /dev/null 2>&1") == 0:
-                        os.system(f"{player} {audio_file} > /dev/null 2>&1")
-                        break
-            elif system == "win32":  # Windows
-                os.system(f'start /min "" "{audio_file}"')
-        except Exception as e:
-            logger.error(f"Fallback playback failed: {e}")
+# Audio player is now imported from utils.audio_player
 
 # ===========================
 # Interactive Mode
@@ -111,9 +60,9 @@ class AudioPlayer:
 class InteractiveMode:
     """Interactive REPL for MathSpeak"""
     
-    def __init__(self, engine: MathematicalTTSEngine, player: AudioPlayer):
+    def __init__(self, engine: MathematicalTTSEngine):
         self.engine = engine
-        self.player = player
+        self.player = get_audio_player()
         self.history = []
         self.config = Config()
         
@@ -249,7 +198,7 @@ class InteractiveMode:
         temp_file = f"temp_speech_{int(time.time())}.mp3"
         try:
             await self.engine.speak_expression(result, output_file=temp_file)
-            self.player.play_file(temp_file)
+            self.player.play(temp_file)
         finally:
             # Cleanup
             Path(temp_file).unlink(missing_ok=True)
@@ -594,8 +543,7 @@ async def process_single_expression(
         print(f"✅ Audio saved to: {output_file}")
     else:
         # Play audio
-        player = AudioPlayer()
-        player.play_file(output_file)
+        play_audio(output_file)
         # Cleanup temp file
         Path(output_file).unlink(missing_ok=True)
     
@@ -785,8 +733,7 @@ def main():
     try:
         # Interactive mode
         if args.interactive:
-            player = AudioPlayer()
-            interactive = InteractiveMode(engine, player)
+            interactive = InteractiveMode(engine)
             interactive.run()
         
         # Test mode

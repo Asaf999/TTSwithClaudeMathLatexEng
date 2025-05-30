@@ -474,6 +474,9 @@ class MathematicalTTSEngine:
         
         self.metrics.cache_misses += 1
         
+        # Initialize unknown_commands to avoid UnboundLocalError
+        unknown_commands = []
+        
         try:
             # Step 1: Detect context and audience level
             if progress:

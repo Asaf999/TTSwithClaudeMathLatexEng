@@ -82,11 +82,11 @@ setup(
     description="Ultimate Mathematical Text-to-Speech System with professor-quality narration",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/mathspeak",
+    url="https://github.com/Asaf999/TTSwithClaudeMathLatexEng",
     project_urls={
-        "Bug Tracker": "https://github.com/yourusername/mathspeak/issues",
+        "Bug Tracker": "https://github.com/Asaf999/TTSwithClaudeMathLatexEng/issues",
         "Documentation": "https://mathspeak.readthedocs.io",
-        "Source Code": "https://github.com/yourusername/mathspeak",
+        "Source Code": "https://github.com/Asaf999/TTSwithClaudeMathLatexEng",
     },
     
     # Package configuration

@@ -47,11 +47,12 @@
   },
   "bigg": {
     "contexts": [
-      "\\oint_C \\frac{e^{iz}}{z^2(z^2+1)} dz = 2\\pi i \\sum"
+      "\\oint_C \\frac{e^{iz}}{z^2(z^2+1)} dz = 2\\pi i \\sum",
+      "$\\int_0^1 x^2 dx = \\frac{x^3}{3}\\bigg|_0^1 = \\frac"
     ],
-    "count": 1,
+    "count": 2,
     "first_seen": "2025-05-30 04:56:26",
-    "last_seen": "2025-05-30 04:56:26"
+    "last_seen": "2025-05-30 05:33:38"
   },
   "bigsqcup": {
     "contexts": [
@@ -85,9 +86,9 @@
       "\\pi_1(S^1) \\cong \\mathbb{Z}",
       "\\pi_1(S^1) \\cong \\mathbb{Z}"
     ],
-    "count": 6,
+    "count": 7,
     "first_seen": "2025-05-30 02:13:57",
-    "last_seen": "2025-05-30 05:26:56"
+    "last_seen": "2025-05-30 05:33:42"
   },
   "def": {
     "contexts": [
@@ -179,11 +180,12 @@
   "implies": {
     "contexts": [
       "\\forall \\epsilon > 0 \\, \\exists \\delta > 0 : 0 < |",
-      "dX_t = \\mu(X_t, t)dt + \\sigma(X_t, t)dW_t \\implies"
+      "dX_t = \\mu(X_t, t)dt + \\sigma(X_t, t)dW_t \\implies",
+      "$\\forall \\epsilon > 0 \\, \\exists \\delta > 0 : |x-a"
     ],
-    "count": 2,
+    "count": 3,
     "first_seen": "2025-05-30 03:43:57",
-    "last_seen": "2025-05-30 04:56:47"
+    "last_seen": "2025-05-30 05:33:44"
   },
   "input": {
     "contexts": [
@@ -268,11 +270,12 @@
     "contexts": [
       "\\oint_\\gamma f(z)dz = 2\\pi i \\sum \\text{Res}(f, z_",
       "\\oint_C f(z) dz = 2\\pi i \\sum \\text{Res}(f, z_k)",
-      "\\oint_C \\frac{e^{iz}}{z^2(z^2+1)} dz = 2\\pi i \\sum"
+      "\\oint_C \\frac{e^{iz}}{z^2(z^2+1)} dz = 2\\pi i \\sum",
+      "$\\oint_C \\frac{f(z)}{z-a} dz = 2\\pi i f(a)$"
     ],
-    "count": 3,
+    "count": 4,
     "first_seen": "2025-05-30 02:14:00",
-    "last_seen": "2025-05-30 04:56:26"
+    "last_seen": "2025-05-30 05:33:43"
   },
   "openout": {
     "contexts": [
@@ -348,9 +351,9 @@
       "\\lim_{x \\to 0} \\frac{\\sin x}{x}",
       "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1"
     ],
-    "count": 12,
+    "count": 13,
     "first_seen": "2025-05-30 02:47:29",
-    "last_seen": "2025-05-30 04:57:29"
+    "last_seen": "2025-05-30 05:33:39"
   },
   "undefined": {
     "contexts": [

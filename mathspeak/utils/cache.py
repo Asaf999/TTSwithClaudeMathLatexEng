@@ -234,6 +234,10 @@ class ExpressionCache:
         key = self._make_key(expression, context)
         self.cache.put(key, result, computation_time)
     
+    def set(self, key: str, value: Any, computation_time: float = 0.0) -> None:
+        """Set a value directly by key (for compatibility)"""
+        self.cache.put(key, value, computation_time)
+    
     def save(self) -> None:
         """Save cache to disk"""
         self.cache.save_to_disk(self.cache_file)

@@ -857,8 +857,8 @@ class MathematicalTTSEngine:
             success = await self.tts_manager.synthesize(
                 text=full_text,
                 output_file=output_file or f"temp_speech_{int(time.time())}.mp3",
-                voice_role=main_voice,
-                rate=1.0,
+                voice="en-US-AriaNeural",  # Use a specific voice instead of voice_role
+                rate="+0%",
                 engine_name=engine_name
             )
             

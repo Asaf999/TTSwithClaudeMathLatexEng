@@ -392,6 +392,71 @@ class TTSEngineManager:
         logger.error("All TTS engines failed")
         return False
     
+    async def generate_speech(self, text: str, output_file: str,
+                             voice: Optional[str] = None,
+                             rate: Optional[str] = None,
+                             engine_name: Optional[str] = None) -> bool:
+        """
+        Generate speech from text (alias for synthesize for backward compatibility).
+        
+        Args:
+            text: Text to convert to speech
+            output_file: Path where audio file should be saved
+            voice: Voice to use (engine-specific)
+            rate: Speech rate (engine-specific)
+            engine_name: Specific engine to use
+            
+        Returns:
+            True if successful, False otherwise
+        """
+        return await self.synthesize(text, output_file, voice, rate, engine_name)
+    
+    async def generate_speech_batch(self, 
+                                   texts: List[str], 
+                                   output_files: List[str],
+                                   voice: Optional[str] = None,
+                                   rate: Optional[str] = None,
+                                   engine_name: Optional[str] = None,
+                                   max_concurrent: int = 3) -> List[bool]:
+        """
+        Generate speech for multiple texts concurrently.
+        
+        Args:
+            texts: List of texts to convert to speech
+            output_files: List of output file paths
+            voice: Voice to use for all texts
+            rate: Speech rate for all texts
+            engine_name: Specific engine to use
+            max_concurrent: Maximum concurrent operations
+            
+        Returns:
+            List of success flags for each text
+        """
+        if len(texts) != len(output_files):
+            raise ValueError("texts and output_files must have the same length")
+        
+        semaphore = asyncio.Semaphore(max_concurrent)
+        
+        async def process_single(text: str, output_file: str) -> bool:
+            async with semaphore:
+                return await self.generate_speech(text, output_file, voice, rate, engine_name)
+        
+        tasks = [process_single(text, output_file) 
+                for text, output_file in zip(texts, output_files)]
+        
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        
+        # Convert exceptions to False
+        processed_results = []
+        for result in results:
+            if isinstance(result, Exception):
+                logger.error(f"Error in batch processing: {result}")
+                processed_results.append(False)
+            else:
+                processed_results.append(result)
+        
+        return processed_results
+    
     def get_available_engines(self) -> List[Dict[str, Any]]:
         """Get information about available engines"""
         return [

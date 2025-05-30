@@ -165,7 +165,7 @@ class BasicArithmeticHandler(PatternHandler):
             ),
             PatternRule(
                 r'(\d+)\s*\\cdot\s*(\d+)',
-                lambda m: f'{m.group(1)} times {m.group(2)}',
+                lambda m: f'{m.group(1)} dot {m.group(2)}',
                 self.domain,
                 'Multiplication with cdot',
                 priority=70
@@ -187,6 +187,22 @@ class BasicArithmeticHandler(PatternHandler):
                 self.domain,
                 'Variable division',
                 priority=70
+            ),
+            PatternRule(
+                r'\\div',
+                ' divided by ',
+                self.domain,
+                'Division symbol',
+                priority=70
+            ),
+            
+            # Mixed numbers
+            PatternRule(
+                r'(\d+)\\frac\{(\d+)\}\{(\d+)\}',
+                lambda m: f'{m.group(1)} and {m.group(2)} over {m.group(3)}',
+                self.domain,
+                'Mixed number',
+                priority=75
             ),
             
             # Equals
@@ -453,11 +469,41 @@ class AlgebraHandler(PatternHandler):
                 priority=94
             ),
             PatternRule(
+                r'\\sqrt\[n\]\{([^}]+)\}',
+                lambda m: f'nth root of {m.group(1)}',
+                self.domain,
+                'nth root with n',
+                priority=93
+            ),
+            PatternRule(
                 r'\\sqrt\[(\d+)\]\{([^}]+)\}',
                 lambda m: f'{self._ordinal(m.group(1))} root of {m.group(2)}',
                 self.domain,
                 'nth root',
                 priority=93
+            ),
+            
+            # Decorated variables
+            PatternRule(
+                r'\\tilde\{([a-zA-Z])\}',
+                lambda m: f'{m.group(1)} tilde',
+                self.domain,
+                'Variable with tilde',
+                priority=95
+            ),
+            PatternRule(
+                r'\\hat\{([a-zA-Z])\}',
+                lambda m: f'{m.group(1)} hat',
+                self.domain,
+                'Variable with hat',
+                priority=95
+            ),
+            PatternRule(
+                r'\\bar\{([a-zA-Z])\}',
+                lambda m: f'{m.group(1)} bar',
+                self.domain,
+                'Variable with bar',
+                priority=95
             ),
             
             # Polynomials
@@ -660,6 +706,13 @@ class FunctionHandler(PatternHandler):
                 priority=95
             ),
             PatternRule(
+                r'\\tan\s*\(([^)]+)\)',
+                lambda m: f'tangent of {m.group(1)}',
+                self.domain,
+                'Tangent with parentheses',
+                priority=94
+            ),
+            PatternRule(
                 r'\\sin\s*\(([^)]+)\)',
                 lambda m: f'sine of {m.group(1)}',
                 self.domain,
@@ -692,24 +745,77 @@ class FunctionHandler(PatternHandler):
             
             # Inverse trig
             PatternRule(
-                r'\\arcsin|\\sin\^{-1}',
+                r'\\arcsin',
+                'arc sine',
+                self.domain,
+                'Arc sine',
+                priority=95
+            ),
+            PatternRule(
+                r'\\sin\^\{-1\}',
                 'arc sine',
                 self.domain,
                 'Inverse sine',
                 priority=95
             ),
             PatternRule(
-                r'\\arccos|\\cos\^{-1}',
+                r'\\arccos',
+                'arc cosine',
+                self.domain,
+                'Arc cosine',
+                priority=95
+            ),
+            PatternRule(
+                r'\\cos\^\{-1\}',
                 'arc cosine',
                 self.domain,
                 'Inverse cosine',
                 priority=95
             ),
             PatternRule(
-                r'\\arctan|\\tan\^{-1}',
+                r'\\arctan',
+                'arc tangent',
+                self.domain,
+                'Arc tangent',
+                priority=95
+            ),
+            PatternRule(
+                r'\\tan\^\{-1\}',
                 'arc tangent',
                 self.domain,
                 'Inverse tangent',
+                priority=95
+            ),
+            
+            # Hyperbolic functions
+            PatternRule(
+                r'\\sinh',
+                'hyperbolic sine',
+                self.domain,
+                'Hyperbolic sine',
+                priority=95
+            ),
+            PatternRule(
+                r'\\cosh',
+                'hyperbolic cosine',
+                self.domain,
+                'Hyperbolic cosine',
+                priority=95
+            ),
+            PatternRule(
+                r'\\tanh',
+                'hyperbolic tangent',
+                self.domain,
+                'Hyperbolic tangent',
+                priority=95
+            ),
+            
+            # Sign function
+            PatternRule(
+                r'\\text\{sgn\}',
+                'sign',
+                self.domain,
+                'Sign function',
                 priority=95
             ),
             
@@ -1155,15 +1261,15 @@ class LinearAlgebraHandler(PatternHandler):
             
             # Matrices
             PatternRule(
-                r'A\^T',
-                'A transpose',
+                r'([A-Z])\^T',
+                lambda m: f'{m.group(1)} transpose',
                 self.domain,
                 'Matrix transpose',
                 priority=96
             ),
             PatternRule(
-                r'A\^{-1}',
-                'A inverse',
+                r'([A-Z])\^{-1}',
+                lambda m: f'{m.group(1)} inverse',
                 self.domain,
                 'Matrix inverse',
                 priority=96
@@ -1240,6 +1346,13 @@ class LinearAlgebraHandler(PatternHandler):
                 'A cross B',
                 self.domain,
                 'Cross product',
+                priority=95
+            ),
+            PatternRule(
+                r'\\otimes',
+                ' tensor ',
+                self.domain,
+                'Tensor product',
                 priority=95
             ),
             PatternRule(
@@ -1486,11 +1599,55 @@ class SetTheoryHandler(PatternHandler):
                 priority=98
             ),
             PatternRule(
-                r'\\emptyset|\\varnothing',
-                'the empty set',
+                r'\\emptyset',
+                'empty set',
                 self.domain,
                 'Empty set',
                 priority=98
+            ),
+            PatternRule(
+                r'\\varnothing',
+                'empty set',
+                self.domain,
+                'Empty set varnothing',
+                priority=98
+            ),
+            
+            # Additional set theory symbols
+            PatternRule(
+                r'\\sim',
+                ' is similar to ',
+                self.domain,
+                'Similar to',
+                priority=95
+            ),
+            PatternRule(
+                r'\\cong',
+                ' is congruent to ',
+                self.domain,
+                'Congruent to',
+                priority=95
+            ),
+            PatternRule(
+                r'\\mathcal\{U\}',
+                'universal set',
+                self.domain,
+                'Universal set',
+                priority=98
+            ),
+            PatternRule(
+                r'\\mathcal\{P\}',
+                'power set',
+                self.domain,
+                'Power set',
+                priority=98
+            ),
+            PatternRule(
+                r'\\times',
+                ' cross ',
+                self.domain,
+                'Cartesian product',
+                priority=95
             ),
             
             # Intervals
@@ -2095,6 +2252,88 @@ class ComplexAnalysisHandler(PatternHandler):
         ]
 
 # ===========================
+# Special Symbols Handler
+# ===========================
+
+class SpecialSymbolsHandler:
+    """Handles special symbols like percent, currency, units"""
+    
+    def __init__(self):
+        self.patterns = [
+            # Percent
+            PatternRule(
+                r'(\d+)\\%',
+                lambda m: f'{m.group(1)} percent',
+                MathDomain.BASIC_ARITHMETIC,
+                'Percent',
+                priority=95
+            ),
+            
+            # Currency
+            PatternRule(
+                r'\\\$(\d+)',
+                lambda m: f'{m.group(1)} dollars',
+                MathDomain.BASIC_ARITHMETIC,
+                'Dollar amount',
+                priority=95
+            ),
+            
+            # Units
+            PatternRule(
+                r'\\text\{ m/s\}',
+                'meters per second',
+                MathDomain.BASIC_ARITHMETIC,
+                'Meters per second',
+                priority=95
+            ),
+            PatternRule(
+                r'\\text\{m/s\}',
+                'meters per second',
+                MathDomain.BASIC_ARITHMETIC,
+                'Meters per second no space',
+                priority=95
+            ),
+            
+            # Ellipsis
+            PatternRule(
+                r'\\ldots',
+                'dot dot dot',
+                MathDomain.BASIC_ARITHMETIC,
+                'Ellipsis',
+                priority=95
+            ),
+            
+            # QED
+            PatternRule(
+                r'\\square',
+                'Q E D',
+                MathDomain.BASIC_ARITHMETIC,
+                'QED square',
+                priority=95
+            ),
+        ]
+        
+        # Compile patterns
+        for pattern in self.patterns:
+            pattern.compiled = re.compile(pattern.pattern)
+    
+    def process(self, text: str, audience: AudienceLevel = AudienceLevel.UNDERGRADUATE) -> str:
+        """Process text with special symbol patterns"""
+        result = text
+        
+        # Sort by priority (highest first)
+        sorted_patterns = sorted(self.patterns, key=lambda p: p.priority, reverse=True)
+        
+        # Apply patterns
+        for pattern in sorted_patterns:
+            if callable(pattern.replacement):
+                result = pattern.compiled.sub(pattern.replacement, result)
+            else:
+                result = pattern.compiled.sub(pattern.replacement, result)
+        
+        return result
+
+# ===========================
 # Logic Patterns
 # ===========================
 
@@ -2298,6 +2537,9 @@ class GeneralizationEngine:
             MathDomain.LOGIC: LogicHandler(MathDomain.LOGIC),
         }
         
+        # Add special symbols handler
+        self.special_handler = SpecialSymbolsHandler()
+        
         # General patterns that apply across domains
         self.general_patterns = [
             # Greek letters
@@ -2362,9 +2604,7 @@ class GeneralizationEngine:
             ),
             
             # Dots
-            PatternRule(
-                r'\\ldots', 'dot dot dot', MathDomain.BASIC_ARITHMETIC, 'Ellipsis', 85
-            ),
+            # Note: \ldots is now handled in SpecialSymbolsHandler
             PatternRule(
                 r'\\cdots', 'dot dot dot', MathDomain.BASIC_ARITHMETIC, 'Center dots', 85
             ),
@@ -2446,6 +2686,9 @@ class GeneralizationEngine:
         for domain in priority_order:
             if domain in self.handlers:
                 result = self.handlers[domain].process(result, audience)
+        
+        # Apply special symbols handler
+        result = self.special_handler.process(result, audience)
         
         # Clean up final result
         result = self._cleanup(result)

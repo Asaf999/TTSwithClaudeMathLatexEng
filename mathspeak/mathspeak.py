@@ -399,6 +399,7 @@ For more information: https://github.com/yourusername/mathspeak
     parser.add_argument(
         'expression',
         nargs='?',
+        default='',
         help='LaTeX mathematical expression to speak'
     )
     

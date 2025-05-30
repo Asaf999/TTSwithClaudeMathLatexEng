@@ -196,15 +196,6 @@ class BasicArithmeticHandler(PatternHandler):
                 priority=70
             ),
             
-            # Mixed numbers
-            PatternRule(
-                r'(\d+)\\frac\{(\d+)\}\{(\d+)\}',
-                lambda m: f'{m.group(1)} and {m.group(2)} over {m.group(3)}',
-                self.domain,
-                'Mixed number',
-                priority=105  # Higher priority than regular fractions
-            ),
-            
             # Equals
             PatternRule(
                 r'=',
@@ -379,6 +370,15 @@ class AlgebraHandler(PatternHandler):
                 self.domain,
                 'General subscript',
                 priority=87
+            ),
+            
+            # Mixed numbers - must come before fraction patterns
+            PatternRule(
+                r'(\d+)\\frac\{(\d+)\}\{(\d+)\}',
+                lambda m: f'{m.group(1)} and {m.group(2)} over {m.group(3)}',
+                self.domain,
+                'Mixed number',
+                priority=105  # Higher priority than regular fractions
             ),
             
             # Fractions - always use "over"

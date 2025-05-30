@@ -25,92 +25,14 @@ from dataclasses import dataclass
 from enum import Enum
 from abc import ABC, abstractmethod
 
-# Import the refactored handlers from the patterns package
+# Import base classes and refactored handlers from the patterns package
+from .patterns.base import AudienceLevel, MathDomain, PatternRule, PatternHandler
 from .patterns.calculus import CalculusHandler
 from .patterns.algebra import AlgebraHandler
 from .patterns.arithmetic import BasicArithmeticHandler
 
 logger = logging.getLogger(__name__)
 
-# ===========================
-# Context and Audience Levels
-# ===========================
-
-class AudienceLevel(Enum):
-    """Audience sophistication levels"""
-    HIGH_SCHOOL = "high_school"
-    UNDERGRADUATE = "undergraduate"
-    GRADUATE = "graduate"
-    RESEARCH = "research"
-
-class MathDomain(Enum):
-    """Mathematical domains for pattern categorization"""
-    BASIC_ARITHMETIC = "basic_arithmetic"
-    ALGEBRA = "algebra"
-    FUNCTIONS = "functions"
-    CALCULUS = "calculus"
-    LINEAR_ALGEBRA = "linear_algebra"
-    SET_THEORY = "set_theory"
-    PROBABILITY = "probability"
-    NUMBER_THEORY = "number_theory"
-    COMPLEX_ANALYSIS = "complex_analysis"
-    TOPOLOGY = "topology"
-    LOGIC = "logic"
-    DISCRETE_MATH = "discrete_math"
-
-@dataclass
-class PatternRule:
-    """A mathematical pattern with its natural speech replacement"""
-    pattern: str  # Regex pattern
-    replacement: Union[str, Callable]  # Natural speech or function
-    domain: MathDomain
-    description: str
-    priority: int = 50
-    audience_levels: List[AudienceLevel] = None
-    
-    def __post_init__(self):
-        self.compiled = re.compile(self.pattern)
-        if self.audience_levels is None:
-            self.audience_levels = list(AudienceLevel)
-
-# ===========================
-# Base Pattern Handler
-# ===========================
-
-class PatternHandler(ABC):
-    """Abstract base class for pattern handlers"""
-    
-    def __init__(self, domain: MathDomain):
-        self.domain = domain
-        self.patterns: List[PatternRule] = []
-        self._init_patterns()
-    
-    @abstractmethod
-    def _init_patterns(self):
-        """Initialize patterns for this handler"""
-        pass
-    
-    def process(self, text: str, audience: AudienceLevel = AudienceLevel.UNDERGRADUATE) -> str:
-        """Process text with patterns appropriate for audience"""
-        result = text
-        
-        # Filter patterns by audience level
-        applicable_patterns = [
-            p for p in self.patterns 
-            if audience in p.audience_levels
-        ]
-        
-        # Sort by priority (highest first)
-        applicable_patterns.sort(key=lambda p: p.priority, reverse=True)
-        
-        # Apply patterns
-        for pattern in applicable_patterns:
-            if callable(pattern.replacement):
-                result = pattern.compiled.sub(pattern.replacement, result)
-            else:
-                result = pattern.compiled.sub(pattern.replacement, result)
-        
-        return result
 
 
 

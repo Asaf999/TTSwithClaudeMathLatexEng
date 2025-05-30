@@ -170,12 +170,13 @@ class BasicArithmeticHandler(PatternHandler):
                 'Multiplication with cdot',
                 priority=70
             ),
+            # Implicit multiplication for single variables only
             PatternRule(
-                r'([a-zA-Z])([a-zA-Z])',
+                r'\b([a-zA-Z])\s*([a-zA-Z])\b',
                 lambda m: f'{m.group(1)} {m.group(2)}' if m.group(1) != m.group(2) else f'{m.group(1)} squared',
                 self.domain,
-                'Implicit multiplication',
-                priority=65
+                'Implicit multiplication for variables',
+                priority=30  # Low priority to avoid breaking words
             ),
             
             # Division - using "over" naturally
@@ -2417,9 +2418,24 @@ class GeneralizationEngine:
                 else:
                     result = pattern.compiled.sub(pattern.replacement, result)
         
-        # Apply domain-specific patterns
-        for handler in self.handlers.values():
-            result = handler.process(result, audience)
+        # Apply domain-specific patterns in a specific order to prevent conflicts
+        # Process patterns that contain LaTeX commands first
+        priority_order = [
+            MathDomain.ALGEBRA,  # Process fractions, roots, etc. first
+            MathDomain.FUNCTIONS,  # Process functions like \sin, \cos
+            MathDomain.CALCULUS,  # Process derivatives, integrals
+            MathDomain.LINEAR_ALGEBRA,
+            MathDomain.SET_THEORY,
+            MathDomain.PROBABILITY,
+            MathDomain.NUMBER_THEORY,
+            MathDomain.COMPLEX_ANALYSIS,
+            MathDomain.LOGIC,
+            MathDomain.BASIC_ARITHMETIC,  # Process basic arithmetic last to avoid breaking LaTeX
+        ]
+        
+        for domain in priority_order:
+            if domain in self.handlers:
+                result = self.handlers[domain].process(result, audience)
         
         # Clean up final result
         result = self._cleanup(result)
@@ -2500,8 +2516,22 @@ class MathSpeechProcessor:
         text = re.sub(r'\$([^$]+)\$', r'\1', text)
         text = re.sub(r'\\[\[\]]', '', text)
         
-        # Normalize whitespace around operators
+        # Normalize whitespace around operators, but preserve LaTeX commands
+        # First, temporarily replace LaTeX commands to protect them
+        latex_commands = []
+        def protect_latex(match):
+            latex_commands.append(match.group(0))
+            return f"__LATEX_{len(latex_commands)-1}__"
+        
+        # Protect LaTeX commands (backslash followed by letters)
+        text = re.sub(r'\\[a-zA-Z]+', protect_latex, text)
+        
+        # Now normalize whitespace around operators
         text = re.sub(r'\s*([+\-*/=<>])\s*', r' \1 ', text)
+        
+        # Restore LaTeX commands
+        for i, cmd in enumerate(latex_commands):
+            text = text.replace(f"__LATEX_{i}__", cmd)
         
         return text
     

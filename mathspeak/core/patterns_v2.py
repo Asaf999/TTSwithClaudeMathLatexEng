@@ -202,7 +202,7 @@ class BasicArithmeticHandler(PatternHandler):
                 lambda m: f'{m.group(1)} and {m.group(2)} over {m.group(3)}',
                 self.domain,
                 'Mixed number',
-                priority=75
+                priority=105  # Higher priority than regular fractions
             ),
             
             # Equals
@@ -789,6 +789,20 @@ class FunctionHandler(PatternHandler):
             
             # Hyperbolic functions
             PatternRule(
+                r'\\sinh\s*([a-zA-Z])',
+                lambda m: f'hyperbolic sine {m.group(1)}',
+                self.domain,
+                'Hyperbolic sine with arg',
+                priority=96
+            ),
+            PatternRule(
+                r'\\sinh\s*\(([^)]+)\)',
+                lambda m: f'hyperbolic sine of {m.group(1)}',
+                self.domain,
+                'Hyperbolic sine with parens',
+                priority=96
+            ),
+            PatternRule(
                 r'\\sinh',
                 'hyperbolic sine',
                 self.domain,
@@ -796,11 +810,39 @@ class FunctionHandler(PatternHandler):
                 priority=95
             ),
             PatternRule(
+                r'\\cosh\s*([a-zA-Z])',
+                lambda m: f'hyperbolic cosine {m.group(1)}',
+                self.domain,
+                'Hyperbolic cosine with arg',
+                priority=96
+            ),
+            PatternRule(
+                r'\\cosh\s*\(([^)]+)\)',
+                lambda m: f'hyperbolic cosine of {m.group(1)}',
+                self.domain,
+                'Hyperbolic cosine with parens',
+                priority=96
+            ),
+            PatternRule(
                 r'\\cosh',
                 'hyperbolic cosine',
                 self.domain,
                 'Hyperbolic cosine',
                 priority=95
+            ),
+            PatternRule(
+                r'\\tanh\s*([a-zA-Z])',
+                lambda m: f'hyperbolic tangent {m.group(1)}',
+                self.domain,
+                'Hyperbolic tangent with arg',
+                priority=96
+            ),
+            PatternRule(
+                r'\\tanh\s*\(([^)]+)\)',
+                lambda m: f'hyperbolic tangent of {m.group(1)}',
+                self.domain,
+                'Hyperbolic tangent with parens',
+                priority=96
             ),
             PatternRule(
                 r'\\tanh',
@@ -1268,7 +1310,7 @@ class LinearAlgebraHandler(PatternHandler):
                 priority=96
             ),
             PatternRule(
-                r'([A-Z])\^{-1}',
+                r'([A-Z])\^\{-1\}',
                 lambda m: f'{m.group(1)} inverse',
                 self.domain,
                 'Matrix inverse',
@@ -2271,7 +2313,7 @@ class SpecialSymbolsHandler:
             
             # Currency
             PatternRule(
-                r'\\\$(\d+)',
+                r'\\\$([\d]+)',
                 lambda m: f'{m.group(1)} dollars',
                 MathDomain.BASIC_ARITHMETIC,
                 'Dollar amount',
@@ -2671,10 +2713,10 @@ class GeneralizationEngine:
         # Apply domain-specific patterns in a specific order to prevent conflicts
         # Process patterns that contain LaTeX commands first
         priority_order = [
-            MathDomain.ALGEBRA,  # Process fractions, roots, etc. first
-            MathDomain.FUNCTIONS,  # Process functions like \sin, \cos
+            MathDomain.LINEAR_ALGEBRA,  # Process matrix-specific patterns first
+            MathDomain.FUNCTIONS,  # Process functions before algebra to catch \sin^{-1} etc.
+            MathDomain.ALGEBRA,  # Process fractions, roots, etc.
             MathDomain.CALCULUS,  # Process derivatives, integrals
-            MathDomain.LINEAR_ALGEBRA,
             MathDomain.SET_THEORY,
             MathDomain.PROBABILITY,
             MathDomain.NUMBER_THEORY,

@@ -64,40 +64,61 @@ class CalculusHandler(PatternHandler):
                 priority=98
             ),
             
-            # Leibniz notation
+            # Leibniz notation - FIXED for natural speech
+            PatternRule(
+                r'\\frac\{d\}\{d([a-zA-Z])\}\s*([a-zA-Z])\(([a-zA-Z])\)',
+                lambda m: f'derivative of {m.group(2)} of {m.group(3)}',
+                self.domain,
+                'Derivative of function',
+                priority=100
+            ),
+            PatternRule(
+                r'\\frac\{d\}\{d([a-zA-Z])\}\s*([a-zA-Z]+)',
+                lambda m: f'derivative of {m.group(2)}',
+                self.domain,
+                'Derivative operator applied',
+                priority=100
+            ),
+            PatternRule(
+                r'\\frac\{d([a-zA-Z]*)\}\{d([a-zA-Z])\}',
+                lambda m: f'derivative of {m.group(1)} with respect to {m.group(2)}' if m.group(1) else f'derivative with respect to {m.group(2)}',
+                self.domain,
+                'General derivative',
+                priority=99
+            ),
             PatternRule(
                 r'\\frac\{dy\}\{dx\}',
-                'd y d x',
+                'derivative of y with respect to x',
                 self.domain,
                 'dy/dx',
                 priority=99
             ),
             PatternRule(
-                r'\\frac\{d\}\{dx\}',
-                'd d x',
-                self.domain,
-                'd/dx operator',
-                priority=99
-            ),
-            PatternRule(
                 r'\\frac\{df\}\{dx\}',
-                'd f d x',
+                'derivative of f with respect to x',
                 self.domain,
                 'df/dx',
                 priority=99
             ),
             PatternRule(
-                r'\\frac\{d\^2y\}\{dx\^2\}',
-                'd squared y d x squared',
+                r'\\frac\{d\^2\}\{d([a-zA-Z])\^2\}',
+                lambda m: f'second derivative with respect to {m.group(1)}',
+                self.domain,
+                'Second derivative operator',
+                priority=100
+            ),
+            PatternRule(
+                r'\\frac\{d\^2([a-zA-Z]*)\}\{d([a-zA-Z])\^2\}',
+                lambda m: f'second derivative of {m.group(1)} with respect to {m.group(2)}' if m.group(1) else f'second derivative with respect to {m.group(2)}',
                 self.domain,
                 'Second derivative',
                 priority=99
             ),
             
-            # Partial derivatives
+            # Partial derivatives - FIXED for natural speech
             PatternRule(
-                r'\\frac\{\\partial f\}\{\\partial x\}',
-                'partial f partial x',
+                r'\\frac\{\\partial ([a-zA-Z])\}\{\\partial ([a-zA-Z])\}',
+                lambda m: f'partial derivative of {m.group(1)} with respect to {m.group(2)}',
                 self.domain,
                 'Partial derivative',
                 priority=99
@@ -154,11 +175,11 @@ class CalculusHandler(PatternHandler):
                 priority=98
             ),
             PatternRule(
-                r'\\int_0\^1',
-                'integral from 0 to 1',
+                r'\\int_0\^1\s*([^d]+)\s*d([a-zA-Z])',
+                lambda m: f'integral from 0 to 1 of {m.group(1).strip()} d{m.group(2)}',
                 self.domain,
-                'Common integral bounds',
-                priority=99
+                'Common integral 0 to 1',
+                priority=101
             ),
             PatternRule(
                 r'\\int_0\^\\infty',

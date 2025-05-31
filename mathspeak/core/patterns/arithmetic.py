@@ -16,7 +16,7 @@ class BasicArithmeticHandler(PatternHandler):
     
     def _init_patterns(self):
         self.patterns = [
-            # Addition
+            # Addition - ENHANCED with more patterns
             PatternRule(
                 r'(\d+)\s*\+\s*(\d+)',
                 lambda m: f'{m.group(1)} plus {m.group(2)}',
@@ -30,6 +30,27 @@ class BasicArithmeticHandler(PatternHandler):
                 self.domain,
                 'Variable addition',
                 priority=70
+            ),
+            PatternRule(
+                r'(\d+\s*[a-zA-Z]+)\s*\+\s*(\d+)',
+                lambda m: f'{m.group(1)} plus {m.group(2)}',
+                self.domain,
+                'Mixed term addition',
+                priority=71
+            ),
+            PatternRule(
+                r'(\d+\s*[a-zA-Z]+)\s*\+\s*(\d+\s*[a-zA-Z]+)',
+                lambda m: f'{m.group(1)} plus {m.group(2)}',
+                self.domain,
+                'Term plus term',
+                priority=71
+            ),
+            PatternRule(
+                r'\+',
+                ' plus ',
+                self.domain,
+                'Plus symbol fallback',
+                priority=50
             ),
             
             # Subtraction

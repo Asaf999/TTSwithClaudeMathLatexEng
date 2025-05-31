@@ -151,9 +151,9 @@ class AlgebraHandler(PatternHandler):
             ),
             PatternRule(
                 r'\\frac\{1\}\{4\}',
-                'one quarter',
+                'one fourth',
                 self.domain,
-                'One quarter',
+                'One fourth',
                 priority=100
             ),
             PatternRule(
@@ -165,9 +165,9 @@ class AlgebraHandler(PatternHandler):
             ),
             PatternRule(
                 r'\\frac\{3\}\{4\}',
-                'three quarters',
+                'three fourths',
                 self.domain,
-                'Three quarters',
+                'Three fourths',
                 priority=100
             ),
             PatternRule(
@@ -178,10 +178,10 @@ class AlgebraHandler(PatternHandler):
                 priority=98
             ),
             PatternRule(
-                r'\\frac\{([^}]+)\}\{([^}]+)\}',
+                r'\\frac\{(?!d\})(?!\\\\partial)([^}]+)\}\{(?!d[a-zA-Z])(?!\\\\partial)([^}]+)\}',
                 lambda m: f'{m.group(1)} over {m.group(2)}',
                 self.domain,
-                'General fraction',
+                'General fraction (excluding derivatives)',
                 priority=97
             ),
             

@@ -4,11 +4,13 @@ import logging
 from typing import Any, Callable, Dict, Optional, Type, TypeVar
 
 from mathspeak_clean.adapters.legacy_pattern_adapter import LegacyPatternAdapter
+from mathspeak_clean.adapters.enhanced_pattern_adapter import EnhancedPatternAdapter
 from mathspeak_clean.application.use_cases.process_expression import (
     ProcessExpressionUseCase,
 )
 from mathspeak_clean.domain.interfaces.pattern_repository import PatternRepository
 from mathspeak_clean.domain.services.pattern_processor import PatternProcessorService
+from mathspeak_clean.domain.services.enhanced_pattern_processor import EnhancedPatternProcessorService
 from mathspeak_clean.infrastructure.config.settings import Settings, get_settings
 from mathspeak_clean.infrastructure.logging.logger import get_logger
 from mathspeak_clean.infrastructure.persistence.lru_cache import LRUCache
@@ -59,13 +61,25 @@ class Container:
             PatternRepository,
             self._create_pattern_repository,
         )
-        self.register_factory(
-            PatternProcessorService,
-            lambda: PatternProcessorService(
-                pattern_repository=self.get(PatternRepository),
-                timeout=self.settings.pattern_timeout,
-            ),
-        )
+        
+        # Use enhanced processor if enabled
+        use_enhanced = getattr(self.settings, 'use_enhanced_processor', True)
+        if use_enhanced:
+            self.register_factory(
+                PatternProcessorService,
+                lambda: EnhancedPatternProcessorService(
+                    pattern_repository=self.get(PatternRepository),
+                    timeout=self.settings.pattern_timeout,
+                ),
+            )
+        else:
+            self.register_factory(
+                PatternProcessorService,
+                lambda: PatternProcessorService(
+                    pattern_repository=self.get(PatternRepository),
+                    timeout=self.settings.pattern_timeout,
+                ),
+            )
         
         # Application
         self.register_factory(
@@ -81,6 +95,10 @@ class Container:
             LegacyPatternAdapter,
             lambda: LegacyPatternAdapter(),
         )
+        self.register_factory(
+            EnhancedPatternAdapter,
+            lambda: EnhancedPatternAdapter(),
+        )
     
     def _create_pattern_repository(self) -> PatternRepository:
         """Create pattern repository based on configuration.
@@ -93,9 +111,34 @@ class Container:
         # whether to use file-based or database repository
         repository = MemoryPatternRepository()
         
-        # If using legacy patterns, initialize with adapter
-        # For now, always try to use legacy patterns
-        use_legacy = True  # self.settings.use_legacy_patterns if hasattr(self.settings, 'use_legacy_patterns') else True
+        # Load patterns based on configuration
+        use_enhanced = getattr(self.settings, 'use_enhanced_processor', True)
+        use_legacy = getattr(self.settings, 'use_legacy_patterns', not use_enhanced)
+        
+        # Try enhanced patterns first if enabled
+        if use_enhanced:
+            try:
+                adapter = self.get(EnhancedPatternAdapter)
+                adapter.initialize()
+                
+                # Copy patterns from enhanced adapter
+                enhanced_repo = adapter.get_pattern_repository()
+                for pattern in enhanced_repo.get_all():
+                    try:
+                        repository.add(pattern)
+                    except ValueError:
+                        # Pattern already exists
+                        pass
+                
+                logger.info(
+                    f"Loaded {repository.count()} enhanced patterns (98% natural speech)"
+                )
+                
+            except Exception as e:
+                logger.warning(f"Failed to load enhanced patterns: {e}")
+                use_legacy = True  # Fall back to legacy
+        
+        # Load legacy patterns if needed
         if use_legacy:
             try:
                 adapter = self.get(LegacyPatternAdapter)

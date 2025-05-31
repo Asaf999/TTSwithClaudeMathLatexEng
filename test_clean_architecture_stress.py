@@ -109,7 +109,7 @@ class CleanArchitectureStressTester:
                 # Deeply nested expression
                 (r"\frac{\frac{\frac{a}{b}}{c}}{\frac{d}{\frac{e}{f}}}", "deeply nested fraction"),
                 # Large matrix
-                (r"\begin{pmatrix} " + " & ".join([f"a_{{{i}{j}}}" for j in range(10)]) + r" \end{pmatrix}", "large matrix"),
+                (r"\begin{pmatrix} " + " & ".join([f"a_{{0{j}}}" for j in range(10)]) + r" \end{pmatrix}", "large matrix"),
                 # Complex integral
                 (r"\int\int\int_{\mathbb{R}^3} f(x,y,z) e^{-(x^2+y^2+z^2)} \, dx\,dy\,dz", "triple integral"),
             ]

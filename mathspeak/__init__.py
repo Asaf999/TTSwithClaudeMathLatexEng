@@ -292,3 +292,10 @@ __all__ = [
 # Type imports
 from pathlib import Path
 from typing import Optional, Dict, Any
+
+# Natural Speech Enhancement
+try:
+    from mathspeak_enhancement.truly_final_98_percent import TrulyFinal98PercentNaturalSpeech
+    NaturalSpeechEngine = TrulyFinal98PercentNaturalSpeech
+except ImportError:
+    NaturalSpeechEngine = None

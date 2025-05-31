@@ -1,23 +1,57 @@
 {
   "cycle": 9,
-  "score": 0,
-  "passed": false,
-  "improvement": 0,
-  "remaining_gap": 0.98,
-  "category_scores": {
-    "basic_arithmetic": 0,
-    "algebra": 0,
-    "calculus": 0,
-    "linear_algebra": 0,
-    "differential_equations": 0,
-    "complex_analysis": 0,
-    "topology": 0,
-    "set_theory_&_logic": 0,
-    "statistics_&_probability": 0,
-    "number_theory": 0,
-    "example_10.2:_modular_arithmetic": 0,
-    "abstract_algebra": 0,
-    "real_analysis": 0,
-    "numerical_methods": 0
-  }
+  "timestamp": "2025-05-31T20:41:08.612768",
+  "improvements_made": [],
+  "test_results": {
+    "status": "completed",
+    "overall_score": 0.8148148148148148,
+    "passed": 22,
+    "total": 27,
+    "failures": [
+      {
+        "category": "calculus",
+        "latex": "$\\frac{d}{dx} f(x)$",
+        "expected": "d by dx of f of x",
+        "actual": "d over dx f of x",
+        "context": null,
+        "error_type": "derivative_notation"
+      },
+      {
+        "category": "advanced",
+        "latex": "$\\frac{\\partial f}{\\partial x}$",
+        "expected": "partial f by partial x",
+        "actual": "partial f over partial x",
+        "context": null,
+        "error_type": "partial_derivative_notation"
+      },
+      {
+        "category": "mixed_patterns",
+        "latex": "$\\frac{d}{dx}[\\frac{1}{x}]$",
+        "expected": "d by d x of one over x",
+        "actual": "d over dx[one over x]",
+        "context": null,
+        "error_type": "derivative_notation"
+      },
+      {
+        "category": "mixed_patterns",
+        "latex": "$\\int \\frac{1}{x} dx$",
+        "expected": "the integral of one over x, d x",
+        "actual": "the integral one over x dx",
+        "context": null,
+        "error_type": "other"
+      },
+      {
+        "category": "mixed_patterns",
+        "latex": "$\\lim_{h \\to 0} \\frac{f(x+h) - f(x)}{h}$",
+        "expected": "the limit as h approaches zero of f of x plus h minus f of x over h",
+        "actual": "the limit as h approaches zero of f x plus h minus f of x over h",
+        "context": null,
+        "error_type": "other"
+      }
+    ],
+    "results_file": "results/cycle_9_test_results.json",
+    "summary_file": "results/cycle_9_test_summary.txt"
+  },
+  "regression_found": false,
+  "score_change": 0.0
 }

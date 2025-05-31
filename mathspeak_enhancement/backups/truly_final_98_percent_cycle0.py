@@ -79,28 +79,9 @@ class TrulyFinal98PercentNaturalSpeech:
     def _handle_fractions(self, text: str) -> str:
         """Handle fraction patterns correctly"""
         
-        # IMPORTANT: Handle derivatives FIRST before general fractions
-        # Standard d/dx pattern
-        text = re.sub(r'\\frac\{d\}\{d(\w+)\}', r'd by d\1', text)
-        text = re.sub(r'\\frac\{d(\w*)\}\{d(\w+)\}', r'd\1 by d\2', text)
-        
-        # Handle d^2/dx^2 patterns
-        text = re.sub(r'\\frac\{d\^2(\w*)\}\{d(\w+)\^2\}', r'd squared \1 by d\2 squared', text)
-        text = re.sub(r'\\frac\{d\^(\d+)(\w*)\}\{d(\w+)\^\1\}', r'd to the \1 \2 by d\3 to the \1', text)
-        
-        # Partial derivatives
-        text = re.sub(r'\\frac\{\\partial\s*(\w*)\}\{\\partial\s*(\w+)\}', lambda m: f'partial {m.group(1)} by partial {m.group(2)}'.replace('  ', ' '), text)
-        text = re.sub(r'\\frac\{\\partial\^2\s*(\w*)\}\{\\partial\s*(\w+)\s*\\partial\s*(\w+)\}', r'partial squared \1 by partial \2 partial \3', text)
-        
         def replace_frac(match):
             num = match.group(1).strip()
             den = match.group(2).strip()
-            
-            # Skip if this looks like a derivative (already handled)
-            if 'd' in num and 'd' in den:
-                return match.group(0)
-            if 'partial' in num or 'partial' in den:
-                return match.group(0)
             
             # Map to natural fraction names
             fracs = {
@@ -123,6 +104,7 @@ class TrulyFinal98PercentNaturalSpeech:
         text = re.sub(r'\\frac\{([^}]+)\}\{([^}]+)\}', replace_frac, text)
         
         return text
+        
     def _handle_derivatives(self, text: str) -> str:
         """Handle derivative notation correctly"""
         

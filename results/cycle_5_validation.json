@@ -1,23 +1,73 @@
 {
   "cycle": 5,
-  "score": 0,
-  "passed": false,
-  "improvement": 0,
-  "remaining_gap": 0.98,
-  "category_scores": {
-    "basic_arithmetic": 0,
-    "algebra": 0,
-    "calculus": 0,
-    "linear_algebra": 0,
-    "differential_equations": 0,
-    "complex_analysis": 0,
-    "topology": 0,
-    "set_theory_&_logic": 0,
-    "statistics_&_probability": 0,
-    "number_theory": 0,
-    "example_10.2:_modular_arithmetic": 0,
-    "abstract_algebra": 0,
-    "real_analysis": 0,
-    "numerical_methods": 0
-  }
+  "timestamp": "2025-05-31T20:41:00.559179",
+  "improvements_made": [],
+  "test_results": {
+    "status": "completed",
+    "overall_score": 0.7586206896551724,
+    "passed": 22,
+    "total": 29,
+    "failures": [
+      {
+        "category": "calculus",
+        "latex": "$\\frac{d}{dx} f(x)$",
+        "expected": "d by dx of f of x",
+        "actual": "d over dx f of x",
+        "context": null,
+        "error_type": "derivative_notation"
+      },
+      {
+        "category": "advanced",
+        "latex": "$\\frac{\\partial f}{\\partial x}$",
+        "expected": "partial f by partial x",
+        "actual": "partial f over partial x",
+        "context": null,
+        "error_type": "partial_derivative_notation"
+      },
+      {
+        "category": "derivatives_focus",
+        "latex": "$\\frac{df}{dx}$",
+        "expected": "d f by d x",
+        "actual": "df over dx",
+        "context": null,
+        "error_type": "derivative_notation"
+      },
+      {
+        "category": "derivatives_focus",
+        "latex": "$\\frac{d}{dx}(x^2)$",
+        "expected": "d by d x of x squared",
+        "actual": "d over dx x squared",
+        "context": null,
+        "error_type": "derivative_notation"
+      },
+      {
+        "category": "derivatives_focus",
+        "latex": "$\\frac{d^2y}{dx^2}$",
+        "expected": "d squared y by d x squared",
+        "actual": "d squaredy over dx squared",
+        "context": null,
+        "error_type": "derivative_notation"
+      },
+      {
+        "category": "derivatives_focus",
+        "latex": "$\\frac{\\partial u}{\\partial t}$",
+        "expected": "partial u by partial t",
+        "actual": "partial u over partial t",
+        "context": null,
+        "error_type": "partial_derivative_notation"
+      },
+      {
+        "category": "derivatives_focus",
+        "latex": "$\\frac{\\partial^2 f}{\\partial x \\partial y}$",
+        "expected": "partial squared f by partial x partial y",
+        "actual": "partial squared f over partial x partial y",
+        "context": null,
+        "error_type": "partial_derivative_notation"
+      }
+    ],
+    "results_file": "results/cycle_5_test_results.json",
+    "summary_file": "results/cycle_5_test_summary.txt"
+  },
+  "regression_found": false,
+  "score_change": 0.0
 }

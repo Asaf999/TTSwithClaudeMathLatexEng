@@ -276,8 +276,10 @@ class RealChildProcess:
         
         if 'd by d' in expected and 'd over d' in actual:
             return 'derivative_notation'
-        elif 'partial by partial' in expected and 'partial over partial' in actual:
+        elif 'partial' in expected and 'by partial' in expected and 'over partial' in actual:
             return 'partial_derivative_notation'
+        elif ' by ' in expected and ' over ' in actual and ('d' in expected or 'partial' in expected):
+            return 'derivative_notation'
         elif 'is' in expected and 'equals' in actual:
             return 'equals_vs_is'
         elif 'squared' in expected and 'to the' in actual:
@@ -316,24 +318,18 @@ class RealChildProcess:
         modified_code = current_code
         improvements_made = []
         
+        print(f"[CHILD] Priority fixes to apply: {len(priority_fixes)}")
+        for fix in priority_fixes:
+            print(f"[CHILD]   - {fix['pattern']}: {fix.get('count', 0)} failures")
+        
         for fix in priority_fixes[:3]:  # Apply top 3 fixes per cycle
-            if fix['pattern'] == 'derivative_notation':
+            if fix['pattern'] in ['derivative_notation', 'partial_derivative_notation']:
                 # Fix the derivative notation issue
                 modified_code, applied = self._fix_derivative_notation(modified_code)
                 if applied:
                     improvements_made.append({
                         'type': 'derivative_notation',
                         'description': 'Fixed d/dx to read as "d by dx" instead of "d over dx"',
-                        'changes': applied
-                    })
-                    
-            elif fix['pattern'] == 'partial_derivative_notation':
-                # Fix partial derivative notation
-                modified_code, applied = self._fix_partial_derivative_notation(modified_code)
-                if applied:
-                    improvements_made.append({
-                        'type': 'partial_derivative_notation',
-                        'description': 'Fixed partial derivatives to use "by" instead of "over"',
                         'changes': applied
                     })
                     
@@ -407,39 +403,67 @@ class RealChildProcess:
         
         changes = []
         
-        # Find the handle_derivatives method
-        pattern = r'def _handle_derivatives\(self, text: str\) -> str:(.*?)(?=\n    def|\nclass|\n\n|\Z)'
+        # Find the handle_fractions method to modify it
+        pattern = r'def _handle_fractions\(self, text: str\) -> str:(.*?)(?=\n    def|\nclass|\n\n|\Z)'
         match = re.search(pattern, code, re.DOTALL)
         
         if match:
             old_method = match.group(0)
             
-            # Create improved method
-            new_method = '''def _handle_derivatives(self, text: str) -> str:
-        """Handle derivative notation correctly"""
+            # Create improved method that handles derivatives first
+            new_method = '''def _handle_fractions(self, text: str) -> str:
+        """Handle fraction patterns correctly"""
         
-        # Standard d/dx pattern - Process BEFORE fractions!
-        text = re.sub(r'\\\\frac\{d\}\{d(\w+)\}', r'd by d\1', text)
+        # IMPORTANT: Handle derivatives FIRST before general fractions
+        # Standard d/dx pattern
+        text = re.sub(r'\\\\frac\{d\}\{d(\w+)\}', r'd by d\\1', text)
+        text = re.sub(r'\\\\frac\{d(\w*)\}\{d(\w+)\}', r'd\\1 by d\\2', text)
         
-        # Handle d/dx of f(x) patterns
-        text = re.sub(r'd by d(\w+)\s+f\((\w+)\)', r'd by d\1 of f of \2', text)
+        # Handle d^2/dx^2 patterns
+        text = re.sub(r'\\\\frac\{d\^2(\w*)\}\{d(\w+)\^2\}', r'd squared \\1 by d\\2 squared', text)
+        text = re.sub(r'\\\\frac\{d\^(\d+)(\w*)\}\{d(\w+)\^\\1\}', r'd to the \\1 \\2 by d\\3 to the \\1', text)
         
-        # Partial derivatives - Process BEFORE fractions!
-        text = re.sub(r'\\\\frac\{\\\\partial\s*(\w*)\}\{\\\\partial\s*(\w+)\}', r'partial \1 by partial \2', text)
+        # Partial derivatives
+        text = re.sub(r'\\\\frac\{\\\\partial\s*(\w*)\}\{\\\\partial\s*(\w+)\}', lambda m: f'partial {m.group(1)} by partial {m.group(2)}'.replace('  ', ' '), text)
+        text = re.sub(r'\\\\frac\{\\\\partial\^2\s*(\w*)\}\{\\\\partial\s*(\w+)\s*\\\\partial\s*(\w+)\}', r'partial squared \\1 by partial \\2 partial \\3', text)
         
-        # Clean up empty partial patterns
-        text = re.sub(r'partial\s+by partial', r'partial by partial', text)
-        
-        # Prime notation
-        text = re.sub(r"(\w+)'", r'\1 prime', text)
+        def replace_frac(match):
+            num = match.group(1).strip()
+            den = match.group(2).strip()
+            
+            # Skip if this looks like a derivative (already handled)
+            if 'd' in num and 'd' in den:
+                return match.group(0)
+            if 'partial' in num or 'partial' in den:
+                return match.group(0)
+            
+            # Map to natural fraction names
+            fracs = {
+                ('1', '2'): 'one half',
+                ('1', '3'): 'one third', 
+                ('2', '3'): 'two thirds',
+                ('1', '4'): 'one quarter',
+                ('3', '4'): 'three quarters',
+                ('1', '5'): 'one fifth',
+                ('2', '5'): 'two fifths',
+                ('1', '6'): 'one sixth',
+                ('5', '6'): 'five sixths'
+            }
+            
+            if (num, den) in fracs:
+                return fracs[(num, den)]
+            else:
+                return f"{num} over {den}"
+                
+        text = re.sub(r'\\\\frac\{([^}]+)\}\{([^}]+)\}', replace_frac, text)
         
         return text'''
             
             code = code.replace(old_method, new_method)
             changes.append({
-                'location': '_handle_derivatives method',
+                'location': '_handle_fractions method',
                 'type': 'method_replacement',
-                'description': 'Fixed derivative processing to happen before fraction handling'
+                'description': 'Modified fractions handler to process derivatives first'
             })
             
         # Also need to ensure derivatives are processed BEFORE fractions in _process_latex

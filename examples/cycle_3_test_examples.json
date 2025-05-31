@@ -1,58 +1,139 @@
 {
-  "basic_arithmetic": [
+  "arithmetic": [
     {
       "latex": "$2 + 3 = 5$",
-      "natural": "two plus three is five"
+      "expected": "two plus three is five",
+      "context": "arithmetic"
     },
     {
       "latex": "$10 - 4 = 6$",
-      "natural": "ten minus four is six"
+      "expected": "ten minus four is six",
+      "context": "arithmetic"
     },
     {
       "latex": "$3 \\times 4 = 12$",
-      "natural": "three times four is twelve"
+      "expected": "three times four is twelve",
+      "context": "arithmetic"
+    },
+    {
+      "latex": "$15 \\div 3 = 5$",
+      "expected": "fifteen divided by three is five",
+      "context": "arithmetic"
     }
   ],
   "algebra": [
     {
       "latex": "$x^2 + 5x + 6$",
-      "natural": "x squared plus five x plus six"
+      "expected": "x squared plus five x plus six"
     },
     {
       "latex": "$(x+2)(x+3)$",
-      "natural": "x plus two, times x plus three"
+      "expected": "x plus two, times x plus three"
     },
     {
       "latex": "$f(x) = x^2$",
-      "natural": "f of x equals x squared"
+      "expected": "f of x equals x squared",
+      "context": "definition"
+    },
+    {
+      "latex": "$x^2 - 4 = 0$",
+      "expected": "x squared minus four equals zero"
     }
   ],
   "calculus": [
     {
       "latex": "$\\frac{d}{dx} f(x)$",
-      "natural": "d by d x of f of x"
+      "expected": "d by dx of f of x"
     },
     {
       "latex": "$\\int_0^1 x^2 dx$",
-      "natural": "the integral from zero to one of x squared, d x"
+      "expected": "the integral from zero to one of x squared, dx"
     },
     {
       "latex": "$\\lim_{x \\to 0} \\frac{\\sin x}{x}$",
-      "natural": "the limit as x approaches zero of sine x over x"
+      "expected": "the limit as x approaches zero of sine x over x"
+    },
+    {
+      "latex": "$f'(x) = 2x$",
+      "expected": "f prime of x equals two x"
     }
   ],
   "fractions": [
     {
       "latex": "$\\frac{1}{2}$",
-      "natural": "one half"
+      "expected": "one half"
     },
     {
       "latex": "$\\frac{2}{3}$",
-      "natural": "two thirds"
+      "expected": "two thirds"
     },
     {
       "latex": "$\\frac{3}{4}$",
-      "natural": "three quarters"
+      "expected": "three quarters"
+    },
+    {
+      "latex": "$\\frac{5}{6}$",
+      "expected": "five sixths"
+    }
+  ],
+  "advanced": [
+    {
+      "latex": "$\\forall x \\in \\mathbb{R}$",
+      "expected": "for all real x"
+    },
+    {
+      "latex": "$x_n \\to \\infty$",
+      "expected": "x n approaches infinity"
+    },
+    {
+      "latex": "$\\frac{\\partial f}{\\partial x}$",
+      "expected": "partial f by partial x"
+    },
+    {
+      "latex": "$A \\subset B$",
+      "expected": "a is a subset of b"
+    }
+  ],
+  "linear_algebra": [
+    {
+      "latex": "$\\det(A) = 0$",
+      "expected": "the determinant of a equals zero"
+    },
+    {
+      "latex": "$A^T$",
+      "expected": "a transpose"
+    },
+    {
+      "latex": "$\\vec{v} \\cdot \\vec{w}$",
+      "expected": "v dot w"
+    }
+  ],
+  "complex": [
+    {
+      "latex": "$\\sum_{i=1}^n i = \\frac{n(n+1)}{2}$",
+      "expected": "the sum from i equals one to n of i equals n n plus one over two"
+    }
+  ],
+  "derivatives_focus": [
+    {
+      "latex": "$\\frac{df}{dx}$",
+      "expected": "d f by d x"
+    },
+    {
+      "latex": "$\\frac{d}{dx}(x^2)$",
+      "expected": "d by d x of x squared"
+    },
+    {
+      "latex": "$\\frac{d^2y}{dx^2}$",
+      "expected": "d squared y by d x squared"
+    },
+    {
+      "latex": "$\\frac{\\partial u}{\\partial t}$",
+      "expected": "partial u by partial t"
+    },
+    {
+      "latex": "$\\frac{\\partial^2 f}{\\partial x \\partial y}$",
+      "expected": "partial squared f by partial x partial y"
     }
   ]
 }

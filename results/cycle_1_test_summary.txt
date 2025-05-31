@@ -15,5 +15,5 @@ Category Scores:
 Failures: 7
 
 Top failure patterns:
-  derivative_notation: 2 occurrences
-  other: 5 occurrences
+  derivative_notation: 4 occurrences
+  partial_derivative_notation: 3 occurrences

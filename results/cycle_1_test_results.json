@@ -1,6 +1,6 @@
 {
   "cycle": 1,
-  "timestamp": "2025-05-31T20:39:38.626228",
+  "timestamp": "2025-05-31T20:40:52.518184",
   "overall_score": 0.7586206896551724,
   "passed": 22,
   "total": 29,
@@ -29,7 +29,7 @@
       "expected": "partial f by partial x",
       "actual": "partial f over partial x",
       "context": null,
-      "error_type": "other"
+      "error_type": "partial_derivative_notation"
     },
     {
       "category": "derivatives_focus",
@@ -37,7 +37,7 @@
       "expected": "d f by d x",
       "actual": "df over dx",
       "context": null,
-      "error_type": "other"
+      "error_type": "derivative_notation"
     },
     {
       "category": "derivatives_focus",
@@ -53,7 +53,7 @@
       "expected": "d squared y by d x squared",
       "actual": "d squaredy over dx squared",
       "context": null,
-      "error_type": "other"
+      "error_type": "derivative_notation"
     },
     {
       "category": "derivatives_focus",
@@ -61,7 +61,7 @@
       "expected": "partial u by partial t",
       "actual": "partial u over partial t",
       "context": null,
-      "error_type": "other"
+      "error_type": "partial_derivative_notation"
     },
     {
       "category": "derivatives_focus",
@@ -69,11 +69,11 @@
       "expected": "partial squared f by partial x partial y",
       "actual": "partial squared f over partial x partial y",
       "context": null,
-      "error_type": "other"
+      "error_type": "partial_derivative_notation"
     }
   ],
   "failure_summary": {
-    "derivative_notation": 2,
-    "other": 5
+    "derivative_notation": 4,
+    "partial_derivative_notation": 3
   }
 }

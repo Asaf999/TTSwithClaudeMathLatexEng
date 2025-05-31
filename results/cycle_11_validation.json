@@ -1,23 +1,57 @@
 {
   "cycle": 11,
-  "score": 0,
-  "passed": false,
-  "improvement": 0,
-  "remaining_gap": 0.98,
-  "category_scores": {
-    "basic_arithmetic": 0,
-    "algebra": 0,
-    "calculus": 0,
-    "linear_algebra": 0,
-    "differential_equations": 0,
-    "complex_analysis": 0,
-    "topology": 0,
-    "set_theory_&_logic": 0,
-    "statistics_&_probability": 0,
-    "number_theory": 0,
-    "example_10.2:_modular_arithmetic": 0,
-    "abstract_algebra": 0,
-    "real_analysis": 0,
-    "numerical_methods": 0
-  }
+  "timestamp": "2025-05-31T20:41:12.652201",
+  "improvements_made": [],
+  "test_results": {
+    "status": "completed",
+    "overall_score": 0.8148148148148148,
+    "passed": 22,
+    "total": 27,
+    "failures": [
+      {
+        "category": "calculus",
+        "latex": "$\\frac{d}{dx} f(x)$",
+        "expected": "d by dx of f of x",
+        "actual": "d over dx f of x",
+        "context": null,
+        "error_type": "derivative_notation"
+      },
+      {
+        "category": "advanced",
+        "latex": "$\\frac{\\partial f}{\\partial x}$",
+        "expected": "partial f by partial x",
+        "actual": "partial f over partial x",
+        "context": null,
+        "error_type": "partial_derivative_notation"
+      },
+      {
+        "category": "edge_cases",
+        "latex": "$\\frac{d}{dx}[\\ln(x)]$",
+        "expected": "d by d x of natural log of x",
+        "actual": "d over dx[natural log of x]",
+        "context": null,
+        "error_type": "derivative_notation"
+      },
+      {
+        "category": "edge_cases",
+        "latex": "$e^{i\\pi} + 1 = 0$",
+        "expected": "e to the i pi plus one equals zero",
+        "actual": "e to the ipi plus one equals zero",
+        "context": null,
+        "error_type": "other"
+      },
+      {
+        "category": "edge_cases",
+        "latex": "$\\nabla \\cdot \\vec{F}$",
+        "expected": "del dot f",
+        "actual": "nabla dot f",
+        "context": null,
+        "error_type": "other"
+      }
+    ],
+    "results_file": "results/cycle_11_test_results.json",
+    "summary_file": "results/cycle_11_test_summary.txt"
+  },
+  "regression_found": false,
+  "score_change": 0.0
 }

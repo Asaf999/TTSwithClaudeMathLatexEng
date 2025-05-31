@@ -1,220 +1,64 @@
 {
   "cycle": 13,
-  "timestamp": "2025-05-31T19:51:19.966765",
-  "categories": {
-    "basic_arithmetic": {
-      "passed": 0,
-      "failed": 0,
-      "pass_rate": 0,
-      "average_score": 0,
-      "score_breakdown": {
-        "fluency": 0,
-        "brevity": 0,
-        "clarity": 0,
-        "context": 0,
-        "professor": 0
-      },
-      "common_issues": {},
-      "worst_examples": []
-    },
-    "algebra": {
-      "passed": 0,
-      "failed": 0,
-      "pass_rate": 0,
-      "average_score": 0,
-      "score_breakdown": {
-        "fluency": 0,
-        "brevity": 0,
-        "clarity": 0,
-        "context": 0,
-        "professor": 0
-      },
-      "common_issues": {},
-      "worst_examples": []
-    },
-    "calculus": {
-      "passed": 0,
-      "failed": 0,
-      "pass_rate": 0,
-      "average_score": 0,
-      "score_breakdown": {
-        "fluency": 0,
-        "brevity": 0,
-        "clarity": 0,
-        "context": 0,
-        "professor": 0
-      },
-      "common_issues": {},
-      "worst_examples": []
-    },
-    "linear_algebra": {
-      "passed": 0,
-      "failed": 0,
-      "pass_rate": 0,
-      "average_score": 0,
-      "score_breakdown": {
-        "fluency": 0,
-        "brevity": 0,
-        "clarity": 0,
-        "context": 0,
-        "professor": 0
-      },
-      "common_issues": {},
-      "worst_examples": []
-    },
-    "differential_equations": {
-      "passed": 0,
-      "failed": 0,
-      "pass_rate": 0,
-      "average_score": 0,
-      "score_breakdown": {
-        "fluency": 0,
-        "brevity": 0,
-        "clarity": 0,
-        "context": 0,
-        "professor": 0
-      },
-      "common_issues": {},
-      "worst_examples": []
-    },
-    "complex_analysis": {
-      "passed": 0,
-      "failed": 0,
-      "pass_rate": 0,
-      "average_score": 0,
-      "score_breakdown": {
-        "fluency": 0,
-        "brevity": 0,
-        "clarity": 0,
-        "context": 0,
-        "professor": 0
-      },
-      "common_issues": {},
-      "worst_examples": []
-    },
-    "topology": {
-      "passed": 0,
-      "failed": 0,
-      "pass_rate": 0,
-      "average_score": 0,
-      "score_breakdown": {
-        "fluency": 0,
-        "brevity": 0,
-        "clarity": 0,
-        "context": 0,
-        "professor": 0
-      },
-      "common_issues": {},
-      "worst_examples": []
-    },
-    "set_theory_&_logic": {
-      "passed": 0,
-      "failed": 0,
-      "pass_rate": 0,
-      "average_score": 0,
-      "score_breakdown": {
-        "fluency": 0,
-        "brevity": 0,
-        "clarity": 0,
-        "context": 0,
-        "professor": 0
-      },
-      "common_issues": {},
-      "worst_examples": []
-    },
-    "statistics_&_probability": {
-      "passed": 0,
-      "failed": 0,
-      "pass_rate": 0,
-      "average_score": 0,
-      "score_breakdown": {
-        "fluency": 0,
-        "brevity": 0,
-        "clarity": 0,
-        "context": 0,
-        "professor": 0
-      },
-      "common_issues": {},
-      "worst_examples": []
-    },
-    "number_theory": {
-      "passed": 0,
-      "failed": 0,
-      "pass_rate": 0,
-      "average_score": 0,
-      "score_breakdown": {
-        "fluency": 0,
-        "brevity": 0,
-        "clarity": 0,
-        "context": 0,
-        "professor": 0
-      },
-      "common_issues": {},
-      "worst_examples": []
-    },
-    "example_10.2:_modular_arithmetic": {
-      "passed": 0,
-      "failed": 0,
-      "pass_rate": 0,
-      "average_score": 0,
-      "score_breakdown": {
-        "fluency": 0,
-        "brevity": 0,
-        "clarity": 0,
-        "context": 0,
-        "professor": 0
-      },
-      "common_issues": {},
-      "worst_examples": []
-    },
-    "abstract_algebra": {
-      "passed": 0,
-      "failed": 0,
-      "pass_rate": 0,
-      "average_score": 0,
-      "score_breakdown": {
-        "fluency": 0,
-        "brevity": 0,
-        "clarity": 0,
-        "context": 0,
-        "professor": 0
-      },
-      "common_issues": {},
-      "worst_examples": []
-    },
-    "real_analysis": {
-      "passed": 0,
-      "failed": 0,
-      "pass_rate": 0,
-      "average_score": 0,
-      "score_breakdown": {
-        "fluency": 0,
-        "brevity": 0,
-        "clarity": 0,
-        "context": 0,
-        "professor": 0
-      },
-      "common_issues": {},
-      "worst_examples": []
-    },
-    "numerical_methods": {
-      "passed": 0,
-      "failed": 0,
-      "pass_rate": 0,
-      "average_score": 0,
-      "score_breakdown": {
-        "fluency": 0,
-        "brevity": 0,
-        "clarity": 0,
-        "context": 0,
-        "professor": 0
-      },
-      "common_issues": {},
-      "worst_examples": []
-    }
+  "timestamp": "2025-05-31T20:41:16.687621",
+  "overall_score": 0.8148148148148148,
+  "passed": 22,
+  "total": 27,
+  "category_scores": {
+    "arithmetic": 1.0,
+    "algebra": 1.0,
+    "calculus": 0.75,
+    "fractions": 1.0,
+    "advanced": 0.75,
+    "linear_algebra": 1.0,
+    "complex": 1.0,
+    "edge_cases": 0.0
   },
-  "overall_score": 0,
-  "total_tests": 0,
-  "passed_tests": 0,
-  "pass_rate": 0
+  "failures": [
+    {
+      "category": "calculus",
+      "latex": "$\\frac{d}{dx} f(x)$",
+      "expected": "d by dx of f of x",
+      "actual": "d over dx f of x",
+      "context": null,
+      "error_type": "derivative_notation"
+    },
+    {
+      "category": "advanced",
+      "latex": "$\\frac{\\partial f}{\\partial x}$",
+      "expected": "partial f by partial x",
+      "actual": "partial f over partial x",
+      "context": null,
+      "error_type": "partial_derivative_notation"
+    },
+    {
+      "category": "edge_cases",
+      "latex": "$\\frac{d}{dx}[\\ln(x)]$",
+      "expected": "d by d x of natural log of x",
+      "actual": "d over dx[natural log of x]",
+      "context": null,
+      "error_type": "derivative_notation"
+    },
+    {
+      "category": "edge_cases",
+      "latex": "$e^{i\\pi} + 1 = 0$",
+      "expected": "e to the i pi plus one equals zero",
+      "actual": "e to the ipi plus one equals zero",
+      "context": null,
+      "error_type": "other"
+    },
+    {
+      "category": "edge_cases",
+      "latex": "$\\nabla \\cdot \\vec{F}$",
+      "expected": "del dot f",
+      "actual": "nabla dot f",
+      "context": null,
+      "error_type": "other"
+    }
+  ],
+  "failure_summary": {
+    "derivative_notation": 2,
+    "partial_derivative_notation": 1,
+    "other": 2
+  }
 }

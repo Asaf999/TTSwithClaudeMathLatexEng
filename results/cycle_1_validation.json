@@ -1,6 +1,6 @@
 {
   "cycle": 1,
-  "timestamp": "2025-05-31T20:39:38.626706",
+  "timestamp": "2025-05-31T20:40:52.518573",
   "improvements_made": [],
   "test_results": {
     "status": "completed",
@@ -22,7 +22,7 @@
         "expected": "partial f by partial x",
         "actual": "partial f over partial x",
         "context": null,
-        "error_type": "other"
+        "error_type": "partial_derivative_notation"
       },
       {
         "category": "derivatives_focus",
@@ -30,7 +30,7 @@
         "expected": "d f by d x",
         "actual": "df over dx",
         "context": null,
-        "error_type": "other"
+        "error_type": "derivative_notation"
       },
       {
         "category": "derivatives_focus",
@@ -46,7 +46,7 @@
         "expected": "d squared y by d x squared",
         "actual": "d squaredy over dx squared",
         "context": null,
-        "error_type": "other"
+        "error_type": "derivative_notation"
       },
       {
         "category": "derivatives_focus",
@@ -54,7 +54,7 @@
         "expected": "partial u by partial t",
         "actual": "partial u over partial t",
         "context": null,
-        "error_type": "other"
+        "error_type": "partial_derivative_notation"
       },
       {
         "category": "derivatives_focus",
@@ -62,7 +62,7 @@
         "expected": "partial squared f by partial x partial y",
         "actual": "partial squared f over partial x partial y",
         "context": null,
-        "error_type": "other"
+        "error_type": "partial_derivative_notation"
       }
     ],
     "results_file": "results/cycle_1_test_results.json",

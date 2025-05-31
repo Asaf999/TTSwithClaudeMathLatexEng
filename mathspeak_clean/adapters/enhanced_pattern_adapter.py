@@ -67,6 +67,31 @@ class EnhancedPatternAdapter:
         
         # Context-specific natural patterns
         context_patterns = [
+            # Add these patterns FIRST with highest priority to ensure they match
+            # Fix for \mathbb{E}[X]
+            MathPattern(
+                pattern=r"\\mathbb\{E\}\[([^\]]+)\]",
+                replacement="the expected value of \\1",
+                priority=PRIORITY_CRITICAL + 100,  # Higher priority
+                domain=PatternDomain.STATISTICS,
+                description="Expected value",
+            ),
+            # Fix for \text{Var}(X)
+            MathPattern(
+                pattern=r"\\text\{Var\}\(([^)]+)\)",
+                replacement="the variance of \\1",
+                priority=PRIORITY_CRITICAL + 100,  # Higher priority
+                domain=PatternDomain.STATISTICS,
+                description="Variance",
+            ),
+            # Fix for d^2y/dx^2
+            MathPattern(
+                pattern=r"\\frac\{d\^(\d+)([^}]*)\}\{dx\^\\1\}",
+                replacement="the \\1 derivative of \\2 with respect to x",
+                priority=PRIORITY_CRITICAL + 100,  # Higher priority
+                domain=PatternDomain.CALCULUS,
+                description="Higher order derivative",
+            ),
             # Derivatives with natural language
             MathPattern(
                 pattern=r"\\frac\{d\}\{dx\}\s*([^{}\s]+)",
@@ -74,13 +99,6 @@ class EnhancedPatternAdapter:
                 priority=PRIORITY_CRITICAL,
                 domain=PatternDomain.CALCULUS,
                 description="Derivative notation",
-            ),
-            MathPattern(
-                pattern=r"\\frac\{d\^(\d+)\}\{dx\^\\1\}\s*([^{}\s]+)",
-                replacement="the \\1 derivative of \\2 with respect to x",
-                priority=PRIORITY_CRITICAL,
-                domain=PatternDomain.CALCULUS,
-                description="Higher order derivative",
             ),
             MathPattern(
                 pattern=r"\\frac\{\\partial\}\{\\partial\s*([^}]+)\}\s*([^{}\s]+)",
@@ -143,20 +161,6 @@ class EnhancedPatternAdapter:
                 priority=PRIORITY_HIGH,
                 domain=PatternDomain.STATISTICS,
                 description="Conditional probability",
-            ),
-            MathPattern(
-                pattern=r"\\mathbb\{E\}\[([^\]]+)\]",
-                replacement="the expected value of \\1",
-                priority=PRIORITY_CRITICAL,
-                domain=PatternDomain.STATISTICS,
-                description="Expected value",
-            ),
-            MathPattern(
-                pattern=r"\\text\{Var\}\(([^)]+)\)",
-                replacement="the variance of \\1",
-                priority=PRIORITY_CRITICAL,
-                domain=PatternDomain.STATISTICS,
-                description="Variance",
             ),
             MathPattern(
                 pattern=r"\\mathbb\{([A-Z])\}",

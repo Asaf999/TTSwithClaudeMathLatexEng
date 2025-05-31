@@ -51,6 +51,37 @@ class MathExpression:
         if self.latex.count("(") != self.latex.count(")"):
             raise ValidationError("latex", "Unbalanced parentheses in expression")
         
+        # Check for maximum nesting depth
+        max_depth = self._calculate_nesting_depth()
+        if max_depth > 20:  # Reasonable limit for nesting
+            raise ValidationError("latex", f"Expression too deeply nested (depth: {max_depth})")
+        
+        # Check for invalid LaTeX commands
+        import re
+        commands = re.findall(r"\\([a-zA-Z]+)", self.latex)
+        
+        # List of known valid LaTeX commands
+        valid_commands = {
+            "frac", "sqrt", "sin", "cos", "tan", "log", "ln", "exp",
+            "sum", "prod", "int", "lim", "inf", "sup",
+            "alpha", "beta", "gamma", "delta", "theta", "pi",
+            "partial", "nabla", "forall", "exists", "in", "subset",
+            "cup", "cap", "times", "cdot", "to", "infty",
+            "mathbb", "text", "mathcal", "mathfrak", "mathrm",
+            "det", "dim", "ker", "rank", "tr",
+            "left", "right", "big", "Big", "bigg", "Bigg",
+            "le", "ge", "ne", "approx", "sim", "equiv",
+            "ldots", "cdots", "vdots", "ddots",
+            "substack", "limits", "nolimits",
+            "binom", "choose", "over", "atop",
+            "hat", "bar", "vec", "dot", "ddot", "tilde",
+            "quad", "qquad", "!", ",", ":", ";", "\\", " "
+        }
+        
+        for cmd in commands:
+            if cmd not in valid_commands and not cmd.startswith("text"):
+                raise ValidationError("latex", f"Invalid LaTeX command: \\{cmd}")
+        
         self._validated = True
     
     @property

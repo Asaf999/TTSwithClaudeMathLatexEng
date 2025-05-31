@@ -390,12 +390,41 @@ class CalculusHandler(PatternHandler):
                 'Finite sum',
                 priority=98
             ),
+            # Enhanced product notation patterns
+            PatternRule(
+                r'\\prod_\{([^}]+)\}\^\{\\infty\}',
+                lambda m: f'product from {m.group(1)} to infinity',
+                self.domain,
+                'Product to infinity',
+                priority=99
+            ),
+            PatternRule(
+                r'\\prod_\{([^}]+)\}\^\{([^}]+)\}',
+                lambda m: f'product from {m.group(1)} to {m.group(2)}',
+                self.domain,
+                'Product with limits',
+                priority=99
+            ),
+            PatternRule(
+                r'\\prod_\{([a-zA-Z])=([0-9]+)\}\^\{([^}]+)\}',
+                lambda m: f'product from {m.group(1)} equals {m.group(2)} to {m.group(3)}',
+                self.domain,
+                'Product with equals',
+                priority=100
+            ),
             PatternRule(
                 r'\\prod_{i=1}\^n',
                 'product from i equals 1 to n',
                 self.domain,
                 'Product notation',
                 priority=98
+            ),
+            PatternRule(
+                r'\\prod',
+                'product',
+                self.domain,
+                'Product symbol alone',
+                priority=97
             ),
             
             # Differentials

@@ -2864,6 +2864,84 @@ class MathSpeechProcessor:
     
     def _postprocess(self, text: str) -> str:
         """Post-process for natural speech flow"""
+        # =================== DEVIL PATTERN FIXES ===================
+        # Fix 1: Product notation
+        text = re.sub(r'\bprod\b', 'product', text)
+        
+        # Fix 2: Triple integral
+        text = re.sub(r'traceiple\s+integral', 'triple integral', text)
+        
+        # Fix 3: Substack cleanup
+        text = re.sub(r'substack\{([^}]+)\}', lambda m: m.group(1).replace('\\\\', ' '), text)
+        text = re.sub(r'\\substack\{([^}]+)\}', lambda m: m.group(1).replace('\\\\', ' '), text)
+        
+        # Fix 4: Matrix environment cleanup
+        text = re.sub(r'begin\{pmatrix\}', '', text)
+        
+        # Fix 5: Limit superscripts
+        text = re.sub(r'0\^\s*\+|0\^\{\+\}', '0 from the right', text)
+        text = re.sub(r'0\^\s*-|0\^\{-\}', '0 from the left', text)
+        text = re.sub(r'0\^plus', '0 from the right', text)
+        text = re.sub(r'0\^minus', '0 from the left', text)
+        
+        # Fix 6: Negative exponents
+        text = re.sub(r'to the\s*-\s*([0-9]+)', r'to the negative \1', text)
+        
+        # Fix 7: Distribution notation
+        text = re.sub(r'is similar to', 'distributed as', text)
+        
+        # Fix 8: Integral bounds cleanup
+        text = re.sub(r'integral of\s*_([0-9]+)\s*to the', r'integral from \1 to', text)
+        
+        # Fix 9: Divisibility notation
+        text = re.sub(r'\b([a-zA-Z])\s*evaluated at\s*([a-zA-Z])\b', 
+                     lambda m: f'{m.group(1)} divides {m.group(2)}' if 'sum' in text[:text.find(m.group(0))] else m.group(0), 
+                     text)
+        
+        # Fix 10: Derivative cleanup
+        text = re.sub(r'd over d([a-zA-Z])\s*\(', r'derivative with respect to \1 of ', text)
+        
+        # Fix 11: Nabla squared
+        text = re.sub(r'nabla squared', 'Laplacian', text)
+        
+        # Fix 12: Probability notation
+        text = re.sub(r'probability of ([a-zA-Z])\b', r'P of \1', text)
+        
+        # Fix 13: Convergence notation
+        text = re.sub(r'xrightarrow\{d\}', 'converges in distribution to', text)
+        
+        # Fix 14: Special operators
+        text = re.sub(r'\\text\{sgn\}', 'sign', text)
+        text = re.sub(r'\\text\{Con\}', 'consistency', text)
+        text = re.sub(r'\\text\{Var\}', 'variance', text)
+        text = re.sub(r'\\mathbb\{E\}', 'expected value', text)
+        text = re.sub(r'\\mathcal\{F\}', 'Fourier transform', text)
+        text = re.sub(r'\\vdash', 'proves', text)
+        text = re.sub(r'\\bigcap', 'intersection', text)
+        
+        # Fix 15: Clean up remaining backslashes in common patterns
+        text = re.sub(r'\\delta', 'delta', text)
+        text = re.sub(r'\\iiint', 'triple integral', text)
+        
+        # Fix 16: Fix "an i" to "A i" for matrix/set notation
+        text = re.sub(r'\ban i\b', 'A i', text)
+        
+        # Fix 17: Fix partial squared patterns
+        text = re.sub(r'partial squared (\w+) over partial (\w+) squared', 
+                     lambda m: f'second partial derivative of {m.group(1)} with respect to {m.group(2)}', text)
+        
+        # Fix 18: Fix trace notation
+        text = re.sub(r'trace\s*\(', 'trace of ', text)
+        
+        # Fix 19: Clean up absolute value patterns
+        text = re.sub(r'leftabsolute value of', 'determinant of matrix', text)
+        
+        # Fix 20: Fix mathcal/mathbb remnants
+        text = re.sub(r'mathcal\{([A-Z])\}', r'\1', text)
+        text = re.sub(r'mathbb\{([A-Z])\}', r'\1', text)
+        text = re.sub(r'mathbf\{([A-Z]+)\}', r'bold \1', text)
+        
+        # =================== ORIGINAL POST-PROCESSING ===================
         # Fix article usage (but not for mathematical variables or "is congruent")
         text = re.sub(r'\ba\s+((?![a-zA-Z]\s+over)(?![a-zA-Z]\s+is)[aeiou])', r'an \1', text, flags=re.IGNORECASE)
         

@@ -75,7 +75,9 @@ class MathExpression:
             "substack", "limits", "nolimits",
             "binom", "choose", "over", "atop",
             "hat", "bar", "vec", "dot", "ddot", "tilde",
-            "quad", "qquad", "!", ",", ":", ";", "\\", " "
+            "quad", "qquad", "!", ",", ":", ";", "\\", " ",
+            "i", "j", "k", "l", "m", "n", "a", "b", "c", "d", "e", "f", "g", "h",
+            "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"
         }
         
         for cmd in commands:

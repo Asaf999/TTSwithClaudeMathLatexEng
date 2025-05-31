@@ -68,6 +68,14 @@ class EnhancedPatternAdapter:
         # Context-specific natural patterns
         context_patterns = [
             # Add these patterns FIRST with highest priority to ensure they match
+            # Fix \to conversion
+            MathPattern(
+                pattern=r"\\to",
+                replacement=" approaches ",
+                priority=PRIORITY_CRITICAL + 200,  # Very high priority
+                domain=PatternDomain.GENERAL,
+                description="To/approaches symbol",
+            ),
             # Fix for \mathbb{E}[X]
             MathPattern(
                 pattern=r"\\mathbb\{E\}\[([^\]]+)\]",
@@ -92,6 +100,14 @@ class EnhancedPatternAdapter:
                 domain=PatternDomain.CALCULUS,
                 description="Higher order derivative",
             ),
+            # Add specific pattern for common second derivative
+            MathPattern(
+                pattern=r"\\frac\{d\^2([^}]*)\}\{dx\^2\}",
+                replacement="the second derivative of \\1 with respect to x",
+                priority=PRIORITY_CRITICAL + 110,
+                domain=PatternDomain.CALCULUS,
+                description="Second derivative",
+            ),
             # Derivatives with natural language
             MathPattern(
                 pattern=r"\\frac\{d\}\{dx\}\s*([^{}\s]+)",
@@ -114,7 +130,15 @@ class EnhancedPatternAdapter:
                 replacement="the integral from \\1 to \\2 of \\3 with respect to \\4",
                 priority=PRIORITY_CRITICAL + 50,  # Higher priority to match before other patterns
                 domain=PatternDomain.CALCULUS,
-                description="Definite integral",
+                description="Definite integral with braces",
+            ),
+            # Integral without braces (common shorthand)
+            MathPattern(
+                pattern=r"\\int_([^\\^]+)\^([^\\s]+)\s*([^\\s]+)\s*d([a-zA-Z])",
+                replacement="the integral from \\1 to \\2 of \\3 with respect to \\4",
+                priority=PRIORITY_CRITICAL + 50,
+                domain=PatternDomain.CALCULUS,
+                description="Definite integral without braces",
             ),
             MathPattern(
                 pattern=r"\\int\s*([^{}\s]+)\s*d([a-zA-Z])",
@@ -214,6 +238,31 @@ class EnhancedPatternAdapter:
                 priority=PRIORITY_HIGH,
                 domain=PatternDomain.LINEAR_ALGEBRA,
                 description="Matrix inverse",
+            ),
+            
+            # Limits
+            MathPattern(
+                pattern=r"\\lim_\{([^}]+)\}\s*(.+)",
+                replacement="the limit as \\1 of \\2",
+                priority=PRIORITY_CRITICAL + 20,
+                domain=PatternDomain.CALCULUS,
+                description="Limit with braces",
+            ),
+            MathPattern(
+                pattern=r"\\infty",
+                replacement="infinity",
+                priority=PRIORITY_HIGH,
+                domain=PatternDomain.GENERAL,
+                description="Infinity symbol",
+            ),
+            
+            # Substack for multiple conditions
+            MathPattern(
+                pattern=r"\\substack\{([^}]+)\}",
+                replacement="\\1",
+                priority=PRIORITY_HIGH,
+                domain=PatternDomain.GENERAL,
+                description="Substack command",
             ),
             
             # Logic with natural language

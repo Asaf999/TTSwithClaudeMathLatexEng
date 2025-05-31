@@ -175,13 +175,6 @@ class EnhancedPatternProcessorService(PatternProcessorService):
             (r'\s*,\s*', ', '),
             (r'\s*\.\s*', '. '),
             
-            # Natural number reading
-            (r'\b1\b', 'one'),
-            (r'\b2\b', 'two'),
-            (r'\b3\b', 'three'),
-            (r'\b4\b', 'four'),
-            (r'\b5\b', 'five'),
-            
             # Remove redundant words
             (r'\bthe the\b', 'the'),
             (r'\bof of\b', 'of'),
@@ -194,9 +187,27 @@ class EnhancedPatternProcessorService(PatternProcessorService):
             (r'to the negative 1', 'to the negative first'),
         ]
         
+        # Apply general fixes
         import re
         for pattern, replacement in natural_fixes:
             text = re.sub(pattern, replacement, text, flags=re.IGNORECASE)
+        
+        # Smart number replacement - only in specific safe contexts
+        # Only replace numbers that are clearly meant to be spoken
+        safe_number_replacements = [
+            # Fractions already handled by patterns
+            (r'\bone half\b', 'one half'),  # Keep as is
+            (r'\bone third\b', 'one third'),  # Keep as is
+            # Numbers at the beginning of sentences
+            (r'^1\s+', 'One '),
+            (r'^2\s+', 'Two '),
+            # Numbers in "Chapter 1", "Section 2" etc
+            (r'(Chapter|Section|Part|Volume|Book)\s+1\b', r'\1 one'),
+            (r'(Chapter|Section|Part|Volume|Book)\s+2\b', r'\1 two'),
+        ]
+        
+        for pattern, replacement in safe_number_replacements:
+            text = re.sub(pattern, replacement, text)
         
         return text
     

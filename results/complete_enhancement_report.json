@@ -1,0 +1,216 @@
+{
+  "summary": {
+    "total_cycles": 20,
+    "initial_score": 0.0,
+    "final_score": 0.0,
+    "improvement": 0.0,
+    "target_achieved": false,
+    "patterns_implemented": 20,
+    "total_improvements": 20
+  },
+  "cycle_results": [
+    {
+      "cycle": 1,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 2,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 3,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 4,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 5,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 6,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 7,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 8,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 9,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 10,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 11,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 12,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 13,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 14,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 15,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 16,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 17,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 18,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 19,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    },
+    {
+      "cycle": 20,
+      "examples_generated": 12,
+      "initial_score": 0.0,
+      "improvements_made": 1,
+      "final_score": 0.0,
+      "improvement": 0.0
+    }
+  ],
+  "patterns": [
+    {
+      "type": "equals_vs_is",
+      "description": "Use \"is\" for simple arithmetic, \"equals\" for definitions",
+      "implemented": false
+    },
+    {
+      "type": "power_notation",
+      "description": "Natural power reading (squared, cubed)",
+      "implemented": false
+    },
+    {
+      "type": "fraction_names",
+      "description": "Natural fraction names",
+      "implemented": false
+    },
+    {
+      "type": "derivative_notation",
+      "description": "Use \"by\" for derivatives",
+      "implemented": false
+    },
+    {
+      "type": "parenthesis_handling",
+      "description": "Implicit parentheses with pauses",
+      "implemented": false
+    },
+    {
+      "type": "article_usage",
+      "description": "Add articles for flow",
+      "implemented": false
+    },
+    {
+      "type": "integral_pauses",
+      "description": "Natural integral reading",
+      "implemented": false
+    },
+    {
+      "type": "limit_notation",
+      "description": "Natural limit reading",
+      "implemented": false
+    }
+  ],
+  "timestamp": "2025-05-31T19:56:39.277576"
+}

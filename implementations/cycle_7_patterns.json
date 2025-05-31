@@ -1,0 +1,11 @@
+{
+  "cycle": 7,
+  "improvements": [
+    {
+      "type": "equals_vs_is",
+      "description": "Use \"is\" for simple arithmetic, \"equals\" for definitions",
+      "patterns_added": 2
+    }
+  ],
+  "total_patterns": 14
+}

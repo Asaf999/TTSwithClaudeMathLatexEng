@@ -1,0 +1,26 @@
+{
+  "next_cycle": 5,
+  "weak_areas": [
+    {
+      "category": "basic_arithmetic",
+      "score": 0.0,
+      "gap": 0.98
+    },
+    {
+      "category": "algebra",
+      "score": 0.0,
+      "gap": 0.98
+    },
+    {
+      "category": "calculus",
+      "score": 0.0,
+      "gap": 0.98
+    },
+    {
+      "category": "fractions",
+      "score": 0.0,
+      "gap": 0.98
+    }
+  ],
+  "patterns_to_implement": 4
+}

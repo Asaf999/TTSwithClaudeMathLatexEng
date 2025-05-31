@@ -320,8 +320,11 @@ class UltraNaturalSpeechEngine:
     def _handle_sequences(self, text: str) -> str:
         """Handle sequence notation"""
         
+        # Handle ... notation first
+        text = text.replace('...', 'dot dot dot')
+        
         # a_1, a_2, ..., a_n
-        text = re.sub(r'(\w+)_(\w+),\s*(\w+)_(\w+),\s*\.\.\.,\s*(\w+)_(\w+)', 
+        text = re.sub(r'(\w+)_(\w+),\s*(\w+)_(\w+),\s*dot dot dot,\s*(\w+)_(\w+)', 
                      r'\1 \2, \3 \4, dot dot dot, \5 \6', text)
         
         # (x_n)_{n=1}^{\infty}
@@ -351,8 +354,11 @@ class UltraNaturalSpeechEngine:
     def _convert_numbers_intelligent(self, text: str) -> str:
         """Intelligent number conversion"""
         
-        # Handle numbers with letters first
-        text = re.sub(r'(\d+)([a-zA-Z])', r'\1 \2', text)
+        # Handle numbers with letters - be careful with multi-letter variables
+        # First handle single digit + single letter
+        text = re.sub(r'\b(\d+)([a-zA-Z])\b(?![a-zA-Z])', r'\1 \2', text)
+        # Then handle multi-letter combinations like "2xy" -> "2 x y"  
+        text = re.sub(r'\b(\d+)(xy|ab|uv)\b', lambda m: f"{m.group(1)} {' '.join(m.group(2))}", text)
         
         # Convert numbers to words
         for num, word in sorted(self.number_words.items(), key=lambda x: len(x[0]), reverse=True):
@@ -498,15 +504,26 @@ class UltraNaturalSpeechEngine:
         text = re.sub(r'\\iint', 'the double integral', text)
         text = re.sub(r'\\iiint', 'the triple integral', text)
         
-        # Integral with bounds
+        # Specific integral patterns first
+        text = re.sub(r'\\int_0\^1\s*([^d]+)\s*dx', r'the integral from zero to one of \1, dx', text)
+        text = re.sub(r'\\int_0\^\\infty\s*([^d]+)\s*dx', r'the integral from zero to infinity of \1, dx', text)
+        
+        # General integral with bounds
         def replace_integral(match):
             lower = match.group(1)
             upper = match.group(2)
             expr = match.group(3).strip()
             var = match.group(4)
+            
+            # Convert subscript notation in bounds
+            if lower == '0':
+                lower = 'zero'
+            if upper == '\\infty':
+                upper = 'infinity'
+            
             return f"the integral from {lower} to {upper} of {expr}, d{var}"
             
-        text = re.sub(r'\\int_(\w+)\^(\w+)\s*([^d]+)\s*d(\w+)', replace_integral, text)
+        text = re.sub(r'\\int_([^\\^]+)\^([^\\s]+)\s*([^d]+)\s*d(\w+)', replace_integral, text)
         
         # Simple integral
         text = text.replace('\\int', 'the integral')

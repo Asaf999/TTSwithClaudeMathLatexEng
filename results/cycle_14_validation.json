@@ -1,0 +1,23 @@
+{
+  "cycle": 14,
+  "score": 0,
+  "passed": false,
+  "improvement": 0,
+  "remaining_gap": 0.98,
+  "category_scores": {
+    "basic_arithmetic": 0,
+    "algebra": 0,
+    "calculus": 0,
+    "linear_algebra": 0,
+    "differential_equations": 0,
+    "complex_analysis": 0,
+    "topology": 0,
+    "set_theory_&_logic": 0,
+    "statistics_&_probability": 0,
+    "number_theory": 0,
+    "example_10.2:_modular_arithmetic": 0,
+    "abstract_algebra": 0,
+    "real_analysis": 0,
+    "numerical_methods": 0
+  }
+}

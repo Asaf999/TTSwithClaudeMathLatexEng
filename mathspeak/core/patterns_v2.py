@@ -1756,6 +1756,14 @@ class GeneralizationEngine:
         # General patterns that apply across domains
         self.general_patterns = [
             # Missing LaTeX commands that need immediate processing
+            # Complete patterns first (highest priority)
+            PatternRule(
+                r'([a-zA-Z])\\s*\\\\equiv\\s*([a-zA-Z])\\s*\\\\pmod\\{([^}]+)\\}',
+                lambda m: f'{m.group(1)} is congruent to {m.group(2)} modulo {m.group(3)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Complete congruence pattern highest',
+                priority=130
+            ),
             PatternRule(
                 r'\\sum',
                 'sum',
@@ -1844,6 +1852,13 @@ class GeneralizationEngine:
                 priority=95
             ),
             PatternRule(
+                r'\^\{\(([^)]+)\)\}',
+                lambda m: f' to the {m.group(1)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Remove parentheses in superscript braces',
+                priority=110
+            ),
+            PatternRule(
                 r'\^\{-([^}]+)\}',
                 lambda m: f' to the negative {m.group(1)}',
                 MathDomain.BASIC_ARITHMETIC,
@@ -1922,6 +1937,21 @@ class GeneralizationEngine:
                 MathDomain.BASIC_ARITHMETIC,
                 'Vector word cleanup',
                 priority=98
+            ),
+            # Vector calculus - higher priority than individual components
+            PatternRule(
+                r'\\nabla\s*\\cdot\s*\\vec\{([a-zA-Z])\}',
+                lambda m: f'divergence of {m.group(1)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Divergence of vector',
+                priority=120
+            ),
+            PatternRule(
+                r'\\nabla\s*\\cdot',
+                'divergence',
+                MathDomain.BASIC_ARITHMETIC,
+                'Divergence operator',
+                priority=110
             ),
             # Dot product
             PatternRule(
@@ -2009,6 +2039,21 @@ class GeneralizationEngine:
                 MathDomain.BASIC_ARITHMETIC,
                 'Fix modulo spacing',
                 priority=50
+            ),
+            # Fix specific modulo pattern issues
+            PatternRule(
+                r'([a-zA-Z])\\s*\\\\equiv\\s*([a-zA-Z])\\s*\\\\pmod\\{([^}]+)\\}',
+                lambda m: f'{m.group(1)} is congruent to {m.group(2)} modulo {m.group(3)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Complete congruence pattern',
+                priority=125
+            ),
+            PatternRule(
+                r'is congruent to ([a-zA-Z]) mod ulo ([a-zA-Z])',
+                r'is congruent to \1 modulo \2',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix congruent modulo',
+                priority=105
             ),
             PatternRule(
                 r'\\equiv',
@@ -2280,8 +2325,8 @@ class MathSpeechProcessor:
     
     def _postprocess(self, text: str) -> str:
         """Post-process for natural speech flow"""
-        # Fix article usage (but not for mathematical variables)
-        text = re.sub(r'\ba\s+((?![a-zA-Z]\s+over)[aeiou])', r'an \1', text, flags=re.IGNORECASE)
+        # Fix article usage (but not for mathematical variables or "is congruent")
+        text = re.sub(r'\ba\s+((?![a-zA-Z]\s+over)(?![a-zA-Z]\s+is)[aeiou])', r'an \1', text, flags=re.IGNORECASE)
         
         # Remove redundant words
         text = re.sub(r'\bthe the\b', 'the', text)

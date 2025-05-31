@@ -409,7 +409,14 @@ class MathematicalTTSEngine:
         
         if enable_caching:
             try:
-                from ..utils.cache import get_expression_cache
+                import sys
+                import os
+                # Add the mathspeak directory to path for imports
+                current_dir = os.path.dirname(os.path.abspath(__file__))
+                mathspeak_dir = os.path.dirname(current_dir)
+                if mathspeak_dir not in sys.path:
+                    sys.path.insert(0, mathspeak_dir)
+                from utils.cache import get_expression_cache
                 self.expression_cache = get_expression_cache()
                 self._use_advanced_cache = True
             except Exception as e:

@@ -159,14 +159,14 @@ class CalculusHandler(PatternHandler):
                 lambda m: f'integral from {self._process_bound(m.group(1))} to {self._process_bound(m.group(2))} of {m.group(3).strip()} d{m.group(4)}',
                 self.domain,
                 'Definite integral complex bounds',
-                priority=102
+                priority=109
             ),
             PatternRule(
                 r'\\int_([a-zA-Z0-9])\^\{([^}]+)\}\s*([^d]+)\s*d([a-zA-Z])',
                 lambda m: f'integral from {self._process_bound(m.group(1))} to {self._process_bound(m.group(2))} of {m.group(3).strip()} d{m.group(4)}',
                 self.domain,
                 'Definite integral mixed bounds',
-                priority=101
+                priority=108
             ),
             PatternRule(
                 r'\\int_([a-zA-Z0-9])\^([a-zA-Z0-9])\s*([^d]+)\s*d([a-zA-Z])',
@@ -194,7 +194,7 @@ class CalculusHandler(PatternHandler):
                 lambda m: f'integral from 0 to 1 of {m.group(1).strip()} d{m.group(2)}',
                 self.domain,
                 'Common integral 0 to 1',
-                priority=101
+                priority=110
             ),
             PatternRule(
                 r'\\int_0\^\\infty',

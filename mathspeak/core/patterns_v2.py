@@ -43,6 +43,9 @@ logger = logging.getLogger(__name__)
 class FunctionHandler(PatternHandler):
     """Handles function notation naturally"""
     
+    def __init__(self, domain: MathDomain = MathDomain.FUNCTIONS):
+        super().__init__(domain)
+    
     def _init_patterns(self):
         self.patterns = [
             # Basic function notation
@@ -1754,11 +1757,113 @@ class GeneralizationEngine:
         self.general_patterns = [
             # Missing LaTeX commands that need immediate processing
             PatternRule(
+                r'\\sum',
+                'sum',
+                MathDomain.BASIC_ARITHMETIC,
+                'Summation symbol',
+                priority=95
+            ),
+            PatternRule(
+                r'\\lim',
+                'limit',
+                MathDomain.BASIC_ARITHMETIC,
+                'Limit symbol',
+                priority=95
+            ),
+            PatternRule(
+                r'\\int',
+                'integral',
+                MathDomain.BASIC_ARITHMETIC,
+                'Integral symbol fallback',
+                priority=80
+            ),
+            PatternRule(
                 r'\\gcd\s*\(([^)]+)\)',
                 lambda m: f'greatest common divisor of {m.group(1)}',
                 MathDomain.BASIC_ARITHMETIC,
                 'GCD function',
                 priority=99
+            ),
+            # Matrix notation (basic)
+            PatternRule(
+                r'\\begin\{pmatrix\}.*?\\end\{pmatrix\}',
+                'matrix',
+                MathDomain.BASIC_ARITHMETIC,
+                'Matrix notation basic',
+                priority=99
+            ),
+            PatternRule(
+                r'\\det\s*\\begin\{pmatrix\}.*?\\end\{pmatrix\}',
+                'determinant of matrix',
+                MathDomain.BASIC_ARITHMETIC,
+                'Matrix determinant',
+                priority=100
+            ),
+            PatternRule(
+                r'\\begin\{[a-z]*matrix\}.*?\\end\{[a-z]*matrix\}',
+                'matrix',
+                MathDomain.BASIC_ARITHMETIC,
+                'General matrix notation',
+                priority=98
+            ),
+            # Basic subscript/superscript cleanup
+            PatternRule(
+                r'\^\{-x\^2\}',
+                ' to the negative x squared',
+                MathDomain.BASIC_ARITHMETIC,
+                'Negative x squared exponent',
+                priority=110
+            ),
+            PatternRule(
+                r'\^\{-([^}]+)\}',
+                lambda m: f' to the negative {m.group(1)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Negative superscript',
+                priority=75
+            ),
+            PatternRule(
+                r'\^\{([^}]+)\}',
+                lambda m: f' to the {m.group(1)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'General superscript',
+                priority=70
+            ),
+            PatternRule(
+                r'_\{([^}]+)\}',
+                lambda m: f' {m.group(1)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'General subscript',
+                priority=70
+            ),
+            # Handle minus without spaces
+            PatternRule(
+                r'([a-zA-Z0-9])\s*-\s*([a-zA-Z0-9])',
+                r'\1 minus \2',
+                MathDomain.BASIC_ARITHMETIC,
+                'Minus operator',
+                priority=85
+            ),
+            # Inverse trig functions - high priority
+            PatternRule(
+                r'\\tan\^\{-1\}',
+                'inverse tangent',
+                MathDomain.BASIC_ARITHMETIC,
+                'Inverse tangent',
+                priority=105
+            ),
+            PatternRule(
+                r'\\sin\^\{-1\}',
+                'inverse sine',
+                MathDomain.BASIC_ARITHMETIC,
+                'Inverse sine',
+                priority=105
+            ),
+            PatternRule(
+                r'\\cos\^\{-1\}',
+                'inverse cosine',
+                MathDomain.BASIC_ARITHMETIC,
+                'Inverse cosine',
+                priority=105
             ),
             PatternRule(
                 r'\\text\{([^}]+)\}',

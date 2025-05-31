@@ -1,0 +1,18 @@
+[flake8]
+max-line-length = 88
+extend-ignore = E203, W503
+exclude = 
+    .git,
+    __pycache__,
+    build,
+    dist,
+    .eggs,
+    mathspeak_enhancement,
+    venv,
+    .venv,
+    .tox,
+    .mypy_cache,
+    .pytest_cache
+per-file-ignores =
+    __init__.py:F401
+    mathspeak/core/patterns_v2.py:E501,C901  # Allow long lines and complex functions temporarily

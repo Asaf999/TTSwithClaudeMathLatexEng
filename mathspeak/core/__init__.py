@@ -75,10 +75,9 @@ def _load_components():
         ClarificationInjector,
     )
     
-    from .patterns import (
-        PatternProcessor,
-        MathSpeechProcessor,
-    )
+    from .patterns_v2 import MathSpeechProcessor
+    # PatternProcessor is legacy - use MathSpeechProcessor
+    PatternProcessor = MathSpeechProcessor
     
     # Store in globals for access
     globals().update(locals())

@@ -1,0 +1,273 @@
+{
+  "start_time": "2025-05-31T17:49:36.351760",
+  "end_time": "2025-05-31T17:49:43.598373",
+  "duration": 7.246613,
+  "categories": {
+    "Performance": {
+      "total_tests": 4,
+      "passed": 3,
+      "failed": 1,
+      "pass_rate": 75.0,
+      "tests": [
+        {
+          "name": "response_times",
+          "passed": true,
+          "duration": 0.05840277671813965,
+          "error": "",
+          "metrics": {
+            "response_times": {
+              "simple": {
+                "avg": 0.01407162348429362,
+                "max": 0.03475785255432129,
+                "min": 0.0028753280639648438
+              },
+              "complex": {
+                "avg": 0.0029375553131103516,
+                "max": 0.003154277801513672,
+                "min": 0.002807140350341797
+              },
+              "lecture": {
+                "avg": 0.003668546676635742,
+                "max": 0.0037276744842529297,
+                "min": 0.0036094188690185547
+              }
+            }
+          }
+        },
+        {
+          "name": "throughput",
+          "passed": true,
+          "duration": 0.7267746925354004,
+          "error": "",
+          "metrics": {
+            "throughput": {
+              "size_10": {
+                "expressions_per_second": 285.9707231930401,
+                "total_time": 0.03496861457824707
+              },
+              "size_50": {
+                "expressions_per_second": 213.9411801311302,
+                "total_time": 0.23370909690856934
+              },
+              "size_100": {
+                "expressions_per_second": 218.305976798994,
+                "total_time": 0.4580726623535156
+              }
+            }
+          }
+        },
+        {
+          "name": "cache_effectiveness",
+          "passed": false,
+          "duration": 0.044107675552368164,
+          "error": "",
+          "metrics": {
+            "cache_hit_rate": 0.0,
+            "speedup_factor": 1.296466897393123,
+            "avg_uncached_time": 0.004965782165527344,
+            "avg_cached_time": 0.003830242156982422
+          }
+        },
+        {
+          "name": "memory_usage",
+          "passed": true,
+          "duration": 1.0107026100158691,
+          "error": "",
+          "metrics": {
+            "initial_memory_mb": 50.44921875,
+            "final_memory_mb": 50.44921875,
+            "increase_mb": 0.0
+          }
+        }
+      ]
+    },
+    "Robustness": {
+      "total_tests": 4,
+      "passed": 3,
+      "failed": 1,
+      "pass_rate": 75.0,
+      "tests": [
+        {
+          "name": "edge_cases",
+          "passed": true,
+          "duration": 0.041178226470947266,
+          "error": "",
+          "metrics": {
+            "total_failures": 0,
+            "failures": []
+          }
+        },
+        {
+          "name": "malicious_inputs",
+          "passed": false,
+          "duration": 2.189683675765991,
+          "error": "Input 0: Potential security issue; Input 2: Potential security issue; Input 3: Potential security issue",
+          "metrics": {
+            "vulnerabilities_found": 3
+          }
+        },
+        {
+          "name": "timeout_handling",
+          "passed": true,
+          "duration": 0.008042335510253906,
+          "error": "",
+          "metrics": {}
+        },
+        {
+          "name": "recovery",
+          "passed": true,
+          "duration": 0.016266345977783203,
+          "error": "",
+          "metrics": {}
+        }
+      ]
+    },
+    "Concurrency": {
+      "total_tests": 3,
+      "passed": 3,
+      "failed": 0,
+      "pass_rate": 100.0,
+      "tests": [
+        {
+          "name": "concurrent_processing",
+          "passed": true,
+          "duration": 0.10268831253051758,
+          "error": "",
+          "metrics": {
+            "concurrent_tasks": 20,
+            "errors": 0,
+            "avg_time": 0.00509573221206665
+          }
+        },
+        {
+          "name": "thread_safety",
+          "passed": true,
+          "duration": 0.8661098480224609,
+          "error": "",
+          "metrics": {
+            "thread_count": 10,
+            "errors": 0
+          }
+        },
+        {
+          "name": "resource_contention",
+          "passed": true,
+          "duration": 1.2152180671691895,
+          "error": "",
+          "metrics": {
+            "total_tasks": 250
+          }
+        }
+      ]
+    },
+    "Real World": {
+      "total_tests": 3,
+      "passed": 1,
+      "failed": 2,
+      "pass_rate": 33.33333333333333,
+      "tests": [
+        {
+          "name": "lecture_processing",
+          "passed": false,
+          "duration": 0.05753445625305176,
+          "error": "",
+          "metrics": {
+            "expressions_found": 14,
+            "successfully_processed": 14,
+            "avg_processing_time": 0.004023279462541852
+          }
+        },
+        {
+          "name": "textbook_chapter",
+          "passed": true,
+          "duration": 0.21300125122070312,
+          "error": "",
+          "metrics": {
+            "total_formulas": 45,
+            "success_rate": 1.0,
+            "avg_processing_time": 0.004732158448961046,
+            "errors": 0
+          }
+        },
+        {
+          "name": "exam_paper",
+          "passed": false,
+          "duration": 1.1920928955078125e-05,
+          "error": "name 're' is not defined",
+          "metrics": {}
+        }
+      ]
+    },
+    "Usability": {
+      "total_tests": 3,
+      "passed": 2,
+      "failed": 1,
+      "pass_rate": 66.66666666666666,
+      "tests": [
+        {
+          "name": "error_messages",
+          "passed": false,
+          "duration": 0.011070966720581055,
+          "error": "",
+          "metrics": {
+            "helpful_errors": 1,
+            "total": 3
+          }
+        },
+        {
+          "name": "api_consistency",
+          "passed": true,
+          "duration": 0.017503738403320312,
+          "error": "",
+          "metrics": {
+            "unique_outputs": 1
+          }
+        },
+        {
+          "name": "progress_feedback",
+          "passed": true,
+          "duration": 0.008879423141479492,
+          "error": "",
+          "metrics": {}
+        }
+      ]
+    },
+    "Integration": {
+      "total_tests": 3,
+      "passed": 2,
+      "failed": 1,
+      "pass_rate": 66.66666666666666,
+      "tests": [
+        {
+          "name": "cli_integration",
+          "passed": false,
+          "duration": 0.01525568962097168,
+          "error": "/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/venv/bin/python: can't open file '/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng/mathspeak.py': [Errno 2] No such file or directory\n",
+          "metrics": {}
+        },
+        {
+          "name": "domain_processors",
+          "passed": true,
+          "duration": 0.017536640167236328,
+          "error": "",
+          "metrics": {
+            "correct_contexts": 3,
+            "total": 3
+          }
+        },
+        {
+          "name": "tts_engines",
+          "passed": true,
+          "duration": 0.6252150535583496,
+          "error": "",
+          "metrics": {
+            "available_engines": 2,
+            "total_engines": 4,
+            "speech_generated": true,
+            "file_size": 22752
+          }
+        }
+      ]
+    }
+  }
+}

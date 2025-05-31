@@ -1779,11 +1779,32 @@ class GeneralizationEngine:
             ),
             # Matrix notation (basic)
             PatternRule(
+                r'\\begin\{pmatrix\}\s*([a-zA-Z])\s*&\s*([a-zA-Z])\s*\\\\\\\\\s*([a-zA-Z])\s*&\s*([a-zA-Z])\s*\\end\{pmatrix\}',
+                lambda m: f'matrix {m.group(1)} {m.group(2)} {m.group(3)} {m.group(4)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Matrix 2x2 with double backslash',
+                priority=106
+            ),
+            PatternRule(
+                r'\\begin\{pmatrix\}\s*([a-zA-Z])\s*&\s*([a-zA-Z])\s*\\\\\s*([a-zA-Z])\s*&\s*([a-zA-Z])\s*\\end\{pmatrix\}',
+                lambda m: f'matrix {m.group(1)} {m.group(2)} {m.group(3)} {m.group(4)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Matrix 2x2 with elements',
+                priority=105
+            ),
+            PatternRule(
                 r'\\begin\{pmatrix\}.*?\\end\{pmatrix\}',
                 'matrix',
                 MathDomain.BASIC_ARITHMETIC,
                 'Matrix notation basic',
                 priority=99
+            ),
+            PatternRule(
+                r'\\det\s*\\begin\{pmatrix\}\s*([a-zA-Z])\s*&\s*([a-zA-Z])\s*\\\\\\\\\s*([a-zA-Z])\s*&\s*([a-zA-Z])\s*\\end\{pmatrix\}',
+                lambda m: f'determinant of matrix {m.group(1)} {m.group(2)} {m.group(3)} {m.group(4)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Matrix determinant with elements',
+                priority=107
             ),
             PatternRule(
                 r'\\det\s*\\begin\{pmatrix\}.*?\\end\{pmatrix\}',
@@ -1801,11 +1822,26 @@ class GeneralizationEngine:
             ),
             # Basic subscript/superscript cleanup
             PatternRule(
+                r'([a-zA-Z])\^\{([a-zA-Z])\^([a-zA-Z])\}',
+                lambda m: f'{m.group(1)} to the {m.group(2)} to the {m.group(3)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Nested superscripts',
+                priority=115
+            ),
+            PatternRule(
                 r'\^\{-x\^2\}',
                 ' to the negative x squared',
                 MathDomain.BASIC_ARITHMETIC,
                 'Negative x squared exponent',
                 priority=110
+            ),
+            # Parentheses removal in superscripts
+            PatternRule(
+                r'to the \(([^)]+)\)',
+                r'to the \1',
+                MathDomain.BASIC_ARITHMETIC,
+                'Remove parentheses in superscripts',
+                priority=95
             ),
             PatternRule(
                 r'\^\{-([^}]+)\}',
@@ -1822,6 +1858,13 @@ class GeneralizationEngine:
                 priority=70
             ),
             PatternRule(
+                r'([a-zA-Z])_\{([^}]+)\}',
+                lambda m: f'{m.group(1)} {m.group(2).replace(",", " ")}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Variable subscript',
+                priority=75
+            ),
+            PatternRule(
                 r'_\{([^}]+)\}',
                 lambda m: f' {m.group(1)}',
                 MathDomain.BASIC_ARITHMETIC,
@@ -1836,13 +1879,20 @@ class GeneralizationEngine:
                 'Minus operator',
                 priority=85
             ),
-            # Inverse trig functions - high priority
+            # Inverse trig functions - very high priority
+            PatternRule(
+                r'\\tan\^\{-1\}\\left\(([^)]+)\\right\)',
+                lambda m: f'inverse tangent of {m.group(1)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Inverse tangent with args',
+                priority=120
+            ),
             PatternRule(
                 r'\\tan\^\{-1\}',
                 'inverse tangent',
                 MathDomain.BASIC_ARITHMETIC,
                 'Inverse tangent',
-                priority=105
+                priority=115
             ),
             PatternRule(
                 r'\\sin\^\{-1\}',
@@ -1857,6 +1907,73 @@ class GeneralizationEngine:
                 MathDomain.BASIC_ARITHMETIC,
                 'Inverse cosine',
                 priority=105
+            ),
+            # Vector notation cleanup
+            PatternRule(
+                r'\\vec\{([a-zA-Z])\}',
+                r'\1',
+                MathDomain.BASIC_ARITHMETIC,
+                'Vector notation',
+                priority=100
+            ),
+            PatternRule(
+                r'vector ([a-zA-Z])',
+                r'\1',
+                MathDomain.BASIC_ARITHMETIC,
+                'Vector word cleanup',
+                priority=98
+            ),
+            # Dot product
+            PatternRule(
+                r'\\cdot',
+                ' dot ',
+                MathDomain.BASIC_ARITHMETIC,
+                'Dot product',
+                priority=95
+            ),
+            PatternRule(
+                r'\\text\{Var\}',
+                'variance',
+                MathDomain.BASIC_ARITHMETIC,
+                'Variance text',
+                priority=105
+            ),
+            PatternRule(
+                r'\\text\{Res\}',
+                'residue',
+                MathDomain.BASIC_ARITHMETIC,
+                'Residue text',
+                priority=105
+            ),
+            PatternRule(
+                r'E\[([^\]]+)\]',
+                lambda m: f'expected value of {m.group(1)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Expected value',
+                priority=105
+            ),
+            # Continued fractions
+            PatternRule(
+                r'\\cfrac',
+                'continued fraction',
+                MathDomain.BASIC_ARITHMETIC,
+                'Continued fraction',
+                priority=100
+            ),
+            # Function spacing fixes
+            PatternRule(
+                r'\\sin\(([0-9]+)\\pi\s*([a-zA-Z])\)',
+                lambda m: f'sine of {m.group(1)} pi {m.group(2)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Sine with pi',
+                priority=105
+            ),
+            PatternRule(
+                r'([0-9]+)\\pi',
+                lambda m: f'{m.group(1)} pi',
+                MathDomain.BASIC_ARITHMETIC,
+                'Number pi',
+                priority=100
             ),
             PatternRule(
                 r'\\text\{([^}]+)\}',
@@ -1885,6 +2002,13 @@ class GeneralizationEngine:
                 MathDomain.BASIC_ARITHMETIC,
                 'Modulo operation',
                 priority=99
+            ),
+            PatternRule(
+                r'mod ulo',
+                'modulo',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix modulo spacing',
+                priority=50
             ),
             PatternRule(
                 r'\\equiv',

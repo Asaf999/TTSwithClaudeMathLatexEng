@@ -190,6 +190,13 @@ class CalculusHandler(PatternHandler):
                 priority=96
             ),
             PatternRule(
+                r'\\int_0\^\{\\\\infty\}\s*([^d]+)\s*d([a-zA-Z])',
+                lambda m: f'integral from 0 to infinity of {m.group(1).strip()} d{m.group(2)}',
+                self.domain,
+                'Common integral 0 to infinity',
+                priority=111
+            ),
+            PatternRule(
                 r'\\int_0\^1\s*([^d]+)\s*d([a-zA-Z])',
                 lambda m: f'integral from 0 to 1 of {m.group(1).strip()} d{m.group(2)}',
                 self.domain,
@@ -213,6 +220,13 @@ class CalculusHandler(PatternHandler):
             
             # Double/triple integrals
             PatternRule(
+                r'\\iint_([a-zA-Z])\s*([^d]+)\s*d([a-zA-Z])\s*d([a-zA-Z])',
+                lambda m: f'double integral over {m.group(1)} of {m.group(2).strip()} d{m.group(3)} d{m.group(4)}',
+                self.domain,
+                'Double integral with region',
+                priority=99
+            ),
+            PatternRule(
                 r'\\iint',
                 'double integral',
                 self.domain,
@@ -220,11 +234,25 @@ class CalculusHandler(PatternHandler):
                 priority=98
             ),
             PatternRule(
+                r'\\iiint_([a-zA-Z])\s*([^d]+)\s*d([a-zA-Z])\s*d([a-zA-Z])\s*d([a-zA-Z])',
+                lambda m: f'triple integral over {m.group(1)} of {m.group(2).strip()} d{m.group(3)} d{m.group(4)} d{m.group(5)}',
+                self.domain,
+                'Triple integral with region',
+                priority=99
+            ),
+            PatternRule(
                 r'\\iiint',
                 'triple integral',
                 self.domain,
                 'Triple integral',
                 priority=98
+            ),
+            PatternRule(
+                r'\\oint_([a-zA-Z])\s*([^d]+)\s*d([a-zA-Z])',
+                lambda m: f'contour integral over {m.group(1)} of {m.group(2).strip()} d{m.group(3)}',
+                self.domain,
+                'Contour integral with path',
+                priority=99
             ),
             PatternRule(
                 r'\\oint',
@@ -235,6 +263,20 @@ class CalculusHandler(PatternHandler):
             ),
             
             # Limits
+            PatternRule(
+                r'\\lim_\{([a-zA-Z])\s*\\to\s*([^}]+)\^\+\}',
+                lambda m: f'limit as {m.group(1)} approaches {self._process_limit_value(m.group(2))} from the right',
+                self.domain,
+                'One-sided limit right',
+                priority=100
+            ),
+            PatternRule(
+                r'\\lim_\{([a-zA-Z])\s*\\to\s*([^}]+)\^\-\}',
+                lambda m: f'limit as {m.group(1)} approaches {self._process_limit_value(m.group(2))} from the left',
+                self.domain,
+                'One-sided limit left',
+                priority=100
+            ),
             PatternRule(
                 r'\\lim_\{([^}]+)\\to\s*([^}]+)\}',
                 lambda m: f'limit as {m.group(1)} approaches {self._process_limit_value(m.group(2))}',
@@ -271,6 +313,13 @@ class CalculusHandler(PatternHandler):
                 self.domain,
                 'General summation',
                 priority=99
+            ),
+            PatternRule(
+                r'\\sum_\{([^}]+)\}',
+                lambda m: f'sum over {self._process_bound(m.group(1))}',
+                self.domain,
+                'Sum over index',
+                priority=98
             ),
             PatternRule(
                 r'\\sum_{n=1}\^{\\infty}',

@@ -1835,25 +1835,33 @@ class GeneralizationEngine:
             ),
             # All matrix types fallback
             PatternRule(
-                r'\\begin\{pmatrix\}.*?\\end\{pmatrix\}',
-                'matrix',
+                r'(\\begin\{pmatrix\}.*?\\end\{pmatrix\})',
+                _extract_matrix_content,
                 MathDomain.BASIC_ARITHMETIC,
                 'Matrix notation basic',
                 priority=99
             ),
             PatternRule(
-                r'\\begin\{bmatrix\}.*?\\end\{bmatrix\}',
-                'matrix',
+                r'(\\begin\{bmatrix\}.*?\\end\{bmatrix\})',
+                _extract_matrix_content,
                 MathDomain.BASIC_ARITHMETIC,
                 'Bmatrix notation',
                 priority=99
             ),
             PatternRule(
-                r'\\begin\{vmatrix\}.*?\\end\{vmatrix\}',
-                'matrix',
+                r'(\\begin\{vmatrix\}.*?\\end\{vmatrix\})',
+                _extract_matrix_content,
                 MathDomain.BASIC_ARITHMETIC,
                 'Vmatrix notation',
                 priority=99
+            ),
+            # Determinant patterns
+            PatternRule(
+                r'\\det(?=\s*\\begin)',
+                'determinant of',
+                MathDomain.BASIC_ARITHMETIC,
+                'Determinant operator',
+                priority=108
             ),
             PatternRule(
                 r'\\det\s*\\begin\{pmatrix\}\s*([a-zA-Z])\s*&\s*([a-zA-Z])\s*\\\\\\\\\s*([a-zA-Z])\s*&\s*([a-zA-Z])\s*\\end\{pmatrix\}',
@@ -1863,15 +1871,15 @@ class GeneralizationEngine:
                 priority=107
             ),
             PatternRule(
-                r'\\det\s*\\begin\{pmatrix\}.*?\\end\{pmatrix\}',
-                'determinant of matrix',
+                r'\\det\s*(\\begin\{pmatrix\}.*?\\end\{pmatrix\})',
+                lambda m: f'determinant of {_extract_matrix_content(m)}',
                 MathDomain.BASIC_ARITHMETIC,
                 'Matrix determinant',
                 priority=100
             ),
             PatternRule(
-                r'\\begin\{[a-z]*matrix\}.*?\\end\{[a-z]*matrix\}',
-                'matrix',
+                r'(\\begin\{[a-z]*matrix\}.*?\\end\{[a-z]*matrix\})',
+                _extract_matrix_content,
                 MathDomain.BASIC_ARITHMETIC,
                 'General matrix notation',
                 priority=98
@@ -2643,6 +2651,41 @@ class MathSpeechProcessor:
                     break
         
         return detected_level
+
+# ===========================
+# Helper Functions
+# ===========================
+
+def _extract_matrix_content(match):
+    """Extract matrix content and format it for speech"""
+    content = match.group(1) if match.lastindex else match.group(0)
+    # Extract content between \begin{...} and \end{...}
+    matrix_match = re.search(r'\\begin\{[^}]+\}(.+?)\\end\{[^}]+\}', content, re.DOTALL)
+    if matrix_match:
+        content = matrix_match.group(1)
+    
+    # Clean up the content
+    # Remove extra whitespace and newlines
+    content = re.sub(r'\s+', ' ', content.strip())
+    
+    # Split by rows (\\)
+    rows = re.split(r'\\\\', content)
+    
+    # Extract all elements
+    elements = []
+    for row in rows:
+        # Split by & and clean each element
+        row_elements = re.split(r'&', row)
+        for elem in row_elements:
+            elem = elem.strip()
+            if elem:
+                elements.append(elem)
+    
+    # Join all elements with spaces
+    if elements:
+        return f'matrix {" ".join(elements)}'
+    else:
+        return 'matrix'
 
 # ===========================
 # Convenience Functions

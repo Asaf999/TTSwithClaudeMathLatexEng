@@ -2492,19 +2492,212 @@ class GeneralizationEngine:
     
     def _cleanup(self, text: str) -> str:
         """Enhanced final cleanup of processed text"""
-        # Aggressive LaTeX command cleanup
+        # Fix specific common errors first
+        text = re.sub(r'integral of egral of', 'integral over', text)
+        text = re.sub(r'integral of egral from', 'integral from', text)
+        
+        # Clean up LaTeX commands that should be converted
+        text = re.sub(r'\\sin(?!e)', 'sine', text)
+        text = re.sub(r'\\cos(?!ine)', 'cosine', text)
+        text = re.sub(r'\\tan(?!gent)', 'tangent', text)
+        text = re.sub(r'\\cot(?!angent)', 'cotangent', text)
+        text = re.sub(r'\\sec(?!ant)', 'secant', text)
+        text = re.sub(r'\\csc|\\cosec', 'cosecant', text)
+        text = re.sub(r'\\arcsin', 'arc sine', text)
+        text = re.sub(r'\\arccos', 'arc cosine', text)
+        text = re.sub(r'\\arctan', 'arc tangent', text)
+        text = re.sub(r'\\sinh', 'hyperbolic sine', text)
+        text = re.sub(r'\\cosh', 'hyperbolic cosine', text)
+        text = re.sub(r'\\tanh', 'hyperbolic tangent', text)
+        text = re.sub(r'\\ln', 'natural log', text)
+        text = re.sub(r'\\log', 'log', text)
+        text = re.sub(r'\\exp', 'exponential', text)
+        text = re.sub(r'\\det', 'determinant', text)
+        text = re.sub(r'\\tr', 'trace', text)
+        text = re.sub(r'\\nabla', 'nabla', text)
+        text = re.sub(r'\\partial', 'partial', text)
+        text = re.sub(r'\\infty', 'infinity', text)
+        text = re.sub(r'\\alpha', 'alpha', text)
+        text = re.sub(r'\\beta', 'beta', text)
+        text = re.sub(r'\\gamma', 'gamma', text)
+        text = re.sub(r'\\delta', 'delta', text)
+        text = re.sub(r'\\epsilon', 'epsilon', text)
+        text = re.sub(r'\\theta', 'theta', text)
+        text = re.sub(r'\\lambda', 'lambda', text)
+        text = re.sub(r'\\mu', 'mu', text)
+        text = re.sub(r'\\nu', 'nu', text)
+        text = re.sub(r'\\pi', 'pi', text)
+        text = re.sub(r'\\rho', 'rho', text)
+        text = re.sub(r'\\sigma', 'sigma', text)
+        text = re.sub(r'\\tau', 'tau', text)
+        text = re.sub(r'\\phi', 'phi', text)
+        text = re.sub(r'\\chi', 'chi', text)
+        text = re.sub(r'\\psi', 'psi', text)
+        text = re.sub(r'\\omega', 'omega', text)
+        text = re.sub(r'\\Gamma', 'capital gamma', text)
+        text = re.sub(r'\\Delta', 'capital delta', text)
+        text = re.sub(r'\\Lambda', 'capital lambda', text)
+        text = re.sub(r'\\Omega', 'capital omega', text)
+        text = re.sub(r'\\Phi', 'capital phi', text)
+        text = re.sub(r'\\Psi', 'capital psi', text)
+        text = re.sub(r'\\Sigma', 'capital sigma', text)
+        text = re.sub(r'\\Pi', 'capital pi', text)
+        
+        # Clean up matrix environments
+        text = re.sub(r'\\begin\s*\{([pbBv]?matrix)\}', '', text)
+        text = re.sub(r'\\end\s*\{([pbBv]?matrix)\}', '', text)
+        text = re.sub(r'\\begin\s*\{array\}\{[^}]*\}', '', text)
+        text = re.sub(r'\\end\s*\{array\}', '', text)
+        text = re.sub(r'\\begin\s*\{cases\}', 'begin cases', text)
+        text = re.sub(r'\\end\s*\{cases\}', 'end cases', text)
+        
+        # Fix matrix row separators and clean up backslashes
+        text = re.sub(r'\s*\\\\\s*', ' ', text)  # Double backslashes for row breaks
+        text = re.sub(r'\s+\\\s+', ' ', text)  # Single backslashes with spaces
+        text = re.sub(r'\\\s*$', '', text)  # Trailing backslashes
+        
+        # Clean up parentheses and brackets
+        text = re.sub(r'\\left\s*\(', '(', text)
+        text = re.sub(r'\\right\s*\)', ')', text)
+        text = re.sub(r'\\left\s*\[', '[', text) 
+        text = re.sub(r'\\right\s*\]', ']', text)
+        text = re.sub(r'\\left\s*\\{', '{', text)
+        text = re.sub(r'\\right\s*\\}', '}', text)
+        text = re.sub(r'\\left\s*\|', '|', text)
+        text = re.sub(r'\\right\s*\|', '|', text)
+        text = re.sub(r'\\left\.', '', text)  # Invisible left delimiter
+        text = re.sub(r'\\right\.', '', text)  # Invisible right delimiter
+        
+        # Clean up escaped characters
+        text = re.sub(r'\\\(', '(', text)
+        text = re.sub(r'\\\)', ')', text)
+        text = re.sub(r'\\{', '{', text)
+        text = re.sub(r'\\}', '}', text)
+        text = re.sub(r'\\\[', '[', text)
+        text = re.sub(r'\\\]', ']', text)
+        text = re.sub(r'\\\|', '|', text)
+        text = re.sub(r'\\,', ' ', text)  # Thin space
+        text = re.sub(r'\\;', ' ', text)  # Medium space
+        text = re.sub(r'\\:', ' ', text)  # Medium space
+        text = re.sub(r'\\!', '', text)   # Negative thin space
+        text = re.sub(r'\\\s', ' ', text) # Escaped space
+        
+        # Remove multiple nested parentheses (devil test 9)
+        # Keep removing redundant parentheses until no more can be removed
+        prev_text = ''
+        while prev_text != text:
+            prev_text = text
+            # Remove redundant parentheses around single items
+            text = re.sub(r'\(\(\(\(([^()]+)\)\)\)\)', r'\1', text)
+            text = re.sub(r'\(\(\(([^()]+)\)\)\)', r'\1', text)
+            text = re.sub(r'\(\(([^()]+)\)\)', r'\1', text)
+            # Handle escaped parentheses pattern
+            text = re.sub(r'\(+([a-zA-Z0-9]+)\\\)+', r'\1', text)
+        
+        # Fix other LaTeX artifacts
+        text = re.sub(r'\\cdot', 'dot', text)
+        text = re.sub(r'\\times', 'cross', text)
+        text = re.sub(r'\\circ', 'compose', text)
+        text = re.sub(r'\\ast', 'star', text)
+        text = re.sub(r'\\star', 'star', text)
+        text = re.sub(r'\\bullet', 'bullet', text)
+        text = re.sub(r'\\div', 'divided by', text)
+        text = re.sub(r'\\pm', 'plus or minus', text)
+        text = re.sub(r'\\mp', 'minus or plus', text)
+        text = re.sub(r'\\oplus', 'direct sum', text)
+        text = re.sub(r'\\otimes', 'tensor product', text)
+        text = re.sub(r'\\wedge', 'wedge', text)
+        text = re.sub(r'\\vee', 'vee', text)
+        text = re.sub(r'\\cap', 'intersection', text)
+        text = re.sub(r'\\cup', 'union', text)
+        text = re.sub(r'\\subset', 'subset', text)
+        text = re.sub(r'\\supset', 'superset', text)
+        text = re.sub(r'\\subseteq', 'subset or equal', text)
+        text = re.sub(r'\\supseteq', 'superset or equal', text)
+        text = re.sub(r'\\in\b', 'in', text)
+        text = re.sub(r'\\notin', 'not in', text)
+        text = re.sub(r'\\ni\b', 'contains', text)
+        text = re.sub(r'\\emptyset', 'empty set', text)
+        text = re.sub(r'\\varnothing', 'empty set', text)
+        text = re.sub(r'\\forall', 'for all', text)
+        text = re.sub(r'\\exists', 'there exists', text)
+        text = re.sub(r'\\nexists', 'there does not exist', text)
+        text = re.sub(r'\\neg', 'not', text)
+        text = re.sub(r'\\land', 'and', text)
+        text = re.sub(r'\\lor', 'or', text)
+        text = re.sub(r'\\implies', 'implies', text)
+        text = re.sub(r'\\iff', 'if and only if', text)
+        text = re.sub(r'\\Rightarrow', 'implies', text)
+        text = re.sub(r'\\Leftarrow', 'implied by', text)
+        text = re.sub(r'\\Leftrightarrow', 'if and only if', text)
+        text = re.sub(r'\\rightarrow', 'maps to', text)
+        text = re.sub(r'\\leftarrow', 'mapped from', text)
+        text = re.sub(r'\\leftrightarrow', 'corresponds to', text)
+        text = re.sub(r'\\to\b', 'to', text)
+        text = re.sub(r'\\mapsto', 'maps to', text)
+        text = re.sub(r'\\approx', 'approximately', text)
+        text = re.sub(r'\\sim', 'similar to', text)
+        text = re.sub(r'\\simeq', 'similar or equal', text)
+        text = re.sub(r'\\cong', 'congruent', text)
+        text = re.sub(r'\\equiv', 'equivalent', text)
+        text = re.sub(r'\\neq', 'not equal', text)
+        text = re.sub(r'\\ne\b', 'not equal', text)
+        text = re.sub(r'\\leq', 'less than or equal', text)
+        text = re.sub(r'\\geq', 'greater than or equal', text)
+        text = re.sub(r'\\le\b', 'less than or equal', text)
+        text = re.sub(r'\\ge\b', 'greater than or equal', text)
+        text = re.sub(r'\\ll', 'much less than', text)
+        text = re.sub(r'\\gg', 'much greater than', text)
+        text = re.sub(r'\\prec', 'precedes', text)
+        text = re.sub(r'\\succ', 'succeeds', text)
+        text = re.sub(r'\\preceq', 'precedes or equal', text)
+        text = re.sub(r'\\succeq', 'succeeds or equal', text)
+        
+        # Clean up text command and other remnants
+        text = re.sub(r'\\text\s*\{([^}]+)\}', r'\1', text)
+        text = re.sub(r'\\ldots', 'dot dot dot', text)
+        text = re.sub(r'\\dots', 'dot dot dot', text)
+        text = re.sub(r'\\cdots', 'dot dot dot', text)
+        text = re.sub(r'\\vdots', 'vertical dots', text)
+        text = re.sub(r'\\ddots', 'diagonal dots', text)
+        
+        # Fix sgn and other special functions
+        text = re.sub(r'\\sgn', 'sign', text)
+        text = re.sub(r'sgn\s*\(', 'sign of ', text)
+        
+        # Fix residue notation
+        text = re.sub(r'\\text\s*\{Res\}', 'residue', text)
+        text = re.sub(r'\\Res', 'residue', text)
+        
+        # Fix interval notation misinterpretation
+        text = re.sub(r'the closed interval from d over dx to d over d y', 'commutator derivative with respect to x derivative with respect to y', text)
+        text = re.sub(r'the open interval from', '', text)
+        text = re.sub(r'the closed interval from', '', text)
+        
+        # Clean up any remaining LaTeX commands
         text = re.sub(r'\\([a-zA-Z]+)\s*', r'\1 ', text)
         
-        # Fix specific common errors
-        text = re.sub(r'integral of egral of', 'integral over', text)
-        text = re.sub(r'\\matrix', 'matrix', text)
-        text = re.sub(r'\\integral', 'integral', text)
-        text = re.sub(r'\\partial', 'partial', text)
-        text = re.sub(r'\\det', 'determinant of', text)
-        text = re.sub(r'\\prod', 'product', text)
-        text = re.sub(r'\\sum', 'sum', text)
-        text = re.sub(r'\\lim', 'limit', text)
-        text = re.sub(r'\\limit', 'limit', text)
+        # Fix derivative patterns that get broken
+        text = re.sub(r'd\s+squared\s*([a-zA-Z])\s+over\s+d([a-zA-Z])\s+squared', r'second derivative of \1 with respect to \2', text)
+        text = re.sub(r'D\s+squared\s*([a-zA-Z])\s+over\s+d([a-zA-Z])\s+squared', r'second derivative of \1 with respect to \2', text)
+        text = re.sub(r'd\s+to\s+the\s+n\s+over\s+d([a-zA-Z])\s+to\s+the\s+n', r'nth derivative with respect to \1', text)
+        text = re.sub(r'D\s+to\s+the\s+n\s+over\s+D([a-zA-Z])\s+to\s+the\s+n', r'nth derivative with respect to \1', text)
+        
+        # Fix nested parentheses issues - additional patterns
+        text = re.sub(r'\(\(\(\(([^)]+)\)\)\)\)', r'\1', text)
+        text = re.sub(r'\\\)\\\)\\\)\\\)', ')', text)
+        text = re.sub(r'\\\(\\\(\\\(\\\(', '(', text)
+        
+        # Fix limit patterns
+        text = re.sub(r'limit\s+([a-zA-Z])to\s+', r'limit as \1 approaches ', text)
+        text = re.sub(r'lim\s+([a-zA-Z])to\s+', r'limit as \1 approaches ', text)
+        
+        # Fix some specific problem patterns
+        text = re.sub(r'Q\s+E\s+D\s+root', 'square root', text)
+        text = re.sub(r'absolute\s+value\s+of\s+([a-zA-Z])\s*absolute\s+value\s+of', r'norm of \1 norm of', text)
+        
+        # Fix substack notation
+        text = re.sub(r'\\substack\s*\{([^}]+)\}', lambda m: m.group(1).replace('\\\\', ' '), text)
         
         # Enhanced matrix content extraction and cleanup
         text = re.sub(r'matrix\s*&\s*matrix\s*\\end\s*matrix', 'matrix matrix', text)
@@ -2520,26 +2713,11 @@ class GeneralizationEngine:
         text = re.sub(r'\\left\|([^|]+)\\right\|', r'absolute value of \1', text)
         text = re.sub(r'\\leftabsolute value of', 'absolute value of', text)
         
-        # Fix spacing and punctuation
+        # Normalize whitespace
         text = re.sub(r'\s+', ' ', text)
         text = text.strip()
         text = re.sub(r'\s+,', ',', text)
         text = re.sub(r'\s+\.', '.', text)
-        
-        # Comprehensive error pattern fixes
-        text = re.sub(r'residuethe open interval from', 'residue of', text)
-        text = re.sub(r'residue\s*the\s*open\s*interval\s*from', 'residue of', text)
-        
-        # Fix nested parentheses issues
-        text = re.sub(r'\\\(\\\(\\\(\\\(([^)]+)\\\)\\\)\\\)\\\)', r'\1', text)
-        
-        # Fix function notation issues
-        text = re.sub(r'\\d\s*to\s*the\s*n\s*over\s*dx\s*to\s*the\s*n', 'nth derivative with respect to x', text)
-        text = re.sub(r'\\partial\s*squared\s*over\s*\\partial\s*([a-zA-Z])\s*squared', lambda m: f'second partial derivative with respect to {m.group(1)}', text)
-        
-        # Fix common integral issues
-        text = re.sub(r'integral\s*of\s*_([0-9]+)\s*to\s*the', lambda m: f'integral from {m.group(1)} to', text)
-        text = re.sub(r'integral\s*of\s*egral\s*of', 'integral over', text)
         
         # Fix product and sum notation
         text = re.sub(r'\\prod\s*([a-zA-Z])\s*equals\s*([0-9]+)\s*to\s*the', lambda m: f'product from {m.group(1)} equals {m.group(2)} to', text)

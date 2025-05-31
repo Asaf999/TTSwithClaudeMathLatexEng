@@ -911,4 +911,4 @@ These patterns, when implemented systematically, will dramatically improve MathS
 
 ---
 
-*Generated for MathSpeak Enhancement Cycle {self.cycle}*
+*Generated for MathSpeak Enhancement Cycle {self.cycle}*"""

@@ -43,7 +43,14 @@ class EnhancedPatternProcessorService(PatternProcessorService):
         Returns:
             Natural speech text
         """
-        # Try ultra-natural processing first if available
+        # First try standard pattern processing which includes our high-priority patterns
+        result = super().process_expression(expression)
+        
+        # If result is significantly different from input, use it
+        if result != expression.latex and len(result) > len(expression.latex) * 0.5:
+            return result
+        
+        # Otherwise try ultra-natural processing if available
         if self._ultra_engine:
             try:
                 # Detect context if enabled
@@ -52,28 +59,28 @@ class EnhancedPatternProcessorService(PatternProcessorService):
                     context = self._detect_mathematical_context(expression)
                 
                 # Process with ultra engine
-                result = self._ultra_engine.naturalize(
+                ultra_result = self._ultra_engine.naturalize(
                     expression.latex.strip('$'),
                     context
                 )
                 
-                if result:
+                if ultra_result and ultra_result != expression.latex:
                     # Apply audience-specific adjustments
-                    result = self._apply_audience_adjustments(
-                        result,
+                    ultra_result = self._apply_audience_adjustments(
+                        ultra_result,
                         expression.audience_level
                     )
                     
                     logger.debug(
                         f"Ultra-natural processing successful for: {expression.latex[:50]}..."
                     )
-                    return result
+                    return ultra_result
                     
             except Exception as e:
                 logger.warning(f"Ultra-natural processing failed: {e}")
         
-        # Fall back to standard pattern processing
-        return super().process_expression(expression)
+        # Return whichever result is better
+        return result
     
     def _detect_mathematical_context(self, expression: MathExpression) -> Optional[str]:
         """Detect mathematical context for better naturalization.

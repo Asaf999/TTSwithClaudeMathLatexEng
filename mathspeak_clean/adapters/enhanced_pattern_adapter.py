@@ -110,9 +110,9 @@ class EnhancedPatternAdapter:
             
             # Integrals with natural flow
             MathPattern(
-                pattern=r"\\int_\{([^}]+)\}\^\{([^}]+)\}\s*([^{}\s]+)\s*d([a-zA-Z])",
+                pattern=r"\\int_\{([^}]+)\}\^\{([^}]+)\}\s*([^{}]+)\s*d([a-zA-Z])",
                 replacement="the integral from \\1 to \\2 of \\3 with respect to \\4",
-                priority=PRIORITY_CRITICAL,
+                priority=PRIORITY_CRITICAL + 50,  # Higher priority to match before other patterns
                 domain=PatternDomain.CALCULUS,
                 description="Definite integral",
             ),

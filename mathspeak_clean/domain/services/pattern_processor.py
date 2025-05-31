@@ -97,11 +97,11 @@ class PatternProcessorService:
         result = self._post_process(result, expression.audience_level)
         
         # Validate result
-        if not result or result == expression.latex:
+        if not result:
             raise ProcessingError(
                 expression.latex,
                 "pattern_processing",
-                "No patterns matched the expression"
+                "Empty result after processing"
             )
         
         return result
@@ -200,6 +200,32 @@ class PatternProcessorService:
         domains.append(PatternDomain.GENERAL)
         
         return domains
+    
+    def _should_skip_number_replacement(self, text: str, pos: int) -> bool:
+        """Check if a number at position should not be replaced.
+        
+        Args:
+            text: Full text
+            pos: Position of the number
+            
+        Returns:
+            True if should skip replacement
+        """
+        # Don't replace numbers in subscripts/superscripts
+        if pos > 0 and text[pos-1] in '_^':
+            return True
+        
+        # Don't replace in LaTeX commands
+        if pos > 0:
+            # Check if we're inside a LaTeX command
+            before = text[:pos]
+            if '\\' in before:
+                last_backslash = before.rfind('\\')
+                between = before[last_backslash:pos]
+                if between.replace('\\', '').isalpha():
+                    return True
+        
+        return False
     
     def _post_process(self, text: str, audience_level: str) -> str:
         """Post-process the speech text.

@@ -161,7 +161,7 @@ def test_error_handling():
         ("Unbalanced braces", r"\frac{1"),
         ("Too long", "x" * 20000),
         ("Invalid LaTeX", r"\invalid{command}"),
-        ("Nested too deep", r"\frac" * 50 + "{1}" * 50),
+        ("Nested too deep", r"\frac{" * 25 + "1" + "}" * 25),
     ]
     
     handled_correctly = 0

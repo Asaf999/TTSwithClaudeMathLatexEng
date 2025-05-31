@@ -223,9 +223,20 @@ class ExpressionCache:
         combined = f"{expression}|{context}"
         return hashlib.sha256(combined.encode()).hexdigest()
     
-    def get(self, expression: str, context: str = "") -> Optional[Any]:
-        """Get processed expression from cache"""
-        key = self._make_key(expression, context)
+    def get(self, key_or_expression: str, context: str = None) -> Optional[Any]:
+        """Get processed expression from cache
+        
+        Args:
+            key_or_expression: Either a pre-computed cache key (32 or 64 char hex) or an expression
+            context: Context string (only used if first arg is an expression)
+        """
+        # Check if it's a pre-computed key (32 char MD5 or 64 char SHA256 hex string)
+        if ((len(key_or_expression) == 32 or len(key_or_expression) == 64) and 
+            all(c in '0123456789abcdef' for c in key_or_expression)):
+            key = key_or_expression
+        else:
+            # It's an expression, compute the key
+            key = self._make_key(key_or_expression, context or "")
         return self.cache.get(key)
     
     def put(self, expression: str, result: Any, context: str = "", 

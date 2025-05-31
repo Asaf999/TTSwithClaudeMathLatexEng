@@ -839,7 +839,25 @@ class MathematicalTTSEngine:
     def shutdown(self) -> None:
         """Clean shutdown of engine"""
         self.save_unknown_commands()
+        
+        # Save cache to disk
+        if self._use_advanced_cache and hasattr(self.expression_cache, 'save'):
+            try:
+                self.expression_cache.save()
+                logger.info("Cache saved to disk")
+            except Exception as e:
+                logger.error(f"Failed to save cache: {e}")
+        
         logger.info("TTS Engine shut down")
+    
+    def __del__(self):
+        """Destructor to ensure cache is saved"""
+        try:
+            if hasattr(self, '_use_advanced_cache') and self._use_advanced_cache:
+                if hasattr(self, 'expression_cache') and hasattr(self.expression_cache, 'save'):
+                    self.expression_cache.save()
+        except Exception:
+            pass  # Ignore errors in destructor
 
 # ===========================
 # Testing Functions

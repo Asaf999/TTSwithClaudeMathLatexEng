@@ -42,6 +42,8 @@ class LegacyPatternAdapter:
         
         try:
             # Import legacy module
+            import sys
+            sys.path.insert(0, '/home/puncher/MathATTSVer2/TTSwithClaudeMathLatexEng')
             from mathspeak.core import patterns_v2
             self._legacy_module = patterns_v2
             

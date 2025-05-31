@@ -152,7 +152,15 @@ class CalculusHandler(PatternHandler):
                 priority=96
             ),
             
-            # Integrals - natural speech
+            # Integrals - enhanced for nested cases
+            # Nested integral bounds (very high priority)
+            PatternRule(
+                r'\\int_\{\\int_([^}]*)\^\{([^}]*)\}\s*([^}d]*)\s*d([a-zA-Z])\}\^\{\\int_([^}]*)\^\{([^}]*)\}\s*([^}d]*)\s*d([a-zA-Z])\}\s*([^d]+)\s*d([a-zA-Z])',
+                lambda m: f'integral from integral from {self._process_bound(m.group(1))} to {self._process_bound(m.group(2))} of {m.group(3).strip()} d{m.group(4)} to integral from {self._process_bound(m.group(5))} to {self._process_bound(m.group(6))} of {m.group(7).strip()} d{m.group(8)} of {m.group(9).strip()} d{m.group(10)}',
+                self.domain,
+                'Nested integral bounds',
+                priority=125
+            ),
             # Handle complex bounds first
             PatternRule(
                 r'\\int_\{([^}]+)\}\^\{([^}]+)\}\s*([^d]+)\s*d([a-zA-Z])',
@@ -262,7 +270,16 @@ class CalculusHandler(PatternHandler):
                 priority=98
             ),
             
-            # Limits
+            # Limits - enhanced for nested cases
+            # Nested limits (very high priority)
+            PatternRule(
+                r'\\lim_\{([a-zA-Z])\s*\\to\s*\\lim_\{([a-zA-Z])\s*\\to\s*([^}]+)\}\s*([^}]*)\}',
+                lambda m: f'limit as {m.group(1)} approaches limit as {m.group(2)} approaches {self._process_limit_value(m.group(3))} {m.group(4).strip()}',
+                self.domain,
+                'Nested limits',
+                priority=120
+            ),
+            # One-sided limits
             PatternRule(
                 r'\\lim_\{([a-zA-Z])\s*\\to\s*([^}]+)\^\+\}',
                 lambda m: f'limit as {m.group(1)} approaches {self._process_limit_value(m.group(2))} from the right',

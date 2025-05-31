@@ -1785,7 +1785,24 @@ class GeneralizationEngine:
                 'GCD function',
                 priority=99
             ),
-            # Matrix notation (basic)
+            # Matrix notation (enhanced)
+            # 3x3 matrices with numbers
+            PatternRule(
+                r'\\begin\{pmatrix\}\s*([0-9])\s*&\s*([0-9])\s*&\s*([0-9])\s*\\\\\\\\\s*([0-9])\s*&\s*([0-9])\s*&\s*([0-9])\s*\\\\\\\\\s*([0-9])\s*&\s*([0-9])\s*&\s*([0-9])\s*\\end\{pmatrix\}',
+                lambda m: f'matrix {m.group(1)} {m.group(2)} {m.group(3)} {m.group(4)} {m.group(5)} {m.group(6)} {m.group(7)} {m.group(8)} {m.group(9)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Matrix 3x3 with numbers',
+                priority=108
+            ),
+            # Nested matrices
+            PatternRule(
+                r'\\begin\{pmatrix\}\s*\\begin\{pmatrix\}\s*([a-zA-Z])\s*&\s*([a-zA-Z])\s*\\\\\\\\\s*([a-zA-Z])\s*&\s*([a-zA-Z])\s*\\end\{pmatrix\}\s*&\s*\\begin\{pmatrix\}\s*([a-zA-Z])\s*&\s*([a-zA-Z])\s*\\\\\\\\\s*([a-zA-Z])\s*&\s*([a-zA-Z])\s*\\end\{pmatrix\}\s*\\end\{pmatrix\}',
+                lambda m: f'matrix matrix {m.group(1)} {m.group(2)} {m.group(3)} {m.group(4)} matrix {m.group(5)} {m.group(6)} {m.group(7)} {m.group(8)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Nested matrix 2x2',
+                priority=115
+            ),
+            # Basic 2x2 matrices
             PatternRule(
                 r'\\begin\{pmatrix\}\s*([a-zA-Z])\s*&\s*([a-zA-Z])\s*\\\\\\\\\s*([a-zA-Z])\s*&\s*([a-zA-Z])\s*\\end\{pmatrix\}',
                 lambda m: f'matrix {m.group(1)} {m.group(2)} {m.group(3)} {m.group(4)}',
@@ -1800,11 +1817,34 @@ class GeneralizationEngine:
                 'Matrix 2x2 with elements',
                 priority=105
             ),
+            # Bmatrix support
+            PatternRule(
+                r'\\begin\{Bmatrix\}\s*([a-zA-Z])\s*\\\\\\\\\s*([a-zA-Z])\s*\\\\\\\\\s*([a-zA-Z])\s*\\end\{Bmatrix\}',
+                lambda m: f'matrix {m.group(1)} {m.group(2)} {m.group(3)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Bmatrix 3x1',
+                priority=107
+            ),
+            # All matrix types fallback
             PatternRule(
                 r'\\begin\{pmatrix\}.*?\\end\{pmatrix\}',
                 'matrix',
                 MathDomain.BASIC_ARITHMETIC,
                 'Matrix notation basic',
+                priority=99
+            ),
+            PatternRule(
+                r'\\begin\{bmatrix\}.*?\\end\{bmatrix\}',
+                'matrix',
+                MathDomain.BASIC_ARITHMETIC,
+                'Bmatrix notation',
+                priority=99
+            ),
+            PatternRule(
+                r'\\begin\{vmatrix\}.*?\\end\{vmatrix\}',
+                'matrix',
+                MathDomain.BASIC_ARITHMETIC,
+                'Vmatrix notation',
                 priority=99
             ),
             PatternRule(
@@ -1857,6 +1897,21 @@ class GeneralizationEngine:
                 MathDomain.BASIC_ARITHMETIC,
                 'Remove parentheses in superscript braces',
                 priority=110
+            ),
+            # Fix comma-separated superscripts
+            PatternRule(
+                r'to the ([^,]+),([^,\s]+),([^\s]+)',
+                r'to the \1 \2 \3',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix comma-separated superscripts',
+                priority=96
+            ),
+            PatternRule(
+                r'to the ([^,]+),([^\s]+)',
+                r'to the \1 \2',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix two-part comma superscripts',
+                priority=96
             ),
             PatternRule(
                 r'\^\{-([^}]+)\}',
@@ -1923,7 +1978,14 @@ class GeneralizationEngine:
                 'Inverse cosine',
                 priority=105
             ),
-            # Vector notation cleanup
+            # Enhanced vector/bold notation cleanup
+            PatternRule(
+                r'\\mathbf\{([a-zA-Z])\}',
+                lambda m: f'bold {m.group(1)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Bold vector notation',
+                priority=102
+            ),
             PatternRule(
                 r'\\vec\{([a-zA-Z])\}',
                 r'\1',
@@ -1937,6 +1999,14 @@ class GeneralizationEngine:
                 MathDomain.BASIC_ARITHMETIC,
                 'Vector word cleanup',
                 priority=98
+            ),
+            # Fix backslash prefixed words
+            PatternRule(
+                r'\\([a-zA-Z]+)\s',
+                r'\1 ',
+                MathDomain.BASIC_ARITHMETIC,
+                'Remove backslash from words',
+                priority=95
             ),
             # Vector calculus - higher priority than individual components
             PatternRule(
@@ -2011,6 +2081,28 @@ class GeneralizationEngine:
                 MathDomain.BASIC_ARITHMETIC,
                 'Text command',
                 priority=99
+            ),
+            # Enhanced parentheses processing
+            PatternRule(
+                r'\\left\(\\left\(\\left\(\\left\(([^)]+)\\right\)\\right\)\\right\)\\right\)',
+                r'\1',
+                MathDomain.BASIC_ARITHMETIC,
+                'Remove nested parentheses level 4',
+                priority=120
+            ),
+            PatternRule(
+                r'\\left\(\\left\(\\left\(([^)]+)\\right\)\\right\)\\right\)',
+                r'\1',
+                MathDomain.BASIC_ARITHMETIC,
+                'Remove nested parentheses level 3',
+                priority=110
+            ),
+            PatternRule(
+                r'\\left\(\\left\(([^)]+)\\right\)\\right\)',
+                r'\1',
+                MathDomain.BASIC_ARITHMETIC,
+                'Remove nested parentheses level 2',
+                priority=105
             ),
             PatternRule(
                 r'\\left\(',

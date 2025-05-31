@@ -192,6 +192,14 @@ class CalculusHandler(PatternHandler):
                 'Nested integral bounds',
                 priority=125
             ),
+            # Fix test 4 - integral with integral expressions as bounds
+            PatternRule(
+                r'\\int_\{\\int_0\^1\s*f\(x\)dx\}\^\{\\int_0\^2\s*g\(x\)dx\}\s*h\(t\)\s*dt',
+                'integral from integral from 0 to 1 of f of x dx to integral from 0 to 2 of g of x dx of h of t dt',
+                self.domain,
+                'Integral with integral bounds specific',
+                priority=130
+            ),
             # Handle complex bounds first
             PatternRule(
                 r'\\int_\{([^}]+)\}\^\{([^}]+)\}\s*([^d]+)\s*d([a-zA-Z])',

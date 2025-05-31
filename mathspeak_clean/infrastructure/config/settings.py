@@ -25,6 +25,7 @@ class Settings:
     default_audience_level: AudienceLevel = DEFAULT_AUDIENCE_LEVEL
     max_expression_length: int = DEFAULT_MAX_EXPRESSION_LENGTH
     pattern_timeout: float = DEFAULT_PATTERN_TIMEOUT
+    use_enhanced_processor: bool = True  # Use enhanced patterns by default
     
     # Cache settings
     cache_enabled: bool = True

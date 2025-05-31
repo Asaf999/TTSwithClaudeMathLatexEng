@@ -171,7 +171,11 @@ class InteractiveMode:
         
         # Process
         start_time = time.time()
-        result = self.engine.process_latex(expr)
+        try:
+            result = self.engine.process_latex(expr)
+        except Exception as e:
+            print(format_error(e, verbose=False))
+            return
         
         # Show results
         print(f"📝 Natural speech: {result.processed[:200]}{'...' if len(result.processed) > 200 else ''}")
@@ -514,7 +518,13 @@ async def process_single_expression(
     
     # Process expression
     start_time = time.time()
-    result = engine.process_latex(expression, force_context=context, show_progress=True)
+    
+    try:
+        result = engine.process_latex(expression, force_context=context, show_progress=True)
+    except Exception as e:
+        # Use user-friendly error formatting
+        print(format_error(e, verbose=args.debug))
+        return
     
     # Show results
     print(f"\n📝 Natural speech: {result.processed[:200]}{'...' if len(result.processed) > 200 else ''}")
@@ -700,6 +710,7 @@ async def process_batch(engine: MathematicalTTSEngine,
     
     print(f"  Report saved: {report_file.name}")
 
+@handle_user_error(verbose_arg='debug')
 def main():
     """Main entry point"""
     # Parse arguments

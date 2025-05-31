@@ -149,7 +149,7 @@ class UserFriendlyErrorHandler:
     
     # Pattern-based error detection
     ERROR_PATTERNS = [
-        (r"Unknown.*command.*\\(\\w+)", "Unknown LaTeX command"),
+        (r"Unknown.*LaTeX.*command.*\\(\w+)", "Unknown LaTeX command"),
         (r"[Mm]alformed.*[Ll]a[Tt]e[Xx]", "Malformed LaTeX"),
         (r"[Nn]o.*audio.*device", "NoAudioDevice"),
         (r"[Vv]oice.*not.*found|[Vv]oice.*'(\w+)'.*not", "VoiceNotFound"),

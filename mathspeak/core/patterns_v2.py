@@ -1855,12 +1855,26 @@ class GeneralizationEngine:
                 'Vmatrix notation',
                 priority=99
             ),
-            # Determinant patterns
+            # Determinant patterns - highest priority for det+matrix combo
             PatternRule(
-                r'\\det(?=\s*\\begin)',
+                r'\\det(\\begin\{[pbvBV]?matrix\}.*?\\end\{[pbvBV]?matrix\})',
+                lambda m: f'determinant of {_extract_matrix_content(m)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Determinant with matrix combo',
+                priority=140  # Higher than backslash concatenation (135)
+            ),
+            PatternRule(
+                r'\\det\s*(?=\\begin)',
+                'determinant of ',
+                MathDomain.BASIC_ARITHMETIC,
+                'Determinant operator before matrix',
+                priority=110
+            ),
+            PatternRule(
+                r'\\det(?![a-zA-Z])',
                 'determinant of',
                 MathDomain.BASIC_ARITHMETIC,
-                'Determinant operator',
+                'Determinant operator general',
                 priority=108
             ),
             PatternRule(

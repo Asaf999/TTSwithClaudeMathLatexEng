@@ -173,7 +173,7 @@ class CalculusHandler(PatternHandler):
                 lambda m: f'integral from {self._process_bound(m.group(1))} to {self._process_bound(m.group(2))} of {m.group(3).strip()} d{m.group(4)}',
                 self.domain,
                 'Definite integral simple bounds',
-                priority=101
+                priority=107
             ),
             PatternRule(
                 r'\\int\s+([^d]+)\s*d([a-zA-Z])',

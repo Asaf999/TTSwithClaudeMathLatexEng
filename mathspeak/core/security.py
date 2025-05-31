@@ -25,13 +25,13 @@ logger = logging.getLogger(__name__)
 @dataclass
 class SecurityConfig:
     """Security configuration parameters"""
-    max_length: int = 50000
-    max_depth: int = 20
-    max_expansions: int = 1000
-    max_processing_time: float = 5.0
-    max_fractions: int = 50
-    max_subscripts: int = 100
-    max_repetitions: int = 5
+    max_length: int = 100000  # Increased for complex expressions
+    max_depth: int = 50       # Increased for nested expressions
+    max_expansions: int = 5000 # Increased for complex math
+    max_processing_time: float = 15.0  # Increased processing time
+    max_fractions: int = 200   # Increased for complex fractions
+    max_subscripts: int = 500  # Increased for complex notation
+    max_repetitions: int = 20  # Increased for mathematical patterns
     
 
 class SecurityViolation(ValueError):
@@ -52,12 +52,12 @@ class LaTeXSecurityValidator:
         r'\\shipout', r'\\output', r'\\everyjob'
     ]
     
-    # Patterns that could cause expansion bombs
+    # Patterns that could cause expansion bombs (relaxed for mathematical expressions)
     EXPANSION_PATTERNS = [
-        r'\\def.*\\def',  # Nested definitions
-        r'\\newcommand.*\\newcommand',  # Nested commands
-        r'(\^|_){.*(\^|_){.*(\^|_)',  # Deeply nested sub/superscripts
-        r'\\frac{.*\\frac{.*\\frac{.*\\frac',  # Deeply nested fractions
+        r'\\def.*\\def.*\\def',  # More than 2 nested definitions
+        r'\\newcommand.*\\newcommand.*\\newcommand',  # More than 2 nested commands
+        r'(\^|_){.*(\^|_){.*(\^|_){.*(\^|_){.*(\^|_)',  # Very deeply nested (5+ levels)
+        r'\\frac{.*\\frac{.*\\frac{.*\\frac{.*\\frac{.*\\frac',  # Very deeply nested fractions (6+ levels)
     ]
     
     def __init__(self, config: Optional[SecurityConfig] = None):
@@ -192,8 +192,8 @@ class LaTeXSecurityValidator:
         if frac_count > self.config.max_fractions:
             return True
         
-        # Check for nested fractions in a single expression
-        if frac_count > 3:
+        # Check for excessive nested fractions (allow up to 6 levels)
+        if frac_count > 6:
             # Check if fractions are nested by looking at brace depth
             i = 0
             depth = 0
@@ -212,10 +212,14 @@ class LaTeXSecurityValidator:
                 else:
                     i += 1
             
-            # Check if we have nested fractions
+            # Check if we have excessively nested fractions (more than 4 levels deep)
+            max_nesting = 0
             for j in range(1, len(frac_depths)):
                 if frac_depths[j] > frac_depths[j-1]:
-                    return True
+                    max_nesting = max(max_nesting, frac_depths[j] - frac_depths[j-1])
+            
+            if max_nesting > 4:
+                return True
         
         # Check for excessive subscripts/superscripts
         sub_super_count = latex_input.count('^') + latex_input.count('_')

@@ -1771,13 +1771,6 @@ class GeneralizationEngine:
                 priority=95
             ),
             PatternRule(
-                r'\\int',
-                'integral',
-                MathDomain.BASIC_ARITHMETIC,
-                'Integral symbol fallback',
-                priority=80
-            ),
-            PatternRule(
                 r'\\gcd\s*\(([^)]+)\)',
                 lambda m: f'greatest common divisor of {m.group(1)}',
                 MathDomain.BASIC_ARITHMETIC,
@@ -2163,8 +2156,8 @@ class MathSpeechProcessor:
     
     def _postprocess(self, text: str) -> str:
         """Post-process for natural speech flow"""
-        # Fix article usage
-        text = re.sub(r'\ba\s+([aeiou])', r'an \1', text, flags=re.IGNORECASE)
+        # Fix article usage (but not for mathematical variables)
+        text = re.sub(r'\ba\s+((?![a-zA-Z]\s+over)[aeiou])', r'an \1', text, flags=re.IGNORECASE)
         
         # Remove redundant words
         text = re.sub(r'\bthe the\b', 'the', text)

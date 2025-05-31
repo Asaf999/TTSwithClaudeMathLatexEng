@@ -1,0 +1,372 @@
+Testing Hard Patterns - Stress Test:
+============================================================
+❌ FAIL Test  1: \frac{\frac{a}{b}}{\frac{c}{d}}
+    Expected: a over b over c over d
+    Got:      an over b over c over d
+    Coverage: 42.9%
+✅ PASS Test  2: \sqrt{\sqrt{x}}
+❌ FAIL Test  3: x^{y^z}
+    Expected: x to the y to the z
+    Got:      x to the y to the z
+    Coverage: 28.6%
+❌ FAIL Test  4: \int_0^{\infty} e^{-x^2} dx
+    Expected: integral from 0 to infinity of e to the negative x squared dx
+    Got:      integral of _0 to the infinity e to the minus x squared dx
+    Coverage: 30.8%
+✅ PASS Test  5: \frac{d^2}{dx^2}\left(\frac{dy}{dx}\right)
+❌ FAIL Test  6: \int \frac{d}{dx}f(x) dx
+    Expected: integral of derivative of f of x dx
+    Got:      integral of derivative of f of x dx
+    Coverage: 25.0%
+✅ PASS Test  7: \frac{\partial^2 f}{\partial x \partial y}
+❌ FAIL Test  8: \frac{a + b}{c - d}
+    Expected: a plus b over c minus d
+    Got:      a plus b over c minus d
+    Coverage: 42.9%
+❌ FAIL Test  9: \frac{x^2 + 3x + 2}{x - 1}
+    Expected: x squared plus 3 x plus 2 over x minus 1
+    Got:      x squared plus 3 x plus 2 over x minus 1
+    Coverage: 45.5%
+✅ PASS Test 10: \frac{\sin x}{\cos x}
+❌ FAIL Test 11: x_{i,j}^{(n)}
+    Expected: x i j to the n
+    Got:      x i,j to the (n)
+    Coverage: 16.7%
+✅ PASS Test 12: a_1^2 + a_2^2 + \cdots + a_n^2
+❌ FAIL Test 13: \sum_{i=1}^{n} x_i^2
+    Expected: sum from i equals 1 to n x i squared
+    Got:      sum i equals 1 to the n x i squared
+    Coverage: 30.0%
+❌ FAIL Test 14: \lim_{x \to 0^+} \frac{\sin x}{x}
+    Expected: limit as x approaches 0 from the right of sine x over x
+    Got:      limit x \to 0^ plus sine x over x
+    Coverage: 23.1%
+❌ FAIL Test 15: \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n
+    Expected: limit as n approaches infinity of 1 plus 1 over n to the n
+    Got:      limit n \to infinity (1 plus 1 over n)^n
+    Coverage: 28.6%
+❌ FAIL Test 16: \begin{pmatrix} a & b \\\\ c & d \end{pmatrix}
+    Expected: matrix a b c d
+    Got:      matrix
+    Coverage: 20.0%
+❌ FAIL Test 17: \det\begin{pmatrix} a & b \\\\ c & d \end{pmatrix}
+    Expected: determinant of matrix a b c d
+    Got:      determinant of matrix
+    Coverage: 28.6%
+✅ PASS Test 18: \sin^2 x + \cos^2 x
+❌ FAIL Test 19: \tan^{-1}\left(\frac{y}{x}\right)
+    Expected: inverse tangent of y over x
+    Got:      tangent to the - 1(y over x)
+    Coverage: 33.3%
+❌ FAIL Test 20: \sin(2\pi x)
+    Expected: sine of 2 pi x
+    Got:      sine of 2pi x
+    Coverage: 20.0%
+✅ PASS Test 21: \log_2(x^3)
+❌ FAIL Test 22: e^{x + y}
+    Expected: e to the x plus y
+    Got:      e to the x plus y
+    Coverage: 33.3%
+✅ PASS Test 23: \ln(\sqrt{x})
+❌ FAIL Test 24: A \cup B \cap C
+    Expected: A union B intersection C
+    Got:      an union B intersect C
+    Coverage: 20.0%
+✅ PASS Test 25: \forall x \in \mathbb{R}
+❌ FAIL Test 26: \exists y : y > 0
+    Expected: there exists y such that y is greater than 0
+    Got:      there exists y : y is greater than 0
+    Coverage: 40.0%
+❌ FAIL Test 27: P(A|B)
+    Expected: probability of A given B
+    Got:      probability of A given B
+    Coverage: 40.0%
+❌ FAIL Test 28: E[X^2]
+    Expected: expected value of X squared
+    Got:      E[X squared]
+    Coverage: 20.0%
+❌ FAIL Test 29: \text{Var}(X)
+    Expected: variance of X
+    Got:      var(X)
+    Coverage: 0.0%
+❌ FAIL Test 30: \oint_C f(z) dz
+    Expected: contour integral over C of f of z dz
+    Got:      contour integral C f of z dz
+    Coverage: 22.2%
+❌ FAIL Test 31: \text{Res}(f, z_0)
+    Expected: residue of f at z naught
+    Got:      resthe open interval from f to z naught
+    Coverage: 16.7%
+❌ FAIL Test 32: a \equiv b \pmod{n}
+    Expected: a is congruent to b modulo n
+    Got:      an is congruent to b mod ulo n
+    Coverage: 14.3%
+❌ FAIL Test 33: \gcd(a, b)
+    Expected: greatest common divisor of a and b
+    Got:      greatest common divisor of a, b
+    Coverage: 42.9%
+❌ FAIL Test 34: \binom{n}{k}
+    Expected: n choose k
+    Got:      n choose k
+    Coverage: 33.3%
+✅ PASS Test 35: n!
+❌ FAIL Test 36: \nabla \cdot \vec{F}
+    Expected: divergence of F
+    Got:      divergence vector F
+    Coverage: 33.3%
+❌ FAIL Test 37: \nabla \times \vec{F}
+    Expected: curl of F
+    Got:      curl vector F
+    Coverage: 33.3%
+❌ FAIL Test 38: \vec{a} \cdot \vec{b}
+    Expected: a dot b
+    Got:      vector a \cdot vector b
+    Coverage: 33.3%
+❌ FAIL Test 39: \frac{dp}{dt}
+    Expected: derivative of p with respect to t
+    Got:      derivative of p with respect to t
+    Coverage: 42.9%
+❌ FAIL Test 40: \int F \cdot dr
+    Expected: integral of F dot dr
+    Got:      integral of F \c dot d r
+    Coverage: 40.0%
+✅ PASS Test 41: \sigma^2
+✅ PASS Test 42: \bar{x}
+✅ PASS Test 43: \hat{\theta}
+❌ FAIL Test 44: x+y
+    Expected: x plus y
+    Got:      x plus y
+    Coverage: 33.3%
+❌ FAIL Test 45: x-y
+    Expected: x minus y
+    Got:      x minus y
+    Coverage: 33.3%
+❌ FAIL Test 46: x*y
+    Expected: x times y
+    Got:      x times y
+    Coverage: 33.3%
+❌ FAIL Test 47: x/y
+    Expected: x over y
+    Got:      x over y
+    Coverage: 33.3%
+❌ FAIL Test 48: x=y
+    Expected: x equals y
+    Got:      x equals y
+    Coverage: 33.3%
+✅ PASS Test 49: \alpha + \beta = \gamma
+❌ FAIL Test 50: \pi r^2
+    Expected: pi r squared
+    Got:      pi r squared
+    Coverage: 33.3%
+✅ PASS Test 51: \theta = \frac{\pi}{4}
+❌ FAIL Test 52: \iint_D f(x,y) dx dy
+    Expected: double integral over D of f of x y dx dy
+    Got:      double integral D f of x,y dx d y
+    Coverage: 18.2%
+❌ FAIL Test 53: \iiint_V f(x,y,z) dx dy dz
+    Expected: triple integral over V of f of x y z dx dy dz
+    Got:      triple integral V f of x,y,z dx d y dz
+    Coverage: 15.4%
+❌ FAIL Test 54: a_0 + \cfrac{1}{a_1 + \cfrac{1}{a_2}}
+    Expected: a naught plus continued fraction 1 over a 1 plus continued fraction 1 over a 2
+    Got:      a naught plus \cfrac{1}{an one plus \cfrac{1}{a two}}
+    Coverage: 18.8%
+✅ PASS Test 55: |x|
+❌ FAIL Test 56: \lfloor x \rfloor
+    Expected: floor of x
+    Got:      floor of x
+    Coverage: 33.3%
+❌ FAIL Test 57: \lceil x \rceil
+    Expected: ceiling of x
+    Got:      ceiling of x
+    Coverage: 33.3%
+✅ PASS Test 58: \frac{d}{dx}\left(x^2 \sin x\right)
+✅ PASS Test 59: \frac{\partial}{\partial x}\left(x^2 + y^2\right)
+\n============================================================
+Hard Pattern Results: 18/59 (30.5%)
+\nFailed Tests (41):
+----------------------------------------
+Test 1: \frac{\frac{a}{b}}{\frac{c}{d}}
+  Expected: a over b over c over d
+  Got: an over b over c over d
+
+Test 3: x^{y^z}
+  Expected: x to the y to the z
+  Got: x to the y to the z
+
+Test 4: \int_0^{\infty} e^{-x^2} dx
+  Expected: integral from 0 to infinity of e to the negative x squared dx
+  Got: integral of _0 to the infinity e to the minus x squared dx
+
+Test 6: \int \frac{d}{dx}f(x) dx
+  Expected: integral of derivative of f of x dx
+  Got: integral of derivative of f of x dx
+
+Test 8: \frac{a + b}{c - d}
+  Expected: a plus b over c minus d
+  Got: a plus b over c minus d
+
+Test 9: \frac{x^2 + 3x + 2}{x - 1}
+  Expected: x squared plus 3 x plus 2 over x minus 1
+  Got: x squared plus 3 x plus 2 over x minus 1
+
+Test 11: x_{i,j}^{(n)}
+  Expected: x i j to the n
+  Got: x i,j to the (n)
+
+Test 13: \sum_{i=1}^{n} x_i^2
+  Expected: sum from i equals 1 to n x i squared
+  Got: sum i equals 1 to the n x i squared
+
+Test 14: \lim_{x \to 0^+} \frac{\sin x}{x}
+  Expected: limit as x approaches 0 from the right of sine x over x
+  Got: limit x \to 0^ plus sine x over x
+
+Test 15: \lim_{n \to \infty} \left(1 + \frac{1}{n}\right)^n
+  Expected: limit as n approaches infinity of 1 plus 1 over n to the n
+  Got: limit n \to infinity (1 plus 1 over n)^n
+
+Test 16: \begin{pmatrix} a & b \\\\ c & d \end{pmatrix}
+  Expected: matrix a b c d
+  Got: matrix
+
+Test 17: \det\begin{pmatrix} a & b \\\\ c & d \end{pmatrix}
+  Expected: determinant of matrix a b c d
+  Got: determinant of matrix
+
+Test 19: \tan^{-1}\left(\frac{y}{x}\right)
+  Expected: inverse tangent of y over x
+  Got: tangent to the - 1(y over x)
+
+Test 20: \sin(2\pi x)Failed to initialize advanced cache: attempted relative import beyond top-level package
+Security violation: Potential expansion bomb detected
+
+  Expected: sine of 2 pi x
+  Got: sine of 2pi x
+
+Test 22: e^{x + y}
+  Expected: e to the x plus y
+  Got: e to the x plus y
+
+Test 24: A \cup B \cap C
+  Expected: A union B intersection C
+  Got: an union B intersect C
+
+Test 26: \exists y : y > 0
+  Expected: there exists y such that y is greater than 0
+  Got: there exists y : y is greater than 0
+
+Test 27: P(A|B)
+  Expected: probability of A given B
+  Got: probability of A given B
+
+Test 28: E[X^2]
+  Expected: expected value of X squared
+  Got: E[X squared]
+
+Test 29: \text{Var}(X)
+  Expected: variance of X
+  Got: var(X)
+
+Test 30: \oint_C f(z) dz
+  Expected: contour integral over C of f of z dz
+  Got: contour integral C f of z dz
+
+Test 31: \text{Res}(f, z_0)
+  Expected: residue of f at z naught
+  Got: resthe open interval from f to z naught
+
+Test 32: a \equiv b \pmod{n}
+  Expected: a is congruent to b modulo n
+  Got: an is congruent to b mod ulo n
+
+Test 33: \gcd(a, b)
+  Expected: greatest common divisor of a and b
+  Got: greatest common divisor of a, b
+
+Test 34: \binom{n}{k}
+  Expected: n choose k
+  Got: n choose k
+
+Test 36: \nabla \cdot \vec{F}
+  Expected: divergence of F
+  Got: divergence vector F
+
+Test 37: \nabla \times \vec{F}
+  Expected: curl of F
+  Got: curl vector F
+
+Test 38: \vec{a} \cdot \vec{b}
+  Expected: a dot b
+  Got: vector a \cdot vector b
+
+Test 39: \frac{dp}{dt}
+  Expected: derivative of p with respect to t
+  Got: derivative of p with respect to t
+
+Test 40: \int F \cdot dr
+  Expected: integral of F dot dr
+  Got: integral of F \c dot d r
+
+Test 44: x+y
+  Expected: x plus y
+  Got: x plus y
+
+Test 45: x-y
+  Expected: x minus y
+  Got: x minus y
+
+Test 46: x*y
+  Expected: x times y
+  Got: x times y
+
+Test 47: x/y
+  Expected: x over y
+  Got: x over y
+
+Test 48: x=y
+  Expected: x equals y
+  Got: x equals y
+
+Test 50: \pi r^2
+  Expected: pi r squared
+  Got: pi r squared
+
+Test 52: \iint_D f(x,y) dx dy
+  Expected: double integral over D of f of x y dx dy
+  Got: double integral D f of x,y dx d y
+
+Test 53: \iiint_V f(x,y,z) dx dy dz
+  Expected: triple integral over V of f of x y z dx dy dz
+  Got: triple integral V f of x,y,z dx d y dz
+
+Test 54: a_0 + \cfrac{1}{a_1 + \cfrac{1}{a_2}}
+  Expected: a naught plus continued fraction 1 over a 1 plus continued fraction 1 over a 2
+  Got: a naught plus \cfrac{1}{an one plus \cfrac{1}{a two}}
+
+Test 56: \lfloor x \rfloor
+  Expected: floor of x
+  Got: floor of x
+
+Test 57: \lceil x \rceil
+  Expected: ceiling of x
+  Got: ceiling of x
+
+\nTesting Main Engine with Hard Patterns:
+==================================================
+✅ Engine Test 1: \frac{\frac{a}{b}}{\frac{c}{d}}
+   Result: an over b over c over d...
+✅ Engine Test 2: \int_0^{\infty} e^{-x^2} dx
+   Result: Security error: Potential expansion bomb detected...
+✅ Engine Test 3: \lim_{x \to 0^+} \frac{\sin x}{x}
+   Result: limit x \to 0^ plus sine x over x...
+✅ Engine Test 4: \frac{d^2}{dx^2}\left(x^2 \sin x\right)
+   Result: second derivative with respect to x(x squared sine...
+\nEngine Results: 4/4
+\n============================================================
+HARD PATTERN STRESS TEST SUMMARY
+============================================================
+Pattern Module: 18/59 (30.5%)
+Main Engine:    4/4 (100.0%)
+Overall:        22/63 (34.9%)
+\nNeeds improvement: 41 patterns

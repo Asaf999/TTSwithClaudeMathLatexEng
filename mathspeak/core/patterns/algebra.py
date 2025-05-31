@@ -111,6 +111,13 @@ class AlgebraHandler(PatternHandler):
                 priority=89
             ),
             PatternRule(
+                r'([a-zA-Z])_\{([^}]+)\}\^\{([^}]+)\}',
+                lambda m: f'{m.group(1)} {self._process_subscript(m.group(2))} to the {self._process_exponent(m.group(3))}',
+                self.domain,
+                'Subscript and superscript complex',
+                priority=92
+            ),
+            PatternRule(
                 r'([a-zA-Z])_\{([^}]+)\}',
                 lambda m: f'{m.group(1)} {self._process_subscript(m.group(2))}',
                 self.domain,
@@ -370,6 +377,10 @@ class AlgebraHandler(PatternHandler):
             return 'i j'
         elif sub == 'ij':
             return 'i j'
+        elif ',' in sub:
+            # Handle comma-separated indices
+            parts = sub.split(',')
+            return ' '.join(part.strip() for part in parts)
         else:
             return sub
     

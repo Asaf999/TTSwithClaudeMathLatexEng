@@ -135,6 +135,80 @@ class FunctionHandler(PatternHandler):
                 priority=94
             ),
             
+            # Logarithmic functions
+            PatternRule(
+                r'\\log_\{([^}]+)\}\s*\(([^)]+)\)',
+                lambda m: f'log base {m.group(1)} of {m.group(2)}',
+                self.domain,
+                'Log with base and parentheses',
+                priority=98
+            ),
+            PatternRule(
+                r'\\log_([a-zA-Z0-9])\s*\(([^)]+)\)',
+                lambda m: f'log base {m.group(1)} of {m.group(2)}',
+                self.domain,
+                'Log with simple base',
+                priority=98
+            ),
+            PatternRule(
+                r'\\ln\s*\(([^)]+)\)',
+                lambda m: f'natural log of {m.group(1)}',
+                self.domain,
+                'Natural logarithm',
+                priority=98
+            ),
+            PatternRule(
+                r'\\log\s*\(([^)]+)\)',
+                lambda m: f'log of {m.group(1)}',
+                self.domain,
+                'Common logarithm',
+                priority=97
+            ),
+            
+            # Inverse trigonometric functions
+            PatternRule(
+                r'\\tan\^\{-1\}\s*\(([^)]+)\)',
+                lambda m: f'inverse tangent of {m.group(1)}',
+                self.domain,
+                'Arctangent',
+                priority=99
+            ),
+            PatternRule(
+                r'\\sin\^\{-1\}\s*\(([^)]+)\)',
+                lambda m: f'inverse sine of {m.group(1)}',
+                self.domain,
+                'Arcsine',
+                priority=99
+            ),
+            PatternRule(
+                r'\\cos\^\{-1\}\s*\(([^)]+)\)',
+                lambda m: f'inverse cosine of {m.group(1)}',
+                self.domain,
+                'Arccosine',
+                priority=99
+            ),
+            PatternRule(
+                r'\\arctan\s*\(([^)]+)\)',
+                lambda m: f'inverse tangent of {m.group(1)}',
+                self.domain,
+                'Arctangent alternative',
+                priority=98
+            ),
+            PatternRule(
+                r'\\arcsin\s*\(([^)]+)\)',
+                lambda m: f'inverse sine of {m.group(1)}',
+                self.domain,
+                'Arcsine alternative',
+                priority=98
+            ),
+            PatternRule(
+                r'\\arccos\s*\(([^)]+)\)',
+                lambda m: f'inverse cosine of {m.group(1)}',
+                self.domain,
+                'Arccosine alternative',
+                priority=98
+            ),
+            
             # Trig with powers
             PatternRule(
                 r'\\sin\^2\s*([a-zA-Z])',
@@ -1678,6 +1752,64 @@ class GeneralizationEngine:
         
         # General patterns that apply across domains
         self.general_patterns = [
+            # Missing LaTeX commands that need immediate processing
+            PatternRule(
+                r'\\gcd\s*\(([^)]+)\)',
+                lambda m: f'greatest common divisor of {m.group(1)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'GCD function',
+                priority=99
+            ),
+            PatternRule(
+                r'\\text\{([^}]+)\}',
+                lambda m: m.group(1).lower(),
+                MathDomain.BASIC_ARITHMETIC,
+                'Text command',
+                priority=99
+            ),
+            PatternRule(
+                r'\\left\(',
+                '(',
+                MathDomain.BASIC_ARITHMETIC,
+                'Left parenthesis',
+                priority=98
+            ),
+            PatternRule(
+                r'\\right\)',
+                ')',
+                MathDomain.BASIC_ARITHMETIC,
+                'Right parenthesis',
+                priority=98
+            ),
+            PatternRule(
+                r'\\pmod\{([^}]+)\}',
+                lambda m: f'modulo {m.group(1)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Modulo operation',
+                priority=99
+            ),
+            PatternRule(
+                r'\\equiv',
+                ' is congruent to ',
+                MathDomain.BASIC_ARITHMETIC,
+                'Congruence',
+                priority=99
+            ),
+            PatternRule(
+                r'\\left\(',
+                '(',
+                MathDomain.BASIC_ARITHMETIC,
+                'Left parenthesis',
+                priority=98
+            ),
+            PatternRule(
+                r'\\right\)',
+                ')',
+                MathDomain.BASIC_ARITHMETIC,
+                'Right parenthesis',
+                priority=98
+            ),
+            
             # Greek letters
             PatternRule(
                 r'\\alpha', 'alpha', MathDomain.BASIC_ARITHMETIC, 'Alpha', 90

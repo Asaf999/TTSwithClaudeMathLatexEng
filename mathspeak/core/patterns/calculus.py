@@ -153,26 +153,41 @@ class CalculusHandler(PatternHandler):
             ),
             
             # Integrals - natural speech
+            # Handle complex bounds first
             PatternRule(
-                r'\\int\s+([^d]+)\s*dx',
-                lambda m: f'integral of {m.group(1).strip()} d x',
+                r'\\int_\{([^}]+)\}\^\{([^}]+)\}\s*([^d]+)\s*d([a-zA-Z])',
+                lambda m: f'integral from {self._process_bound(m.group(1))} to {self._process_bound(m.group(2))} of {m.group(3).strip()} d{m.group(4)}',
                 self.domain,
-                'Indefinite integral',
+                'Definite integral complex bounds',
+                priority=102
+            ),
+            PatternRule(
+                r'\\int_([a-zA-Z0-9])\^\{([^}]+)\}\s*([^d]+)\s*d([a-zA-Z])',
+                lambda m: f'integral from {self._process_bound(m.group(1))} to {self._process_bound(m.group(2))} of {m.group(3).strip()} d{m.group(4)}',
+                self.domain,
+                'Definite integral mixed bounds',
+                priority=101
+            ),
+            PatternRule(
+                r'\\int_([a-zA-Z0-9])\^([a-zA-Z0-9])\s*([^d]+)\s*d([a-zA-Z])',
+                lambda m: f'integral from {self._process_bound(m.group(1))} to {self._process_bound(m.group(2))} of {m.group(3).strip()} d{m.group(4)}',
+                self.domain,
+                'Definite integral simple bounds',
+                priority=101
+            ),
+            PatternRule(
+                r'\\int\s+([^d]+)\s*d([a-zA-Z])',
+                lambda m: f'integral of {m.group(1).strip()} d{m.group(2)}',
+                self.domain,
+                'Indefinite integral with space',
                 priority=97
             ),
             PatternRule(
-                r'\\int_([a-zA-Z0-9])\^([a-zA-Z0-9])\s*([^d]+)\s*dx',
-                lambda m: f'integral from {m.group(1)} to {m.group(2)} of {m.group(3).strip()} d x',
+                r'\\int\s*([^d]+)\s*d([a-zA-Z])',
+                lambda m: f'integral of {m.group(1).strip()} d{m.group(2)}',
                 self.domain,
-                'Definite integral simple bounds',
-                priority=98
-            ),
-            PatternRule(
-                r'\\int_\{([^}]+)\}\^\{([^}]+)\}\s*([^d]+)\s*dx',
-                lambda m: f'integral from {m.group(1)} to {m.group(2)} of {m.group(3).strip()} d x',
-                self.domain,
-                'Definite integral complex bounds',
-                priority=98
+                'Indefinite integral no space',
+                priority=96
             ),
             PatternRule(
                 r'\\int_0\^1\s*([^d]+)\s*d([a-zA-Z])',
@@ -221,10 +236,17 @@ class CalculusHandler(PatternHandler):
             
             # Limits
             PatternRule(
-                r'\\lim_{([a-zA-Z])\\to\s*([^}]+)}',
+                r'\\lim_\{([^}]+)\\to\s*([^}]+)\}',
                 lambda m: f'limit as {m.group(1)} approaches {self._process_limit_value(m.group(2))}',
                 self.domain,
                 'Basic limit',
+                priority=98
+            ),
+            PatternRule(
+                r'\\lim_{([a-zA-Z])\\to\s*([^}]+)}',
+                lambda m: f'limit as {m.group(1)} approaches {self._process_limit_value(m.group(2))}',
+                self.domain,
+                'Basic limit simple',
                 priority=97
             ),
             PatternRule(
@@ -242,7 +264,14 @@ class CalculusHandler(PatternHandler):
                 priority=98
             ),
             
-            # Series
+            # Series and summations
+            PatternRule(
+                r'\\sum_\{([^}]+)\}\^\{([^}]+)\}',
+                lambda m: f'sum from {self._process_bound(m.group(1))} to {self._process_bound(m.group(2))}',
+                self.domain,
+                'General summation',
+                priority=99
+            ),
             PatternRule(
                 r'\\sum_{n=1}\^{\\infty}',
                 'sum from n equals 1 to infinity',
@@ -345,6 +374,10 @@ class CalculusHandler(PatternHandler):
         value = value.strip()
         if value == '0':
             return 'zero'
+        elif value == '0^+':
+            return '0 from the right'
+        elif value == '0^-':
+            return '0 from the left'
         elif value == '\\infty':
             return 'infinity'
         elif value == '-\\infty':
@@ -353,3 +386,24 @@ class CalculusHandler(PatternHandler):
             return 'a'
         else:
             return value
+    
+    def _process_bound(self, bound: str) -> str:
+        """Process integral/sum bounds"""
+        bound = bound.strip()
+        if bound == '0':
+            return '0'
+        elif bound == '1':
+            return '1'
+        elif bound == '\\infty':
+            return 'infinity'
+        elif bound == '-\\infty':
+            return 'negative infinity'
+        elif bound == 'n=1':
+            return 'n equals 1'
+        elif bound == 'i=1':
+            return 'i equals 1'
+        elif '=' in bound:
+            var, val = bound.split('=', 1)
+            return f'{var.strip()} equals {val.strip()}'
+        else:
+            return bound

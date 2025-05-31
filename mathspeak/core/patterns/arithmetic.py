@@ -53,6 +53,15 @@ class BasicArithmeticHandler(PatternHandler):
                 priority=50
             ),
             
+            # Multiplication symbols
+            PatternRule(
+                r'\*',
+                ' times ',
+                self.domain,
+                'Times symbol',
+                priority=60
+            ),
+            
             # Subtraction
             PatternRule(
                 r'(\d+)\s*-\s*(\d+)',

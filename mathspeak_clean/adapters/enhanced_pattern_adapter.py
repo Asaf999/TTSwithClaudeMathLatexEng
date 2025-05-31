@@ -147,16 +147,30 @@ class EnhancedPatternAdapter:
             MathPattern(
                 pattern=r"\\mathbb\{E\}\[([^\]]+)\]",
                 replacement="the expected value of \\1",
-                priority=PRIORITY_HIGH,
+                priority=PRIORITY_CRITICAL,
                 domain=PatternDomain.STATISTICS,
                 description="Expected value",
             ),
             MathPattern(
                 pattern=r"\\text\{Var\}\(([^)]+)\)",
                 replacement="the variance of \\1",
-                priority=PRIORITY_HIGH,
+                priority=PRIORITY_CRITICAL,
                 domain=PatternDomain.STATISTICS,
                 description="Variance",
+            ),
+            MathPattern(
+                pattern=r"\\mathbb\{([A-Z])\}",
+                replacement="\\1",
+                priority=PRIORITY_HIGH,
+                domain=PatternDomain.GENERAL,
+                description="Blackboard bold letters",
+            ),
+            MathPattern(
+                pattern=r"\\text\{([^}]+)\}",
+                replacement="\\1",
+                priority=PRIORITY_MEDIUM,
+                domain=PatternDomain.GENERAL,
+                description="Text in math",
             ),
             
             # Set theory with articles

@@ -36,6 +36,7 @@ from mathspeak.core.engine import MathematicalTTSEngine, MathematicalContext
 from mathspeak.core.voice_manager import VoiceManager, VoiceRole
 from mathspeak.utils.logger import setup_logging
 from mathspeak.utils.config import Config
+from mathspeak.utils.user_errors import handle_user_error, format_error
 
 # For audio playback - use our clean audio player
 from mathspeak.utils.audio_player import get_audio_player, play_audio

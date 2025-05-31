@@ -35,6 +35,9 @@ except ImportError:
 # Import pattern processor v2
 from .patterns_v2 import process_math_to_speech, AudienceLevel
 
+# Import security validator
+from .security import LaTeXSecurityValidator, SecurityConfig, SecurityViolation
+
 # Import voice manager (would be from .voice_manager in package structure)
 # from .voice_manager import VoiceManager, VoiceRole, SpeechSegment, SpeedProfile
 
@@ -380,6 +383,7 @@ class MathematicalTTSEngine:
                  voice_manager: Optional['VoiceManager'] = None,
                  config_path: Optional[Path] = None,
                  enable_caching: bool = True,
+                 security_config: Optional[SecurityConfig] = None,
                  **kwargs):
         
         # Initialize components
@@ -387,6 +391,10 @@ class MathematicalTTSEngine:
         self.context_detector = ContextDetector()
         self.unknown_tracker = UnknownLatexTracker()
         self.language_enhancer = NaturalLanguageEnhancer()
+        
+        # Initialize security validator
+        self.security_validator = LaTeXSecurityValidator(security_config)
+        self.enable_security = kwargs.get('enable_security', True)
         
         # Pattern processor v2 is now used directly via process_math_to_speech
         # No need to initialize anything here
@@ -478,6 +486,26 @@ class MathematicalTTSEngine:
         unknown_commands = []
         
         try:
+            # Step 0: Security validation
+            if self.enable_security:
+                try:
+                    # Validate and sanitize the input
+                    latex = self.security_validator.validate_and_sanitize(latex)
+                except SecurityViolation as e:
+                    # Return a safe error message
+                    logger.warning(f"Security violation: {e}")
+                    error_result = ProcessedExpression(
+                        original=latex[:100] + "..." if len(latex) > 100 else latex,
+                        processed=f"Security error: {str(e)}",
+                        context="error",
+                        segments=[],
+                        processing_time=0.0,
+                        unknown_commands=[]
+                    )
+                    if progress:
+                        progress.finish("Security error")
+                    return error_result
+            
             # Step 1: Detect context and audience level
             if progress:
                 progress.set_progress(1)

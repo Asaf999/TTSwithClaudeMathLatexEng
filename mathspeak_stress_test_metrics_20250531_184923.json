@@ -1,0 +1,162 @@
+{
+  "basic_functionality": {
+    "total_tests": 10,
+    "successful_tests": 10,
+    "failed_tests": 0,
+    "statistics": {
+      "success_rate": 100.0,
+      "cache_hit_rate": 0.0,
+      "avg_processing_time": 0.005472373962402344,
+      "median_processing_time": 0.003545522689819336,
+      "min_processing_time": 0.0001480579376220703,
+      "max_processing_time": 0.028856754302978516,
+      "std_dev_processing_time": 0.00834860647802819,
+      "p95_processing_time": 0.017960226535797093,
+      "p99_processing_time": 0.02667744874954224,
+      "total_duration": 0.05485844612121582,
+      "throughput": 182.28733599023005
+    },
+    "error_types": {},
+    "context_distribution": {
+      "general": 6,
+      "topology": 2,
+      "error": 2
+    }
+  },
+  "concurrent_load": {
+    "total_tests": 23,
+    "successful_tests": 23,
+    "failed_tests": 0,
+    "statistics": {
+      "success_rate": 100.0,
+      "cache_hit_rate": 34.78260869565217,
+      "avg_processing_time": 0.0018232594365658967,
+      "median_processing_time": 0.0029227733612060547,
+      "min_processing_time": 7.867813110351562e-06,
+      "max_processing_time": 0.0047092437744140625,
+      "std_dev_processing_time": 0.001784271374957536,
+      "p95_processing_time": 0.004105520248413085,
+      "p99_processing_time": 0.004589705467224122,
+      "total_duration": 0.042672157287597656,
+      "throughput": 538.9931388982009
+    },
+    "error_types": {},
+    "context_distribution": {
+      "general": 18,
+      "topology": 2,
+      "error": 2,
+      "empty": 1
+    }
+  },
+  "cache_performance": {
+    "total_tests": 15,
+    "successful_tests": 15,
+    "failed_tests": 0,
+    "statistics": {
+      "success_rate": 100.0,
+      "cache_hit_rate": 100.0,
+      "avg_processing_time": 2.3905436197916666e-05,
+      "median_processing_time": 2.0742416381835938e-05,
+      "min_processing_time": 1.9550323486328125e-05,
+      "max_processing_time": 5.030632019042969e-05,
+      "std_dev_processing_time": 8.397744393722286e-06,
+      "p95_processing_time": 4.029273986816405e-05,
+      "p99_processing_time": 4.8303604125976554e-05,
+      "total_duration": 0.00046372413635253906,
+      "throughput": 32346.817480719794
+    },
+    "error_types": {},
+    "context_distribution": {
+      "general": 15
+    }
+  },
+  "security_validation": {
+    "total_tests": 6,
+    "successful_tests": 6,
+    "failed_tests": 0,
+    "statistics": {
+      "success_rate": 100.0,
+      "cache_hit_rate": 0.0,
+      "avg_processing_time": 0.0002663135528564453,
+      "median_processing_time": 0.0001862049102783203,
+      "min_processing_time": 0.00012350082397460938,
+      "max_processing_time": 0.0005061626434326172,
+      "std_dev_processing_time": 0.00017102680536760595,
+      "p95_processing_time": 0.0004948973655700684,
+      "p99_processing_time": 0.0005039095878601075,
+      "total_duration": 0.001661062240600586,
+      "throughput": 3612.1464044782547
+    },
+    "error_types": {},
+    "context_distribution": {
+      "error": 6
+    }
+  },
+  "streaming_performance": {
+    "total_tests": 3,
+    "successful_tests": 3,
+    "failed_tests": 0,
+    "statistics": {
+      "success_rate": 100.0,
+      "cache_hit_rate": 0.0,
+      "avg_processing_time": 0.12411014238993327,
+      "median_processing_time": 0.11948132514953613,
+      "min_processing_time": 0.10290241241455078,
+      "max_processing_time": 0.1499466896057129,
+      "std_dev_processing_time": 0.02386127544565613,
+      "p95_processing_time": 0.14690015316009522,
+      "p99_processing_time": 0.14933738231658936,
+      "total_duration": 0.37287163734436035,
+      "throughput": 8.04566424350853
+    },
+    "error_types": {},
+    "context_distribution": {
+      "": 3
+    }
+  },
+  "memory_usage": {
+    "total_tests": 500,
+    "successful_tests": 500,
+    "failed_tests": 0,
+    "statistics": {
+      "success_rate": 100.0,
+      "cache_hit_rate": 0.0,
+      "avg_processing_time": 0.004927475452423096,
+      "median_processing_time": 0.005002021789550781,
+      "min_processing_time": 0.0024154186248779297,
+      "max_processing_time": 0.012114524841308594,
+      "std_dev_processing_time": 0.0011474389587235248,
+      "p95_processing_time": 0.006724464893341065,
+      "p99_processing_time": 0.007426493167877197,
+      "total_duration": 2.498772382736206,
+      "throughput": 200.09825763020876
+    },
+    "error_types": {},
+    "context_distribution": {
+      "general": 500
+    }
+  },
+  "error_recovery": {
+    "total_tests": 7,
+    "successful_tests": 7,
+    "failed_tests": 0,
+    "statistics": {
+      "success_rate": 100.0,
+      "cache_hit_rate": 14.285714285714285,
+      "avg_processing_time": 0.0032233170100620817,
+      "median_processing_time": 0.004182577133178711,
+      "min_processing_time": 1.8835067749023438e-05,
+      "max_processing_time": 0.006334066390991211,
+      "std_dev_processing_time": 0.002348181216130801,
+      "p95_processing_time": 0.00570707321166992,
+      "p99_processing_time": 0.0062086677551269525,
+      "total_duration": 0.022700786590576172,
+      "throughput": 308.3593589178062
+    },
+    "error_types": {},
+    "context_distribution": {
+      "empty": 1,
+      "general": 6
+    }
+  }
+}

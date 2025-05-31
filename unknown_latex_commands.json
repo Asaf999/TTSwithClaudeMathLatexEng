@@ -15,9 +15,9 @@
       "\\pi_1(S^1) \\cong \\mathbb{Z}",
       "\\pi_1(S^1) \\cong \\mathbb{Z}"
     ],
-    "count": 22,
+    "count": 24,
     "first_seen": "2025-05-31 17:49:42",
-    "last_seen": "2025-05-31 17:52:08"
+    "last_seen": "2025-05-31 18:49:20"
   },
   "def": {
     "contexts": [
@@ -35,9 +35,9 @@
       "A^{-1} = \\frac{1}{\\det(A)} \\text{adj}(A)",
       "\\det(AB) = \\det(A)\\det(B)"
     ],
-    "count": 11,
+    "count": 12,
     "first_seen": "2025-05-31 17:49:42",
-    "last_seen": "2025-05-31 17:50:14"
+    "last_seen": "2025-05-31 18:49:20"
   },
   "input": {
     "contexts": [
@@ -64,9 +64,9 @@
       "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1",
       "\\lim_{x \\to 0} \\frac{\\sin x}{x} = 1"
     ],
-    "count": 68,
+    "count": 69,
     "first_seen": "2025-05-31 17:49:36",
-    "last_seen": "2025-05-31 17:52:08"
+    "last_seen": "2025-05-31 18:49:20"
   },
   "undefined": {
     "contexts": [
@@ -78,6 +78,23 @@
     "count": 4,
     "first_seen": "2025-05-31 17:49:38",
     "last_seen": "2025-05-31 17:50:52"
+  },
+  "unknown": {
+    "contexts": [
+      "\\unknown_command{x}",
+      "\\unknown{command}"
+    ],
+    "count": 2,
+    "first_seen": "2025-05-31 18:49:20",
+    "last_seen": "2025-05-31 18:49:23"
+  },
+  "vec": {
+    "contexts": [
+      "\\nabla \\cdot \\vec{F} = \\frac{\\partial F_x}{\\partia"
+    ],
+    "count": 1,
+    "first_seen": "2025-05-31 18:49:20",
+    "last_seen": "2025-05-31 18:49:20"
   },
   "x": {
     "contexts": [

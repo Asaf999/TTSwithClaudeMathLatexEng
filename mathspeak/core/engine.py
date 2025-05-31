@@ -510,7 +510,14 @@ class MathematicalTTSEngine:
             if progress:
                 progress.set_progress(1)
             
-            from ..utils.timeout import timeout_with_fallback
+            import sys
+            import os
+            # Add the mathspeak directory to path for imports
+            current_dir = os.path.dirname(os.path.abspath(__file__))
+            mathspeak_dir = os.path.dirname(current_dir)
+            if mathspeak_dir not in sys.path:
+                sys.path.insert(0, mathspeak_dir)
+            from utils.timeout import timeout_with_fallback
             context, confidence = timeout_with_fallback(
                 lambda: self.context_detector.detect_context(latex),
                 timeout_seconds=5.0,

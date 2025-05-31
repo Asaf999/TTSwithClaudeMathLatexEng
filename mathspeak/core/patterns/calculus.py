@@ -275,7 +275,7 @@ class CalculusHandler(PatternHandler):
             # Differentials
             PatternRule(
                 r'dx',
-                'd x',
+                'dx',
                 self.domain,
                 'Differential dx',
                 priority=95

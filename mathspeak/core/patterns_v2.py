@@ -1809,8 +1809,8 @@ class GeneralizationEngine:
         priority_order = [
             MathDomain.LINEAR_ALGEBRA,  # Process matrix-specific patterns first
             MathDomain.FUNCTIONS,  # Process functions before algebra to catch \sin^{-1} etc.
-            MathDomain.ALGEBRA,  # Process fractions, roots, etc.
-            MathDomain.CALCULUS,  # Process derivatives, integrals
+            MathDomain.CALCULUS,  # Process derivatives, integrals BEFORE general fractions
+            MathDomain.ALGEBRA,  # Process fractions, roots, etc. AFTER calculus
             MathDomain.SET_THEORY,
             MathDomain.PROBABILITY,
             MathDomain.NUMBER_THEORY,

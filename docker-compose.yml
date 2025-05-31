@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  mathspeak:
+    build: .
+    image: mathspeak:latest
+    container_name: mathspeak_api
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONUNBUFFERED=1
+      - LOG_LEVEL=INFO
+    volumes:
+      # Persist cache between restarts
+      - mathspeak_cache:/home/mathspeak/.mathspeak/cache
+      # Optional: mount local directory for development
+      # - ./mathspeak:/app/mathspeak:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Nginx reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: mathspeak_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - mathspeak
+    restart: unless-stopped
+
+volumes:
+  mathspeak_cache:
+    driver: local

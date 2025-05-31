@@ -2,6 +2,21 @@
 edge-tts>=6.1.9
 psutil>=5.9.0
 pygame>=2.5.0
+pyttsx3>=2.90
+
+# Web API dependencies
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+pydantic>=2.0.0
+python-multipart>=0.0.6
+
+# Async support
+aiofiles>=23.0.0
+
+# Utils
+click>=8.0.0
+colorama>=0.4.6
+tqdm>=4.66.0
 
 # Testing dependencies
 pytest>=7.4.0

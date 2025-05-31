@@ -1764,6 +1764,14 @@ class GeneralizationEngine:
                 'Complete congruence pattern highest',
                 priority=130
             ),
+            # Enhanced summation with substack support
+            PatternRule(
+                r'\\sum_\\{\\substack\\{([^}]+)\\}\\}\\^\\{\\substack\\{([^}]+)\\}\\}',
+                lambda m: f'sum from {m.group(1).replace("\\\\\\\\", " ")} to {m.group(2).replace("\\\\\\\\", " ")}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Summation with substack bounds',
+                priority=115
+            ),
             PatternRule(
                 r'\\sum',
                 'sum',
@@ -2000,13 +2008,86 @@ class GeneralizationEngine:
                 'Vector word cleanup',
                 priority=98
             ),
-            # Fix backslash prefixed words
+            # Enhanced function and fraction processing
+            PatternRule(
+                r'\\frac\{([^}]+)\}\{([^}]+)\}',
+                lambda m: f'{m.group(1)} over {m.group(2)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Enhanced fraction processing',
+                priority=100
+            ),
+            PatternRule(
+                r'\\sin\\left\(([^)]+)\\right\)',
+                lambda m: f'sine of {m.group(1)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Sine with parentheses',
+                priority=105
+            ),
+            PatternRule(
+                r'\\cos\\left\(([^)]+)\\right\)',
+                lambda m: f'cosine of {m.group(1)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Cosine with parentheses',
+                priority=105
+            ),
+            # Better integral processing  
+            PatternRule(
+                r'integral of egral of',
+                'integral over',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix broken integral',
+                priority=110
+            ),
+            # Fix specific broken patterns
+            PatternRule(
+                r'\\([a-zA-Z]+)\(',
+                lambda m: f'{m.group(1)}(',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix function notation',
+                priority=105
+            ),
+            PatternRule(
+                r'\\([a-zA-Z]+)\\\\',
+                lambda m: f'{m.group(1)} ',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix double backslash',
+                priority=105
+            ),
+            PatternRule(
+                r'the open interval from ([a-zA-Z]) to ([a-zA-Z])',
+                r'\1 \2',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix interval notation',
+                priority=105
+            ),
+            PatternRule(
+                r'\\prod\s*([a-zA-Z])\s*equals\s*([0-9]+)',
+                lambda m: f'product from {m.group(1)} equals {m.group(2)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix product notation',
+                priority=105
+            ),
+            # Enhanced backslash cleanup - more aggressive
+            PatternRule(
+                r'\\([a-zA-Z]+)\\([a-zA-Z]+)\\([a-zA-Z]+)',
+                lambda m: f'{m.group(1)} {m.group(2)} {m.group(3)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix triple backslash words',
+                priority=95
+            ),
+            PatternRule(
+                r'\\([a-zA-Z]+)\\([a-zA-Z]+)',
+                lambda m: f'{m.group(1)} {m.group(2)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix double backslash words',
+                priority=90
+            ),
             PatternRule(
                 r'\\([a-zA-Z]+)\s',
                 r'\1 ',
                 MathDomain.BASIC_ARITHMETIC,
                 'Remove backslash from words',
-                priority=95
+                priority=85
             ),
             # Vector calculus - higher priority than individual components
             PatternRule(
@@ -2169,6 +2250,71 @@ class GeneralizationEngine:
                 priority=98
             ),
             
+            # Simple, targeted cleanup patterns for observed errors
+            PatternRule(
+                r'\\left\\(\\left\\(\\left\\(\\left\\(([^)]+)\\right\\)\\right\\)\\right\\)\\right\\)',
+                r'\1',
+                MathDomain.BASIC_ARITHMETIC,
+                'Remove 4-level nested left/right',
+                priority=140
+            ),
+            PatternRule(
+                r'\\([a-zA-Z]+)\\([a-zA-Z]+)',
+                lambda m: f'{m.group(1)} {m.group(2)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix backslash concatenation',
+                priority=135
+            ),
+            PatternRule(
+                r'\\integral of _([0-9]+)\s*to\s*the\s*\\([^\\]+)\\\\([a-zA-Z]+)',
+                lambda m: f'integral from {m.group(1)} to {m.group(2)} {m.group(3)}',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix integral bounds',
+                priority=125
+            ),
+            PatternRule(
+                r'\\matrix &\s*\\matrix\s*\\end matrix',
+                'matrix matrix',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix matrix concatenation',
+                priority=120
+            ),
+            PatternRule(
+                r'residuethe open interval from',
+                'residue of',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix residue pattern',
+                priority=115
+            ),
+            PatternRule(
+                r'\\\\times\s*',
+                ' times ',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix times operator',
+                priority=105
+            ),
+            PatternRule(
+                r'\\ cross\s*',
+                ' cross ',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix cross product spacing',
+                priority=105
+            ),
+            PatternRule(
+                r'\\ dot\s*',
+                ' dot ',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix dot product spacing',
+                priority=105
+            ),
+            PatternRule(
+                r'_([0-9]+)\s*to\s*the\s*\\',
+                lambda m: f'from {m.group(1)} to',
+                MathDomain.BASIC_ARITHMETIC,
+                'Fix subscript bounds',
+                priority=110
+            ),
+            
             # Greek letters
             PatternRule(
                 r'\\alpha', 'alpha', MathDomain.BASIC_ARITHMETIC, 'Alpha', 90
@@ -2323,16 +2469,61 @@ class GeneralizationEngine:
         return result
     
     def _cleanup(self, text: str) -> str:
-        """Final cleanup of processed text"""
-        # Remove multiple spaces
+        """Enhanced final cleanup of processed text"""
+        # Aggressive LaTeX command cleanup
+        text = re.sub(r'\\([a-zA-Z]+)\s*', r'\1 ', text)
+        
+        # Fix specific common errors
+        text = re.sub(r'integral of egral of', 'integral over', text)
+        text = re.sub(r'\\matrix', 'matrix', text)
+        text = re.sub(r'\\integral', 'integral', text)
+        text = re.sub(r'\\partial', 'partial', text)
+        text = re.sub(r'\\det', 'determinant of', text)
+        text = re.sub(r'\\prod', 'product', text)
+        text = re.sub(r'\\sum', 'sum', text)
+        text = re.sub(r'\\lim', 'limit', text)
+        text = re.sub(r'\\limit', 'limit', text)
+        
+        # Enhanced matrix content extraction and cleanup
+        text = re.sub(r'matrix\s*&\s*matrix\s*\\end\s*matrix', 'matrix matrix', text)
+        text = re.sub(r'matrix\s*&\s*matrix\s*', 'matrix matrix ', text)
+        text = re.sub(r'matrix\s*&\s*', 'matrix ', text)
+        text = re.sub(r'&\s*matrix', ' matrix', text)
+        text = re.sub(r'\\end\s*matrix', '', text)
+        text = re.sub(r'end\s*matrix', '', text)
+        
+        # Fix specific LaTeX remnants
+        text = re.sub(r'\\begin\{[^}]+\}', '', text)
+        text = re.sub(r'\\end\{[^}]+\}', '', text)
+        text = re.sub(r'\\left\|([^|]+)\\right\|', r'absolute value of \1', text)
+        text = re.sub(r'\\leftabsolute value of', 'absolute value of', text)
+        
+        # Fix spacing and punctuation
         text = re.sub(r'\s+', ' ', text)
-        
-        # Remove leading/trailing spaces
         text = text.strip()
-        
-        # Fix common speech patterns
         text = re.sub(r'\s+,', ',', text)
         text = re.sub(r'\s+\.', '.', text)
+        
+        # Comprehensive error pattern fixes
+        text = re.sub(r'residuethe open interval from', 'residue of', text)
+        text = re.sub(r'residue\s*the\s*open\s*interval\s*from', 'residue of', text)
+        
+        # Fix nested parentheses issues
+        text = re.sub(r'\\\(\\\(\\\(\\\(([^)]+)\\\)\\\)\\\)\\\)', r'\1', text)
+        
+        # Fix function notation issues
+        text = re.sub(r'\\d\s*to\s*the\s*n\s*over\s*dx\s*to\s*the\s*n', 'nth derivative with respect to x', text)
+        text = re.sub(r'\\partial\s*squared\s*over\s*\\partial\s*([a-zA-Z])\s*squared', lambda m: f'second partial derivative with respect to {m.group(1)}', text)
+        
+        # Fix common integral issues
+        text = re.sub(r'integral\s*of\s*_([0-9]+)\s*to\s*the', lambda m: f'integral from {m.group(1)} to', text)
+        text = re.sub(r'integral\s*of\s*egral\s*of', 'integral over', text)
+        
+        # Fix product and sum notation
+        text = re.sub(r'\\prod\s*([a-zA-Z])\s*equals\s*([0-9]+)\s*to\s*the', lambda m: f'product from {m.group(1)} equals {m.group(2)} to', text)
+        
+        # Fix limit notation
+        text = re.sub(r'limit\s*([a-zA-Z])\\to([a-zA-Z]+)', lambda m: f'limit as {m.group(1)} approaches {m.group(2)}', text)
         
         return text
     

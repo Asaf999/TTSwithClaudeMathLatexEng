@@ -64,7 +64,15 @@ class CalculusHandler(PatternHandler):
                 priority=98
             ),
             
-            # Leibniz notation - FIXED for natural speech
+            # Leibniz notation - enhanced for nested derivatives
+            # Nested derivatives (very high priority)
+            PatternRule(
+                r'\\frac\{d\}\{d([a-zA-Z])\}\\\\left\(\\frac\{d\}\{d([a-zA-Z])\}\\\\left\(\\frac\{d\}\{d([a-zA-Z])\}\s*([^\\]+)\\\\right\)\\\\right\)',
+                lambda m: f'derivative with respect to {m.group(1)} of derivative with respect to {m.group(2)} of derivative with respect to {m.group(3)} {m.group(4)}',
+                self.domain,
+                'Triple nested derivative',
+                priority=125
+            ),
             PatternRule(
                 r'\\frac\{d\}\{d([a-zA-Z])\}\s*([a-zA-Z])\(([a-zA-Z])\)',
                 lambda m: f'derivative of {m.group(2)} of {m.group(3)}',
@@ -100,6 +108,14 @@ class CalculusHandler(PatternHandler):
                 'df/dx',
                 priority=99
             ),
+            # Enhanced higher-order derivatives
+            PatternRule(
+                r'\\frac\{d\^n\}\{d([a-zA-Z])\^n\}\\\\left\(([^\\]+)\\\\right\)',
+                lambda m: f'nth derivative with respect to {m.group(1)} of {m.group(2)}',
+                self.domain,
+                'nth derivative with function',
+                priority=110
+            ),
             PatternRule(
                 r'\\frac\{d\^2\}\{d([a-zA-Z])\^2\}',
                 lambda m: f'second derivative with respect to {m.group(1)}',
@@ -129,6 +145,21 @@ class CalculusHandler(PatternHandler):
                 self.domain,
                 'Partial operator',
                 priority=99
+            ),
+            # Enhanced partial derivatives
+            PatternRule(
+                r'\\frac\{\\partial\^2\}\{\\partial ([a-zA-Z])\^2\}\\\\left\(([^\\]+)\\\\right\)',
+                lambda m: f'second partial derivative with respect to {m.group(1)} of {m.group(2)}',
+                self.domain,
+                'Second partial with function',
+                priority=105
+            ),
+            PatternRule(
+                r'\\frac\{\\partial\^2\}\{\\partial ([a-zA-Z])\^2\}',
+                lambda m: f'second partial derivative with respect to {m.group(1)}',
+                self.domain,
+                'Second partial operator',
+                priority=102
             ),
             PatternRule(
                 r'\\frac\{\\partial\^2 f\}\{\\partial x\^2\}',

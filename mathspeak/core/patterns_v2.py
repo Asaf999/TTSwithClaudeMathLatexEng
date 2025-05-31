@@ -2328,6 +2328,10 @@ class MathSpeechProcessor:
         # Fix article usage (but not for mathematical variables or "is congruent")
         text = re.sub(r'\ba\s+((?![a-zA-Z]\s+over)(?![a-zA-Z]\s+is)[aeiou])', r'an \1', text, flags=re.IGNORECASE)
         
+        # Fix specific issues after article processing
+        text = re.sub(r'mod ulo', 'modulo', text)
+        text = re.sub(r'^(\s*)an is congruent to', r'\1a is congruent to', text)
+        
         # Remove redundant words
         text = re.sub(r'\bthe the\b', 'the', text)
         text = re.sub(r'\ba a\b', 'a', text)

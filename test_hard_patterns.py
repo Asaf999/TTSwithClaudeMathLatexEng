@@ -137,16 +137,21 @@ def test_hard_patterns():
                 end_time = time.time()
                 
                 # More flexible matching for complex expressions
-                # Check if key terms from expected are present
-                expected_words = expected.lower().split()
-                result_lower = result.lower()
-                
-                # Count how many expected words are found
-                found_words = sum(1 for word in expected_words if word in result_lower and len(word) > 2)
-                coverage = found_words / len(expected_words) if expected_words else 0
-                
-                # Accept if we have good coverage of expected terms  
-                success = coverage >= 0.2  # 20% of expected words should be present
+                # Check for exact match first
+                if result.strip().lower() == expected.strip().lower():
+                    success = True
+                    coverage = 1.0
+                else:
+                    # Check if key terms from expected are present
+                    expected_words = expected.lower().split()
+                    result_lower = result.lower()
+                    
+                    # Count how many expected words are found
+                    found_words = sum(1 for word in expected_words if word in result_lower and len(word) > 2)
+                    coverage = found_words / len(expected_words) if expected_words else 0
+                    
+                    # Accept if we have good coverage of expected terms  
+                    success = coverage >= 0.2  # 20% of expected words should be present
                 
                 status = "✅ PASS" if success else "❌ FAIL"
                 if success:
